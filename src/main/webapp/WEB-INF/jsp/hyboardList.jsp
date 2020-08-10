@@ -29,12 +29,12 @@ Today is <fmt:formatDate value="${today}" pattern="yyyy-MM-dd"/>.
             <tbody>
             <c:forEach var="list" items="${list}" varStatus="status">
                 <tr>
-                    <td><c:out value="${list.id }"/></td>
-                    <td><c:out value="${list.subject }"/></td>
-                    <td><c:out value="${list.userName }"/></td>
-                    <td><c:out value="${list.created }"/></td>
-                    <td><c:out value="${list.hit }"/></td>
-                    <td><c:out value="${list.like }"/></td>
+                    <td><c:out value="${list.h_id }"/></td>
+                    <td><c:out value="${list.h_subject }"/></td>
+                    <td><c:out value="${list.h_userName }"/></td>
+                    <td><c:out value="${list.h_created }"/></td>
+                    <td><c:out value="${list.h_hit }"/></td>
+                    <td><c:out value="${list.h_like }"/></td>
                 </tr>
             </c:forEach>
             </tbody>
