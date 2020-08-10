@@ -30,7 +30,6 @@ public class ExamConfiguration {
 
     @Bean
     public DataSource dataSource() {
-
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setUsername("postgres");
         dataSource.setPassword("1q2w3e4r5t");
