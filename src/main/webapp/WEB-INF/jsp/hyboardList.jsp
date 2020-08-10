@@ -6,15 +6,13 @@
 <%--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">--%>
     <!-- 뷰포트 -->
     <meta name="viewport" content="width=device-width" initial-scale="1">
-    <title>Welcome</title>
+    <title>해연갤</title>
 </head>
 
 <body>
-<h2>Welcome to Court Reservation System</h2>
-Today is <fmt:formatDate value="${today}" pattern="yyyy-MM-dd"/>.
+<h1>해외연예</h1>
 <div class="container">
     <div class = "row">
-
         <table class="table table-striped" style="text-align:center; border:1px solid #dddddd">
             <thead>
             <tr>
@@ -30,9 +28,10 @@ Today is <fmt:formatDate value="${today}" pattern="yyyy-MM-dd"/>.
             <c:forEach var="list" items="${list}" varStatus="status">
                 <tr>
                     <td><c:out value="${list.h_id }"/></td>
-                    <td><c:out value="${list.h_subject }"/></td>
+                   <td> <a href='hy/detail?seq=${list.h_id}'><c:out value="${list.h_subject }"/></a></td>
                     <td><c:out value="${list.h_userName }"/></td>
-                    <td><c:out value="${list.h_created }"/></td>
+                    <td><fmt:formatDate value="${list.h_created}" pattern="MM-dd"/></td>
+<%--                    <td><c:out value="${list.h_created }"/></td>--%>
                     <td><c:out value="${list.h_hit }"/></td>
                     <td><c:out value="${list.h_like }"/></td>
                 </tr>

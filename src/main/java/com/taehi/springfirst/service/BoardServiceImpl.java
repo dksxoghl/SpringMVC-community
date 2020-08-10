@@ -22,7 +22,11 @@ public class BoardServiceImpl implements BoardService{
         List<BoardVO> list = boardDAO.selectBoardList();
         return list;
     }
-
+    @Override
+    public BoardVO selectBoardById(String seq) {
+        BoardVO boardVO= boardDAO.selectBoardById(seq);
+        return boardVO;
+    }
     @Override
     public void insertBoard(BoardVO boardVO) {
 
@@ -38,8 +42,5 @@ public class BoardServiceImpl implements BoardService{
 
     }
 
-    @Override
-    public BoardVO selectBoardByCode(BoardVO boardVO) {
-        return null;
-    }
+
 }

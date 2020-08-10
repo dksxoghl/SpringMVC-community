@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 @Component
 public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {
     final String SELECT_ALL_SQL="select * from Hboard_TB";
+    final String SELECT_ID_SQL="select * from Hboard_TB where h_id = ?";
 
     public BoardDAOImpl(DataSource dataSource) {
         setDataSource(dataSource);
@@ -39,6 +40,11 @@ public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {
         return getJdbcTemplate().query(SELECT_ALL_SQL, BeanPropertyRowMapper.newInstance(BoardVO.class));
         //레시피 480장 참조,  RowMapper하위클래스,  특정클래스의 새인스턴스로 자동매핑가능. 프로퍼티 언더스코어 추가컬럼까지 매핑가능.
     }
+    @Override
+    public BoardVO selectBoardById(String seq) {
+        BoardVO boardVO = getJdbcTemplate().queryForObject(SELECT_ID_SQL,BeanPropertyRowMapper.newInstance(BoardVO.class) ,seq);
+        return boardVO;
+    }
 
     @Override
     public void insertBoard(BoardVO boardVO) {
@@ -55,8 +61,5 @@ public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {
 
     }
 
-    @Override
-    public BoardVO selectBoardByCode(BoardVO boardVO) {
-        return null;
-    }
+
 }

@@ -9,5 +9,5 @@ public interface BoardService {
     public void insertBoard(BoardVO boardVO);
     public void updateBoard(BoardVO boardVO);
     public void deleteBoard(BoardVO boardVO);
-    public BoardVO selectBoardByCode(BoardVO boardVO);
+    public BoardVO selectBoardById(String seq);
 }
