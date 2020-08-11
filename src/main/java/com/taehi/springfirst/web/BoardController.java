@@ -27,18 +27,40 @@ public class BoardController {
         return "HelloWorld";
     }
 
-    //    @RequestMapping(method = RequestMethod.GET, value = {"/","/welcome"})
-//    public String welcome(Model model) {
-//        System.out.println("welcome");
-//        Date today = new Date();
-//        model.addAttribute("today", today);
-//        return "welcome";
-//    }
-    @RequestMapping(value = {"/hy/detail"})
-    public String boardDetail(Model model,@RequestParam("seq")String seq){
+
+
+    @RequestMapping(value = {"/deleteForm"})
+    public String deleteForm(Model model,@RequestParam("seq")int seq){
+        System.out.println("deleteForm");
+        model.addAttribute("seq", seq);
+        return "boardDelete";
+    }
+    @RequestMapping(value = {"/delete"})
+    public String delete(@RequestParam("seq")int seq){
+        System.out.println("delete");
+        boardService.deleteBoard(seq);
+        return "redirect:/hy";
+    }
+    @RequestMapping(value = {"/writeForm"})
+    public String writeForm(){
+        System.out.println("writeForm");
+        return "boardWrite";
+    }
+    @RequestMapping(value = {"/write"})
+    public String write(Model model,@ModelAttribute("boardVO")BoardVO boardVO){
+        System.out.println("write");
+        int seq = boardService.insertBoard(boardVO);
+        return "redirect:/detail?seq="+seq;
+    }
+    @RequestMapping(value = {"/detail"})
+    public String boardDetail(Model model,@RequestParam("seq")int seq){
         System.out.println("hydetail"+seq);
         BoardVO boardVO = boardService.selectBoardById(seq);
         model.addAttribute("board", boardVO);
+
+        List<BoardVO> list = boardService.selectBoardList();
+        model.addAttribute("list", list);
+
         return "boardDetail";
     }
 

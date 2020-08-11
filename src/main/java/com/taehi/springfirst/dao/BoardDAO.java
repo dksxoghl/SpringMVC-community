@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface BoardDAO {
     public List<BoardVO> selectBoardList() ;
-    public void insertBoard(BoardVO boardVO);
+    public int insertBoard(BoardVO boardVO);
     public void updateBoard(BoardVO boardVO);
-    public void deleteBoard(BoardVO boardVO);
-    public BoardVO selectBoardById(String seq);
+    public void deleteBoard(int seq);
+    public BoardVO selectBoardById(int seq);
 }

@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>글 상세보기</title>
+    <title>해연갤</title>
 </head>
 <style>
     h2 {
@@ -30,25 +30,31 @@
 <body>
 
 <h2>게시판</h2>
-<br><br><br>
 <div id="outter">
     <table border="1">
         <tr>
-            <td>제목: ${board.h_subject }</td>
+            <td> ${board.h_subject }</td>
         </tr>
         <tr>
             <td>
-                작성자: ${board.h_userName }
-                <span style="float: right;"><fmt:formatDate value="${board.h_created }" pattern="yyyy.MM.dd"/></span>
+                ${board.h_userName }
+                <span><fmt:formatDate value="${board.h_created }" pattern="yyyy.MM.dd hh:ss"/></span>
+               view:${board.h_hit}
             </td>
         </tr>
         <tr>
             <td>
-                <div style="height: 300px; margin: 10px; display: inline-block">${board.h_content }</div>
+                <div style="height: 300px; margin: 10px; display: inline-block">${board.h_content }
+                <br/>
+                   좋아요:${board.h_like}
+                </div>
             </td>
         </tr>
     </table>
-    <input type="button" value="글 목록" style="float: right;" onclick="location.href='/';">
+    <input type="button" value="글 목록" style="float: right;" onclick="location.href='/'">
+    <input type="button" value="글 수정" style="float: right;" onclick="location.href='/'">
+    <input type="button" value="글 삭제" style="float: right;" onclick="location.href='/deleteForm?seq=${board.h_id}'">
+    <jsp:include page="hyboardList.jsp"/>
 </div>
 </body>
 </html>

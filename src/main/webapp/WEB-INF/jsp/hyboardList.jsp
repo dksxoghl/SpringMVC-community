@@ -28,7 +28,7 @@
             <c:forEach var="list" items="${list}" varStatus="status">
                 <tr>
                     <td><c:out value="${list.h_id }"/></td>
-                   <td> <a href='hy/detail?seq=${list.h_id}'><c:out value="${list.h_subject }"/></a></td>
+                   <td> <a href='detail?seq=${list.h_id}'><c:out value="${list.h_subject }"/></a></td>
                     <td><c:out value="${list.h_userName }"/></td>
                     <td><fmt:formatDate value="${list.h_created}" pattern="MM-dd"/></td>
 <%--                    <td><c:out value="${list.h_created }"/></td>--%>
@@ -37,6 +37,7 @@
                 </tr>
             </c:forEach>
             </tbody>
+            <input type="button" value="글쓰기" style="float: right;" onclick="location.href='/writeForm'">
         </table>
 
 <%--        <a href = "write.jsp" class="btn btn-primary pull-right">글쓰기</a>--%>

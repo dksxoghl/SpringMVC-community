@@ -23,13 +23,13 @@ public class BoardServiceImpl implements BoardService{
         return list;
     }
     @Override
-    public BoardVO selectBoardById(String seq) {
+    public BoardVO selectBoardById(int seq) {
         BoardVO boardVO= boardDAO.selectBoardById(seq);
         return boardVO;
     }
     @Override
-    public void insertBoard(BoardVO boardVO) {
-
+    public int insertBoard(BoardVO boardVO) {
+        return boardDAO.insertBoard(boardVO);
     }
 
     @Override
@@ -38,8 +38,8 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public void deleteBoard(BoardVO boardVO) {
-
+    public void deleteBoard(int seq) {
+        boardDAO.deleteBoard(seq);
     }
 
 

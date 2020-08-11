@@ -3,7 +3,7 @@ package com.taehi.springfirst.domain;
 import java.util.Date;
 
 public class BoardVO {
-    private String h_id;
+    private int h_id;
     private String h_subject;
     private String h_content;
     private Date h_created;
@@ -14,7 +14,7 @@ public class BoardVO {
     public BoardVO() {
     }
 
-    public BoardVO(String h_id, String h_subject, String h_content, Date h_created, String h_userName, int h_hit, int h_like) {
+    public BoardVO(int h_id, String h_subject, String h_content, Date h_created, String h_userName, int h_hit, int h_like) {
         this.h_id = h_id;
         this.h_subject = h_subject;
         this.h_content = h_content;
@@ -24,11 +24,11 @@ public class BoardVO {
         this.h_like = h_like;
     }
 
-    public String getH_id() {
+    public int getH_id() {
         return h_id;
     }
 
-    public void setH_id(String h_id) {
+    public void setH_id(int h_id) {
         this.h_id = h_id;
     }
 
