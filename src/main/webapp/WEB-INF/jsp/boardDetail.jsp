@@ -52,7 +52,7 @@
         </tr>
     </table>
     <input type="button" value="글 목록" style="float: right;" onclick="location.href='/'">
-    <input type="button" value="글 수정" style="float: right;" onclick="location.href='/'">
+    <input type="button" value="글 수정" style="float: right;" onclick="location.href='/writeForm?h_subject=${board.h_subject}&h_content=${board.h_content}&h_userName=${board.h_userName}&h_id=${board.h_id}'">
     <input type="button" value="글 삭제" style="float: right;" onclick="location.href='/deleteForm?seq=${board.h_id}'">
     <jsp:include page="hyboardList.jsp"/>
 </div>

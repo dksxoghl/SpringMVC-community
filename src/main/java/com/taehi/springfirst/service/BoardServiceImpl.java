@@ -28,8 +28,15 @@ public class BoardServiceImpl implements BoardService{
         return boardVO;
     }
     @Override
-    public int insertBoard(BoardVO boardVO) {
-        return boardDAO.insertBoard(boardVO);
+    public int insertBoard(BoardVO boardVO,int seq) {
+        int retValue;
+// seq 따라 update,insert
+        if(seq==0) retValue= boardDAO.insertBoard(boardVO);
+        else {
+            boardDAO.updateBoard(boardVO,seq);
+            retValue = seq;
+        }
+        return retValue;
     }
 
     @Override

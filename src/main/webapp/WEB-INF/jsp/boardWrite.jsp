@@ -19,15 +19,15 @@
                 <table>
                     <tr>
                         <th>제목</th>
-                        <td><input style="width: 500px" type="text" id="h_subject" name="h_subject" /></td>
+                        <td><input style="width: 500px" type="text" id="h_subject" name="h_subject" value="${board.h_subject}" /></td>
                     </tr>
                     <tr>
                         <th>내용</th>
-                        <td><textarea style="width: 500px" rows="10" cols="10" id="h_content" name="h_content"></textarea></td>
+                        <td><input style="width: 500px" type="text" id="h_content" name="h_content" value="${board.h_content}"/></td>
                     </tr>
                     <tr>
                         <th>작성자</th>
-                        <td><input style="width: 500px" type="text" id="h_userName" name="h_userName" /></td>
+                        <td><input style="width: 500px" type="text" id="h_userName" name="h_userName" value="${board.h_userName}"/></td>
                     </tr>
                 </table>
                 <div>
@@ -35,6 +35,7 @@
                 </div>
             </div>
         </div>
+        <input type='hidden' id='seq' name='seq' value='${board.h_id }' />
 <%--        <input type='hidden' id='code' name='code' value='${result.code }' />--%>
     </form>
 

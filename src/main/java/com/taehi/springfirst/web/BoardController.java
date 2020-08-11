@@ -21,11 +21,11 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    @ResponseBody
-    @GetMapping("/hello")
-    public String hello() {
-        return "HelloWorld";
-    }
+//    @ResponseBody
+//    @GetMapping("/hello")
+//    public String hello() {
+//        return "HelloWorld";
+//    }
 
 
 
@@ -42,14 +42,16 @@ public class BoardController {
         return "redirect:/hy";
     }
     @RequestMapping(value = {"/writeForm"})
-    public String writeForm(){
-        System.out.println("writeForm");
+//    ,@RequestParam(value = "seq",required = false) int seq
+    public String writeForm(Model model,@ModelAttribute("boardVO")BoardVO boardVO){
+        System.out.println("writeForm"+boardVO.getH_subject() +" "+ boardVO.getH_id());
+        model.addAttribute("board",boardVO);
         return "boardWrite";
     }
     @RequestMapping(value = {"/write"})
-    public String write(Model model,@ModelAttribute("boardVO")BoardVO boardVO){
-        System.out.println("write");
-        int seq = boardService.insertBoard(boardVO);
+    public String write(Model model,@ModelAttribute("boardVO")BoardVO boardVO, @RequestParam("seq")int seqParam){
+        System.out.println("write"+boardVO.getH_id()+"seq"+seqParam);
+        int seq = boardService.insertBoard(boardVO,seqParam);
         return "redirect:/detail?seq="+seq;
     }
     @RequestMapping(value = {"/detail"})

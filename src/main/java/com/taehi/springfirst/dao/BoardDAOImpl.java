@@ -16,12 +16,13 @@ import java.util.stream.Collectors;
 
 @Component
 public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {
-    final String SELECT_ALL_SQL="select * from Hboard_TB order by h_created desc";
+    final String SELECT_ALL_SQL="select * from Hboard_TB order by h_id desc";
     final String SELECT_ID_SQL="select * from Hboard_TB where h_id = ?";
     final String INSERT_SQL="insert into Hboard_TB(h_subject,h_content,h_user_name)\n" +
             "   \t\t\t\t values (?,?,?);\t";
     final String SELECT_SEQ_MAX = "select max(h_id) from Hboard_TB";
     final String DELETE_ID_SQL="delete from Hboard_TB where h_id= ? ";
+    final String UPDATE_SQL="update Hboard_TB set h_subject=?,h_content=?,h_user_name=? where h_id=?";
     public BoardDAOImpl(DataSource dataSource) {
         setDataSource(dataSource);
     }
@@ -60,8 +61,8 @@ public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {
     }
 
     @Override
-    public void updateBoard(BoardVO boardVO) {
-
+    public void updateBoard(BoardVO boardVO,int seq) {
+        getJdbcTemplate().update(UPDATE_SQL,boardVO.getH_subject(),boardVO.getH_content(),boardVO.getH_userName(),seq);
     }
 
     @Override
