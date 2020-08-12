@@ -1,8 +1,8 @@
 package com.taehi.springfirst.service;
 
-import com.taehi.springfirst.dao.BoardDAO;
-import com.taehi.springfirst.domain.BoardVO;
-import com.taehi.springfirst.paging.PagingVO;
+import com.taehi.springfirst.persistence.BoardDAO;
+import com.taehi.springfirst.domain.board.BoardVO;
+import com.taehi.springfirst.domain.paging.PagingVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

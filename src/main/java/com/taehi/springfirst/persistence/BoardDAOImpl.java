@@ -1,19 +1,15 @@
-package com.taehi.springfirst.dao;
+package com.taehi.springfirst.persistence;
 
 
-import com.taehi.springfirst.domain.BoardVO;
-import com.taehi.springfirst.paging.PagingVO;
+import com.taehi.springfirst.domain.board.BoardVO;
+import com.taehi.springfirst.domain.paging.PagingVO;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 @Component
 public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {

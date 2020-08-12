@@ -6,9 +6,20 @@
 <%--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">--%>
     <!-- 뷰포트 -->
     <meta name="viewport" content="width=device-width" initial-scale="1">
+    <link href="<c:url value="/css/lib/bootstrap.min.css" />" rel="stylesheet">
+<%--    <link rel="stylesheet" href="/css/lib/bootstrap.min.css">--%>
+
+<%--    <script type="text/javascript" src="/resources/static/js/bootstrap.js"></script>--%>
+
+<%--    <script src="/js/lib/jquery.min.js"></script>--%>
+<%--    <script src="/js/lib/bootstrap.min.js"></script>--%>
     <title>해연갤</title>
 </head>
-
+<style>
+    body{
+        background-color: darkgray;
+    }
+</style>
 <body>
 <h1>해외연예</h1>
 <div class="container">
@@ -37,7 +48,7 @@
                 </tr>
             </c:forEach>
             </tbody>
-            <input type="button" value="글쓰기" style="float: right;" onclick="location.href='/writeForm'">
+            <input type="button" class="btn btn-primary" value="글쓰기" onclick="location.href='/writeForm'">
         </table>
     </div>
 
