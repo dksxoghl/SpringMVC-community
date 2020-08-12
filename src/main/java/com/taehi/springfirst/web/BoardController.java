@@ -94,6 +94,6 @@ public class BoardController {
         List<BoardVO> list = boardService.selectBoardList(vo);
         model.addAttribute("list", list);
 
-        return "hyboardList";
+        return "index";
     }
 }

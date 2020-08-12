@@ -7,7 +7,7 @@
     <!-- 뷰포트 -->
     <meta name="viewport" content="width=device-width" initial-scale="1">
 <%--    <link href="<c:url value="/css/lib/bootstrap.min.css" />" rel="stylesheet">--%>
-    <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/lib/bootstrap.min.css?after">
 
 <%--    <script type="text/javascript" src="/resources/static/js/bootstrap.js"></script>--%>
 
@@ -15,44 +15,42 @@
 <%--    <script src="/js/lib/bootstrap.min.js"></script>--%>
     <title>해연갤</title>
 </head>
-<style>
-    body{
-        background-color: darkgray;
-    }
-</style>
+
 <body>
-<jsp:include page="include/header.jsp"/>
 <div class="container">
     <div class = "row">
-        <table class="table table-striped" style="text-align:center; border:1px solid #dddddd">
-            <thead>
-            <tr>
-                <th style="background-color: #eeeeee; text-align: center;">번호</th>
-                <th style="background-color: #eeeeee; text-align: center;">제목</th>
-                <th style="background-color: #eeeeee; text-align: center;">작성자</th>
-                <th style="background-color: #eeeeee; text-align: center;">작성일</th>
-                <th style="background-color: #eeeeee; text-align: center;">조회수</th>
-                <th style="background-color: #eeeeee; text-align: center;">좋아요</th>
-            </tr>
-            </thead>
+        <div style="width:100%; background-color: white;">
+            <h3>해외연예</h3>
+        </div>
+        <table class="table"style="border:1px solid #dddddd;background-color: white;">
+<%--            <tr>--%>
+<%--                <th style="background-color: #eeeeee; text-align: center;">번호</th>--%>
+<%--                <th style="background-color: #eeeeee; text-align: center;">제목</th>--%>
+<%--                <th style="background-color: #eeeeee; text-align: center;">작성자</th>--%>
+<%--                <th style="background-color: #eeeeee; text-align: center;">작성일</th>--%>
+<%--                <th style="background-color: #eeeeee; text-align: center;">조회수</th>--%>
+<%--                <th style="background-color: #eeeeee; text-align: center;">좋아요</th>--%>
+<%--            </tr>--%>
+
             <tbody>
             <c:forEach var="list" items="${list}" varStatus="status">
-                <tr>
-                    <td><c:out value="${list.h_id }"/></td>
-                   <td> <a href='detail?seq=${list.h_id}&nowPage=${ paging.nowPage}&cntPerPage=${paging.cntPerPage}'><c:out value="${list.h_subject }"/></a></td>
-                    <td><c:out value="${list.h_userName }"/></td>
-                    <td><fmt:formatDate value="${list.h_created}" pattern="MM-dd"/></td>
+                <tr style="text-align: center;">
+                    <td style="width:9%;"><c:out value="${list.h_id }"/></td>
+                   <td style="width:66%; text-align: start;">
+                       <a href='detail?seq=${list.h_id}&nowPage=${ paging.nowPage}&cntPerPage=${paging.cntPerPage}'>
+                       <c:out value="${list.h_subject }"/></a></td>
+                    <td style="width:8%;"><c:out value="${list.h_userName }"/></td>
+                    <td style="width:8%;"><fmt:formatDate value="${list.h_created}" pattern="MM-dd"/></td>
 <%--                    <td><c:out value="${list.h_created }"/></td>--%>
-                    <td><c:out value="${list.h_hit }"/></td>
-                    <td><c:out value="${list.h_like }"/></td>
+                    <td style="width:9%;"><c:out value="${list.h_hit }"/></td>
+                    <td style="width:8%;"><c:out value="${list.h_like }"/></td>
                 </tr>
             </c:forEach>
             </tbody>
-            <input type="button" class="btn btn-primary" value="글쓰기" onclick="location.href='/writeForm'">
         </table>
     </div>
 
-    <div style="display: block; text-align: center;">
+    <div style="text-align: center; background-color: white;">
 <%--        <c:if test="${paging.startPage != 1 }">--%>
             <a href="/hy?nowPage=1&cntPerPage=${paging.cntPerPage}">&lt;첫 페이지</a>
 <%--        </c:if>--%>
@@ -69,7 +67,9 @@
         <c:if test="${paging.endPage != paging.lastPage}">
             <a href="/hy?nowPage=${paging.nowPage+1}&cntPerPage=${paging.cntPerPage}">&gt;다음 페이지</a>
         </c:if>
+    <div><input style="align-items: end" type="button" class="btn btn-primary" value="글쓰기" onclick="location.href='/writeForm'"></div>
     </div>
+
 </div>
 
 

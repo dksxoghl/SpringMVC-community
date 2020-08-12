@@ -21,16 +21,16 @@
         width: 100%;
     }
 
-    #outter {
-        display: block;
-        width: 30%;
-        margin: auto;
-    }
+    /*#outter {*/
+    /*    display: block;*/
+    /*    width: 30%;*/
+    /*    margin: auto;*/
+    /*}*/
 </style>
 <body>
 
-<h2>게시판</h2>
-<div id="outter">
+<jsp:include page="include/header.jsp"/>
+<div class="container">
     <table border="1">
         <tr>
             <td> ${board.h_subject }</td>

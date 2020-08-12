@@ -12,19 +12,6 @@
     /*    font: 12px Malgun Gothic;*/
     /*}*/
 
-    body {
-        background-color: #eeeeee;
-        margin: 0;
-        font-family: Arial, Helvetica, Malgun Gothic, sans-serif;
-    }
-
-    .head {
-        margin-top: 25px;
-        padding: 18px 15px;
-        font: 12px Malgun Gothic;
-        color:white;
-        width: 100%;
-    }
 </style>
 <body>
 
