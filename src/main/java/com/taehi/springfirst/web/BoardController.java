@@ -49,10 +49,12 @@ public class BoardController {
         return "boardWrite";
     }
     @RequestMapping(value = {"/write"})
-    public String write(Model model,@ModelAttribute("boardVO")BoardVO boardVO, @RequestParam("seq")int seqParam){
-        System.out.println("write"+boardVO.getH_id()+"seq"+seqParam);
-        int seq = boardService.insertBoard(boardVO,seqParam);
+    public String write(@ModelAttribute("boardVO")BoardVO boardVO){
+//        int seqParam=0;
+//        System.out.println("write"+boardVO.getH_id()+"seq"+seqParam);
+        int seq = boardService.insertBoard(boardVO,boardVO.getH_id());
         return "redirect:/detail?seq="+seq;
+//         @RequestParam(value = "seq",required = false)int seqParam
     }
     @RequestMapping(value = {"/detail"})
     public String boardDetail(Model model,@RequestParam("seq")int seq,

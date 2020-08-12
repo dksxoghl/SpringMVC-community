@@ -6,8 +6,8 @@
 <%--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">--%>
     <!-- 뷰포트 -->
     <meta name="viewport" content="width=device-width" initial-scale="1">
-    <link href="<c:url value="/css/lib/bootstrap.min.css" />" rel="stylesheet">
-<%--    <link rel="stylesheet" href="/css/lib/bootstrap.min.css">--%>
+<%--    <link href="<c:url value="/css/lib/bootstrap.min.css" />" rel="stylesheet">--%>
+    <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
 
 <%--    <script type="text/javascript" src="/resources/static/js/bootstrap.js"></script>--%>
 
@@ -21,7 +21,7 @@
     }
 </style>
 <body>
-<h1>해외연예</h1>
+<jsp:include page="include/header.jsp"/>
 <div class="container">
     <div class = "row">
         <table class="table table-striped" style="text-align:center; border:1px solid #dddddd">

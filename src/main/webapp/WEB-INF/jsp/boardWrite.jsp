@@ -29,14 +29,14 @@
                         <th>작성자</th>
                         <td><input style="width: 500px" type="text" id="h_userName" name="h_userName" value="${board.h_userName}"/></td>
                     </tr>
+                    <input type='hidden' id='h_id' name='h_id' value='${board.h_id }' />
                 </table>
                 <div>
                     <input type="submit" value="글 등록" onclick="location.href='/write'">
                 </div>
             </div>
         </div>
-        <input type='hidden' id='seq' name='seq' value='${board.h_id }' />
-<%--        <input type='hidden' id='code' name='code' value='${result.code }' />--%>
+<%--        <input type='hidden' id='seq' name='seq' value='${board.h_id }' />--%>
     </form>
 
 </div>
