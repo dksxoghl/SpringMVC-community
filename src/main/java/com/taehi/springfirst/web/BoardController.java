@@ -1,6 +1,7 @@
 package com.taehi.springfirst.web;
 
 import com.taehi.springfirst.domain.BoardVO;
+import com.taehi.springfirst.paging.PagingVO;
 import com.taehi.springfirst.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,22 +56,43 @@ public class BoardController {
         return "redirect:/detail?seq="+seq;
     }
     @RequestMapping(value = {"/detail"})
-    public String boardDetail(Model model,@RequestParam("seq")int seq){
+    public String boardDetail(Model model,@RequestParam("seq")int seq,
+                              @RequestParam(value="nowPage", required=false)String nowPage
+            , @RequestParam(value="cntPerPage", required=false)String cntPerPage){
         System.out.println("hydetail"+seq);
         BoardVO boardVO = boardService.selectBoardById(seq);
         model.addAttribute("board", boardVO);
 
-        List<BoardVO> list = boardService.selectBoardList();
+        PagingVO vo = createPaging(nowPage, cntPerPage);
+        List<BoardVO> list = boardService.selectBoardList(vo);
+        model.addAttribute("paging", vo);
         model.addAttribute("list", list);
 
         return "boardDetail";
     }
-
+    public PagingVO createPaging(String nowPage, String cntPerPage){
+        int total = boardService.countBoard();
+        if (nowPage == null && cntPerPage == null) {
+            nowPage = "1";
+            cntPerPage = "10";
+        } else if (nowPage == null) {
+            nowPage = "1";
+        } else if (cntPerPage == null) {
+            cntPerPage = "10";
+        }
+        return new PagingVO(total,Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+    }
     @RequestMapping(value = {"/", "/hy"})
-    public String boardList(Model model) throws Exception {
-        System.out.println("hy");
-        List<BoardVO> list = boardService.selectBoardList();
+    public String boardList( Model model, @RequestParam(value="nowPage", required=false)String nowPage
+            , @RequestParam(value="cntPerPage", required=false)String cntPerPage) throws Exception {
+//        System.out.println("hy"+vo.getNowPage()+" "+vo.getCntPerPage()+" "+vo.getStartPage());
+
+        PagingVO vo= createPaging(nowPage, cntPerPage);
+        model.addAttribute("paging", vo);
+
+        List<BoardVO> list = boardService.selectBoardList(vo);
         model.addAttribute("list", list);
+
         return "hyboardList";
     }
 }

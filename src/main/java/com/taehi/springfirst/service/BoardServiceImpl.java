@@ -2,6 +2,7 @@ package com.taehi.springfirst.service;
 
 import com.taehi.springfirst.dao.BoardDAO;
 import com.taehi.springfirst.domain.BoardVO;
+import com.taehi.springfirst.paging.PagingVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,15 +19,19 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public List<BoardVO> selectBoardList() {
-        List<BoardVO> list = boardDAO.selectBoardList();
-        return list;
+    public List<BoardVO> selectBoardList(PagingVO vo) {
+        return boardDAO.selectBoardList(vo);
     }
     @Override
     public BoardVO selectBoardById(int seq) {
-        BoardVO boardVO= boardDAO.selectBoardById(seq);
-        return boardVO;
+        return boardDAO.selectBoardById(seq);
     }
+
+    @Override
+    public int countBoard() {
+        return boardDAO.countBoard();
+    }
+
     @Override
     public int insertBoard(BoardVO boardVO,int seq) {
         int retValue;
@@ -39,10 +44,6 @@ public class BoardServiceImpl implements BoardService{
         return retValue;
     }
 
-    @Override
-    public void updateBoard(BoardVO boardVO) {
-
-    }
 
     @Override
     public void deleteBoard(int seq) {
