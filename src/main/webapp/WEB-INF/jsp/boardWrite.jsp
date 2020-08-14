@@ -27,7 +27,7 @@
                     </tr>
                     <tr>
                         <th>작성자</th>
-                        <td><input style="width: 500px" type="text" id="h_userName" name="h_userName" value="${board.h_userName}"/></td>
+                        <td><input style="width: 500px" type="text" id="user_id" name="user_id" value="${board.user_id}"/></td>
                     </tr>
                     <input type='hidden' id='h_id' name='h_id' value='${board.h_id }' />
                 </table>

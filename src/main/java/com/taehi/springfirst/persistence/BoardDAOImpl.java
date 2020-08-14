@@ -5,22 +5,22 @@ import com.taehi.springfirst.domain.board.BoardVO;
 import com.taehi.springfirst.domain.paging.PagingVO;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.util.List;
 
-@Component
+@Repository
 public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {
     final String SELECT_ALL_SQL="select * from Hboard_TB order by h_id desc limit ? offset (? - 1) * ?";
     final String SELECT_ID_SQL="select * from Hboard_TB where h_id = ?";
     final String SELECT_SEQ_MAX = "select max(h_id) from Hboard_TB";
     final String SELECT_COUNT = "select count(*) from Hboard_TB";
-    final String INSERT_SQL="insert into Hboard_TB(h_subject,h_content,h_user_name)\n" +
-            "   \t\t\t\t values (?,?,?);\t";
+    final String INSERT_SQL="insert into Hboard_TB(category_id,h_subject,h_content,user_id)\n" +
+            "   \t\t\t\t values (?,?,?,?);\t";
     final String DELETE_ID_SQL="delete from Hboard_TB where h_id= ? ";
-    final String UPDATE_SQL="update Hboard_TB set h_subject=?,h_content=?,h_user_name=? where h_id=?";
+    final String UPDATE_SQL="update Hboard_TB set h_subject=?,h_content=?,user_id=? where h_id=?";
     public BoardDAOImpl(DataSource dataSource) {
         setDataSource(dataSource);
     }
@@ -57,14 +57,14 @@ public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {
     @Transactional
     public int insertBoard(BoardVO boardVO) {
         int seq;
-        getJdbcTemplate().update(INSERT_SQL,boardVO.getH_subject(),boardVO.getH_content(),boardVO.getH_userName());
+        getJdbcTemplate().update(INSERT_SQL,1,boardVO.getH_subject(),boardVO.getH_content(),boardVO.getUser_id());
         seq = getJdbcTemplate().queryForObject(SELECT_SEQ_MAX,Integer.class);
         return seq;
     }
 
     @Override
     public void updateBoard(BoardVO boardVO,int seq) {
-        getJdbcTemplate().update(UPDATE_SQL,boardVO.getH_subject(),boardVO.getH_content(),boardVO.getH_userName(),seq);
+        getJdbcTemplate().update(UPDATE_SQL,boardVO.getH_subject(),boardVO.getH_content(),boardVO.getUser_id(),seq);
     }
 
     @Override
