@@ -11,10 +11,6 @@ import javax.sql.DataSource;
 @Configuration
 public class Config {
 
-    //    @Bean
-//    public VehicleDao vehicleDao(JdbcTemplate jdbcTemplate) {
-//        return new JdbcVehicleDao(jdbcTemplate);
-//    }
     @Bean
     public InternalResourceViewResolver internalResourceViewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();

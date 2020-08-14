@@ -31,8 +31,8 @@
 <div class="container" style="background-color: #537599;">
     <div class="head">
     <div class="row" style=" margin-left: 10px;">
-            <c:forEach begin="1" end="5" var="p">
-                <div style="width:9%;"><span>해외연예${p}</span></div>
+            <c:forEach var="list" items="${categoryList}">
+                <div style="width:9%;"><a href="/${list.category_url}">${list.category_name}</a></div>
             </c:forEach>
             <div style="width:10%;">문의</div>
             <div style="width:10%;">회원가입</div>

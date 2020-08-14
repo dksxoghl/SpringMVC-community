@@ -12,7 +12,7 @@
 
 <body>
 <div>
-    <form id="writeForm" name="writeForm" method="post" action="/write">
+    <form id="writeForm" name="writeForm" method="post" action="/${url}/write">
         <div>
             <h2>글쓰기</h2>
             <div>
@@ -30,9 +30,11 @@
                         <td><input style="width: 500px" type="text" id="user_id" name="user_id" value="${board.user_id}"/></td>
                     </tr>
                     <input type='hidden' id='h_id' name='h_id' value='${board.h_id }' />
+                    <input type='hidden' id='category_id' name='category_id' value='${board.category_id }' />
                 </table>
                 <div>
-                    <input type="submit" value="글 등록" onclick="location.href='/write'">
+                    <input type="submit" value="글 등록">
+<%--                    onclick="location.href='/{url}/write 젠장~~~--%>
                 </div>
             </div>
         </div>

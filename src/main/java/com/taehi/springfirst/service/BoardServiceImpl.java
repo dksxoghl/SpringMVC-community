@@ -1,5 +1,6 @@
 package com.taehi.springfirst.service;
 
+import com.taehi.springfirst.domain.category.CategoryVO;
 import com.taehi.springfirst.persistence.BoardDAO;
 import com.taehi.springfirst.domain.board.BoardVO;
 import com.taehi.springfirst.domain.paging.PagingVO;
@@ -19,8 +20,8 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public List<BoardVO> selectBoardList(PagingVO vo) {
-        return boardDAO.selectBoardList(vo);
+    public List<BoardVO> selectBoardList(PagingVO vo,String url) {
+        return boardDAO.selectBoardList(vo,url);
     }
     @Override
     public BoardVO selectBoardById(int seq) {
@@ -28,27 +29,32 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public int countBoard() {
-        return boardDAO.countBoard();
+    public int countBoard(String url) {
+        return boardDAO.countBoard(url);
     }
 
+
     @Override
-    public int insertBoard(BoardVO boardVO,int seq) {
+    public int insertBoard(BoardVO boardVO,int seq, String url) {
         int retValue;
 // seq 따라 update,insert
-        if(seq==0) retValue= boardDAO.insertBoard(boardVO);
+        if(seq==0) {
+            boardVO.setCategory_id(boardDAO.findCategory(url));
+            retValue = boardDAO.insertBoard(boardVO);
+        }
         else {
             boardDAO.updateBoard(boardVO,seq);
             retValue = seq;
         }
         return retValue;
     }
-
-
     @Override
     public void deleteBoard(int seq) {
         boardDAO.deleteBoard(seq);
     }
 
-
+    @Override
+    public List<CategoryVO> selectCategoryList() {
+        return boardDAO.selectCategoryList();
+    }
 }

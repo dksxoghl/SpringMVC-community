@@ -7,12 +7,13 @@
     <title>해연갤</title>
 </head>
 <body>
+<jsp:include page="include/header.jsp"/>
 <div>
         <div>
             <h2>삭제할거임?</h2>
-                <div>
-                    <input type="submit" value="삭제" onclick="location.href='/delete?seq=${seq}'">
-                    <input type="submit" value="취소" onclick="location.href='/detail?seq=${seq}'">
+                <div>${url}
+                    <input type="submit" value="삭제" onclick="location.href='/${url}/delete?seq=${seq}'">
+                    <input type="submit" value="취소" onclick="location.href='/${url}/detail?seq=${seq}'">
                 </div>
         </div>
 
