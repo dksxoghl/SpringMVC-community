@@ -8,7 +8,7 @@
 </head>
 <body>
 <jsp:include page="include/header.jsp"/>
-<div>
+<div class="container">
         <div>
             <h2>삭제할거임?</h2>
                 <div>

@@ -13,7 +13,7 @@
     /*}*/
 
     body {
-        background-color: #eeeeee;
+        /*background-color: #eeeeee;*/
         margin: 0;
         font-family: Arial, Helvetica, Malgun Gothic, sans-serif;
     }
@@ -30,18 +30,30 @@
 
 <div class="container" style="background-color: #537599;">
     <div class="head">
-        <div class="row" style=" margin-left: 10px; text-align: center;">
+        <div class="row justify-content-between" style=" margin-left: 10px; text-align: center;">
             <c:forEach var="list" items="${categoryList}">
-                <div class="col" ><a href="/${list.category_url}">${list.category_name}</a></div>
+                <div class="col col-lg-2 align-self-start"><a href="/${list.category_url}">${list.category_name}</a>
+                </div>
             </c:forEach>
-<%--            <div class="col-md-auto">--%>
+            <%--            <div class="col-md-auto">--%>
 
-<%--            </div>--%>
-            <div class="col col-lg-1" >문의</div>
-            <div class="col col-lg-2" >회원가입</div>
-            <div class="col col-lg-1">로그인</div>
+            <%--            </div>--%>
+            <div class="col col-lg-1 offset-md-1">문의</div>
+            <div class="col col-lg-2 align-self-end">회원가입</div>
+            <div class="col col-lg-1 align-self-end">로그인</div>
         </div>
+
     </div>
+
+</div>
+<div class="container" style="background-color: white;">
+
+    <c:forEach var="list" items="${categoryList}">
+        <c:if test="${list.category_url eq url}">
+            <h3 style="margin-bottom: 1px"><a href="/${list.category_url}">${list.category_name}</a></h3>
+        </c:if>
+<%--            <a href="/${list.category_url}">${list.category_name}</a>--%>
+    </c:forEach>
 </div>
 </body>
 </html>

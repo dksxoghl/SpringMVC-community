@@ -19,9 +19,7 @@
 <body>
 <div class="container">
     <div class = "row">
-        <div style="width:100%; background-color: white;">
-            <h3>해외연예</h3>
-        </div>
+
         <table class="table"style="border:1px solid #dddddd;background-color: white;">
 <%--            <tr>--%>
 <%--                <th style="background-color: #eeeeee; text-align: center;">번호</th>--%>
@@ -67,7 +65,7 @@
         <c:if test="${paging.endPage != paging.lastPage}">
             <a href="/${url}?nowPage=${paging.nowPage+1}&cntPerPage=${paging.cntPerPage}">&gt;다음 페이지</a>
         </c:if>
-    <div><input style="align-items: end" type="button" class="btn btn-primary" value="글쓰기" onclick="location.href='/${url}/writeForm'"></div>
+    <div><input style="float: right" type="button" class="btn btn-primary" value="글쓰기" onclick="location.href='/${url}/writeForm'"></div>
     </div>
 
 </div>
