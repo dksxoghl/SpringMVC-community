@@ -22,23 +22,26 @@
         margin-top: 25px;
         padding: 18px 15px;
         font: 12px Malgun Gothic;
-        color:white;
-        width: 100%;
+        color: white;
+        /*width: 100%;*/
     }
 </style>
 <body>
 
 <div class="container" style="background-color: #537599;">
     <div class="head">
-    <div class="row" style=" margin-left: 10px;">
+        <div class="row" style=" margin-left: 10px; text-align: center;">
             <c:forEach var="list" items="${categoryList}">
-                <div style="width:9%;"><a href="/${list.category_url}">${list.category_name}</a></div>
+                <div class="col" ><a href="/${list.category_url}">${list.category_name}</a></div>
             </c:forEach>
-            <div style="width:10%;">문의</div>
-            <div style="width:10%;">회원가입</div>
-            <div style="width:10%;">로그인</div>
+<%--            <div class="col-md-auto">--%>
+
+<%--            </div>--%>
+            <div class="col col-lg-1" >문의</div>
+            <div class="col col-lg-2" >회원가입</div>
+            <div class="col col-lg-1">로그인</div>
         </div>
-</div>
+    </div>
 </div>
 </body>
 </html>

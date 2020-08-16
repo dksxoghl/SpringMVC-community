@@ -40,7 +40,7 @@
                        <a href='/${url}/detail?seq=${list.h_id}&nowPage=${paging.nowPage}&cntPerPage=${paging.cntPerPage}'>
                        <c:out value="${list.h_subject }"/></a></td>
                     <td style="width:8%;"><c:out value="${list.user_id }"/></td>
-                    <td style="width:8%;"><fmt:formatDate value="${list.h_created}" pattern="MM-dd"/></td>
+                    <td style="width:8%;"><fmt:formatDate value="${list.h_created_date}" pattern="MM-dd"/></td>
 <%--                    <td><c:out value="${list.h_created }"/></td>--%>
                     <td style="width:9%;"><c:out value="${list.h_hit }"/></td>
                     <td style="width:8%;"><c:out value="${list.h_like }"/></td>

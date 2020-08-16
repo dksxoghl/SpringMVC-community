@@ -8,39 +8,59 @@
 <html>
 <head>
     <title>해연갤</title>
+
 </head>
 
 <body>
-<div>
+<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+<jsp:include page="include/header.jsp"/>
+<div class="container">
     <form id="writeForm" name="writeForm" method="post" action="/${url}/write">
-        <div>
-            <h2>글쓰기</h2>
-            <div>
-                <table>
-                    <tr>
-                        <th>제목</th>
-                        <td><input style="width: 500px" type="text" id="h_subject" name="h_subject" value="${board.h_subject}" /></td>
-                    </tr>
-                    <tr>
-                        <th>내용</th>
-                        <td><input style="width: 500px" type="text" id="h_content" name="h_content" value="${board.h_content}"/></td>
-                    </tr>
-                    <tr>
-                        <th>작성자</th>
-                        <td><input style="width: 500px" type="text" id="user_id" name="user_id" value="${board.user_id}"/></td>
-                    </tr>
+<%--                    <tr>--%>
+<%--                        <th>제목</th>--%>
+<%--                        <td><input style="width: 500px" type="text" id="h_subject" name="h_subject" value="${board.h_subject}" /></td>--%>
+<%--                    </tr>--%>
+<%--                    <tr>--%>
+<%--                        <th>내용</th>--%>
+<%--                        <td><input style="width: 500px" type="text" id="h_content" name="h_content" value="${board.h_content}"/></td>--%>
+<%--                    </tr>--%>
+                        작성자
+                       <input style="width: 500px" type="text" id="user_id" name="user_id" value="${board.user_id}"/>
+
+                    <div class="row">
+                    <div class="col-sm-9">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text">제목</label>
+                            </div>
+                            <input type="text" class="form-control" id="h_subject" name="h_subject" value="${board.h_subject}" >
+                        </div>
+                    </div>
+
+                    </div>
+
+                    <div class="row justify-content-md-center">
+                            <div class="input-group">
+                                <textarea class="form-control" id="h_content" name="h_content">${board.h_content}</textarea>
+                                <script type="text/javascript">
+                                    CKEDITOR.replace('h_content'
+                                        , {height: 300,width:1536
+                                        });
+                                </script>
+                            </div>
+                    </div>
+
+
                     <input type='hidden' id='h_id' name='h_id' value='${board.h_id }' />
                     <input type='hidden' id='category_id' name='category_id' value='${board.category_id }' />
-                </table>
                 <div>
                     <input type="submit" value="글 등록">
 <%--                    onclick="location.href='/{url}/write 젠장~~~--%>
                 </div>
-            </div>
-        </div>
 <%--        <input type='hidden' id='seq' name='seq' value='${board.h_id }' />--%>
     </form>
 
 </div>
+
 </body>
 </html>

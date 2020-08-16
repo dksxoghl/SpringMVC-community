@@ -53,6 +53,8 @@ public class BoardController {
 //    ,@RequestParam(value = "seq",required = false) int seq
     public String writeForm(Model model,@ModelAttribute("boardVO")BoardVO boardVO,@PathVariable String url){
         System.out.println("writeForm"+boardVO.getH_subject() +" "+ boardVO.getH_id());
+        List<CategoryVO> categoryList = boardService.selectCategoryList();
+        model.addAttribute("categoryList",categoryList);
         model.addAttribute("board",boardVO);
         model.addAttribute(url);
         return "boardWrite";

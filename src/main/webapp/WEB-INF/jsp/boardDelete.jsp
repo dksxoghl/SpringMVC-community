@@ -11,7 +11,7 @@
 <div>
         <div>
             <h2>삭제할거임?</h2>
-                <div>${url}
+                <div>
                     <input type="submit" value="삭제" onclick="location.href='/${url}/delete?seq=${seq}'">
                     <input type="submit" value="취소" onclick="location.href='/${url}/detail?seq=${seq}'">
                 </div>
