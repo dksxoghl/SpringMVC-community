@@ -7,25 +7,12 @@
     <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
     <title>해연갤</title>
 </head>
-<style>
-    /*.container {*/
-    /*    font: 12px Malgun Gothic;*/
-    /*}*/
-
-</style>
 <body>
 
-<div class="container" style="background-color: #537599;">
-    <div class="head">
-    <div class="row" style=" margin-left: 10px;">
-            <c:forEach begin="1" end="5" var="p">
-                <div style="width:9%;"><span>해외연예${p}</span></div>
-            </c:forEach>
-            <div style="width:10%;">문의</div>
-            <div style="width:10%;">회원가입</div>
-            <div style="width:10%;">로그인</div>
+<div class="container" style="background-color: #537599; margin-top: 50px; height: 40px;">
+     <div style=" margin-left: 20px;">
+          <a href="/hy" style="color: white; font-size: 30px">HYGALL2.COM</a>
         </div>
-</div>
 </div>
 </body>
 </html>

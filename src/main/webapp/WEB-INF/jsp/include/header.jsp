@@ -21,7 +21,7 @@
     .head {
         margin-top: 25px;
         padding: 18px 15px;
-        font: 12px Malgun Gothic;
+        font: 12px "Noto Sans";
         color: white;
         /*width: 100%;*/
     }

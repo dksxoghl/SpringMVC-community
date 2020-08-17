@@ -10,5 +10,6 @@
 <body>
 <jsp:include page="include/header.jsp"/>
 <jsp:include page="hyboardList.jsp"/>
+<jsp:include page="include/footer.jsp"/>
 </body>
 </html>

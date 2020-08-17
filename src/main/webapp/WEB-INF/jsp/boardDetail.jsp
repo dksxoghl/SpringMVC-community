@@ -50,7 +50,7 @@
     <hr/>
     <div>${board.h_content }
     </div>
-    <div class="row justify-content-around">
+    <div class="row justify-content-around" style="margin-top: 10px">
         <div class="col-md-3">북마크</div>
         <div class="col-md-3 offset-md-2"> 추천 ${board.h_like}</div>
         <div class="col-md-2 offset-md-2">신고</div>
@@ -81,6 +81,6 @@
 
 </div>
 <jsp:include page="hyboardList.jsp"/>
-
+<jsp:include page="include/footer.jsp"/>
 </body>
 </html>
