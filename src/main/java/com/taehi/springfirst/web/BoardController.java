@@ -22,12 +22,6 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-//    @ResponseBody
-//    @GetMapping("/hello")
-//    public String hello() {
-//        return "HelloWorld";
-//    }
-
     @RequestMapping(value = {"/"})
     public String redirect(){
         return "redirect:/hy";
@@ -36,7 +30,6 @@ public class BoardController {
     @RequestMapping(value = {"/{url}/deleteForm"})
     public String deleteForm(Model model,@RequestParam("seq")int seq,@PathVariable String url){
         System.out.println("deleteForm");
-
         List<CategoryVO> categoryList = boardService.selectCategoryList();
         model.addAttribute("categoryList",categoryList);
         model.addAttribute("seq", seq);
@@ -63,10 +56,10 @@ public class BoardController {
     public String write(@ModelAttribute("boardVO")BoardVO boardVO,@PathVariable String url){
 //        System.out.println("write"+boardVO.getH_id()+"gethid cate"+boardVO.getCategory_id());
         int seq = boardService.insertBoard(boardVO,boardVO.getH_id(),url);
-        return "redirect:/"+url+"/detail?seq="+seq;
+        return "redirect:/"+url+"/detail/"+seq;
     }
-    @RequestMapping(value = {"/{url}/detail"})
-    public String boardDetail(Model model,@RequestParam("seq")int seq,
+    @RequestMapping(value = {"/{url}/detail/{seq}"})
+    public String boardDetail(Model model,@PathVariable("seq")int seq,
                               @RequestParam(value="nowPage", required=false)String nowPage
             , @RequestParam(value="cntPerPage", required=false)String cntPerPage,
                               @PathVariable(required = false) String url){
@@ -80,17 +73,19 @@ public class BoardController {
         model.addAttribute("list", list);
         List<CategoryVO> categoryList = boardService.selectCategoryList();
         model.addAttribute("categoryList",categoryList);
+
+        model.addAttribute("seeingNow",seq); //현재보고있는글표시
         return "boardDetail";
     }
     public PagingVO createPaging(String nowPage, String cntPerPage,String url){
         int total = boardService.countBoard(url);
         if (nowPage == null && cntPerPage == null) {
             nowPage = "1";
-            cntPerPage = "10";
+            cntPerPage = "20";
         } else if (nowPage == null) {
             nowPage = "1";
         } else if (cntPerPage == null) {
-            cntPerPage = "10";
+            cntPerPage = "20";
         }
         return new PagingVO(total,Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
     }

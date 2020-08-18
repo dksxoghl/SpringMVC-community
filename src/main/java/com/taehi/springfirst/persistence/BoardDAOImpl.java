@@ -14,7 +14,8 @@ import java.util.List;
 
 @Repository
 public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {
-    final String SELECT_ALL_SQL="select * from Hboard_TB " +
+    final String SELECT_ALL_SQL="select (ROW_NUMBER() OVER(order by h_id)) AS h_no\n" +
+            "     ,* from Hboard_TB " +
             "where category_id=(\n" +
             "\tselect category_id from category_tb where category_url=?)"+
             "order by h_id desc limit ? offset (? - 1) * ?";
@@ -28,6 +29,7 @@ public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {
             "   \t\t\t\t values (?,?,?,?,?);\t";
     final String DELETE_ID_SQL="delete from Hboard_TB where h_id= ? ";
     final String UPDATE_SQL="update Hboard_TB set h_subject=?,h_content=?,user_id=? where h_id=?";
+    final String UPDATE_HIT_SQL="update Hboard_TB set h_hit=h_hit+1 where h_id=?";
     public BoardDAOImpl(DataSource dataSource) {
         setDataSource(dataSource);
     }
@@ -87,6 +89,11 @@ public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {
     @Override
     public int findCategory(String url) {
         return getJdbcTemplate().queryForObject(SELECT_FIND_ID,Integer.class,url);
+    }
+
+    @Override
+    public void boardHit(int seq) {
+        getJdbcTemplate().update(UPDATE_HIT_SQL,seq);
     }
 
 }

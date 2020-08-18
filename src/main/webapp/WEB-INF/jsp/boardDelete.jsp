@@ -8,15 +8,8 @@
 </head>
 <body>
 <jsp:include page="include/header.jsp"/>
-<div class="container">
-<%--        <div>--%>
-<%--            <h2>삭제할거임?</h2>--%>
-<%--                <div>--%>
-<%--                    <input type="submit" value="삭제" onclick="location.href='/${url}/delete?seq=${seq}'">--%>
-<%--                    <input type="submit" value="취소" onclick="location.href='/${url}/detail?seq=${seq}'">--%>
-<%--                </div>--%>
-<%--        </div>--%>
-<div class="card" style="width: 18rem;  text-align: center;margin: 0 auto; ">
+<div class="container" style=" height: 150px; width: 70%">
+<div class="card" style="width: 18rem; text-align: center;margin: 0 auto; ">
     <div class="card-body">
         <h5 class="card-title">삭제할거임?</h5>
         <button type="button" class="btn btn-primary" onclick="location.href='/${url}/delete?seq=${seq}'">삭제</button>

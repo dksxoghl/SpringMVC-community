@@ -9,28 +9,14 @@
     <title>해연갤</title>
 </head>
 <style>
-    h2 {
-        text-align: center;
-    }
-
-    table {
-        width: 100%;
-    }
-
-    textarea {
-        width: 100%;
-    }
-
-    /*#outter {*/
-    /*    display: block;*/
-    /*    width: 30%;*/
-    /*    margin: auto;*/
-    /*}*/
+.btn-dark{
+    margin: 3px;
+}
 </style>
 <body>
 
 <jsp:include page="include/header.jsp"/>
-<div class="container">
+<div class="container" style="width:70%">
     <div class="row">
         <div>${board.h_subject }</div>
         <div class="col align-self-end" style="float: right;">
@@ -60,7 +46,7 @@
     <div class="row">
         <div>댓글</div>
         <div class="col align-self-end">
-            <input type="button" value="글 목록" style="float: right;" onclick="location.href='/'">
+            <input class="btn btn-dark" type="button" value="글 목록" style="float: right;" onclick="location.href='/'">
             <form id="writeForm" name="writeForm" method="post" action="/${url}/writeForm">
                 <input type='hidden' id='h_id' name='h_id' value='${board.h_id }'/>
                 <input type='hidden' id='category_id' name='category_id' value='${board.category_id }'/>
@@ -70,11 +56,11 @@
                 <input type='hidden' id='h_hit' name='h_hit' value='${board.h_hit }'/>
                 <input type='hidden' id='h_content' name='h_content' value='${board.h_content }'/>
                 <input type='hidden' id='h_like' name='h_like' value='${board.h_like }'/>
-                <input type="submit" value="글 수정" style="float: right;">
+                <input class="btn btn-dark" type="submit" value="글 수정" style="float: right;">
             </form>
             <%--        <input type="button" value="글 수정" style="float: right;" onclick="location.href=--%>
             <%--                '/${url}/writeForm?h_subject=${board.h_subject}&h_content=${board.h_content}&user_id=${board.user_id}&h_id=${board.h_id}&category_id=${board.category_id}'">--%>
-            <input type="button" value="글 삭제" style="float: right;"
+            <input class="btn btn-dark" type="button" value="글 삭제" style="float: right;"
                    onclick="location.href='/${url}/deleteForm?seq=${board.h_id}'">
         </div>
     </div>

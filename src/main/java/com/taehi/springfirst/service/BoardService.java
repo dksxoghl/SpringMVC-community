@@ -13,4 +13,5 @@ public interface BoardService {
     public BoardVO selectBoardById(int seq);
     public int countBoard(String url);
     public List<CategoryVO> selectCategoryList();
+
 }

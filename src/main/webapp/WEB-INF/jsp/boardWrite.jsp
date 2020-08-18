@@ -10,9 +10,9 @@
     <title>해연갤</title>
 </head>
 <body>
-<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="/resources/ckeditor/ckeditor.js"></script>
 <jsp:include page="include/header.jsp"/>
-<div class="container">
+<div class="container" style="width:70%">
     <form id="writeForm" name="writeForm" method="post" action="/${url}/write">
         <div class="row" >
             <div class="col-sm-9" style="padding-top: 0px; padding-left: 0px">
@@ -39,10 +39,10 @@
         <input type='hidden' id='h_id' name='h_id' value='${board.h_id }'/>
         <input type='hidden' id='category_id' name='category_id' value='${board.category_id }'/>
         <hr/>
-        <div>
+        <div style="background-color: white; height: 50px">
             작성자
             <input type="text" id="user_id" name="user_id" value="${board.user_id}"/>
-            <input style="float: right" type="submit" class="btn btn-primary" value="글 등록">
+            <input style="float: right" type="submit" class="btn btn-dark" value="글 등록">
             <%--                    onclick="location.href='/{url}/write 젠장~~~--%>
         </div>
         <%--        <input type='hidden' id='seq' name='seq' value='${board.h_id }' />--%>

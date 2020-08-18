@@ -9,6 +9,7 @@ import java.util.Date;
 @Setter
 public class BoardVO {
     private int h_id;
+    private int h_no;
     private int category_id;
     private String h_subject;
     private String h_content;
@@ -21,8 +22,10 @@ public class BoardVO {
     private String h_img;
     public BoardVO() {
     }
-    public BoardVO(int h_id, int category_id, String h_subject, String h_content, Date h_created_date, String user_id, int h_hit, int h_like, String h_url, String file_name, String h_img) {
+
+    public BoardVO(int h_id, int h_no, int category_id, String h_subject, String h_content, Date h_created_date, String user_id, int h_hit, int h_like, String h_url, String file_name, String h_img) {
         this.h_id = h_id;
+        this.h_no = h_no;
         this.category_id = category_id;
         this.h_subject = h_subject;
         this.h_content = h_content;

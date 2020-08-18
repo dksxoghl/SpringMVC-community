@@ -4,12 +4,12 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" initial-scale="1">
-    <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/css/lib/bootstrap.min.css">
     <title>해연갤</title>
 </head>
 <body>
 
-<div class="container" style="background-color: #537599; margin-top: 50px; height: 40px;">
+<div class="container" id="bottom" style="background-color: #537599; height: 40px; width:70%">
      <div style=" margin-left: 20px;">
           <a href="/hy" style="color: white; font-size: 30px">HYGALL2.COM</a>
         </div>

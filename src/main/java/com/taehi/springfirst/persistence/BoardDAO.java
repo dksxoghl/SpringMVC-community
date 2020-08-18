@@ -15,4 +15,5 @@ public interface BoardDAO {
     public int countBoard(String url);
     public List<CategoryVO> selectCategoryList();
     public int findCategory(String url);
+    public void boardHit(int seq);
 }

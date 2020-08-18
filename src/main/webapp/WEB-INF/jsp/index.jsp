@@ -4,12 +4,18 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" initial-scale="1">
-    <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/main.css" type="text/css">
     <title>해연갤</title>
 </head>
+<style>
+
+
+</style>
 <body>
 <jsp:include page="include/header.jsp"/>
 <jsp:include page="hyboardList.jsp"/>
 <jsp:include page="include/footer.jsp"/>
+
 </body>
 </html>
