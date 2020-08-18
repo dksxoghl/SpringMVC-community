@@ -1,0 +1,51 @@
+.board-list{
+    border-right:hidden;
+    border-left:hidden;
+    text-align: center;
+    height: 34px;
+}
+.board-notice{
+    border-right:hidden;
+    border-left:hidden;
+    background: #fafafa;
+    text-align: center;
+    height: 34%;
+    width: 34px;
+}
+body {
+    /*background-color: #eeeeee;*/
+    margin: 0;
+    font-family: Arial, Helvetica, Malgun Gothic, sans-serif;
+}
+
+.head {
+    margin-top: 25px;
+    padding: 18px 15px;
+    font: 12px "Noto Sans";
+    color: white;
+    /*width: 100%;*/
+}
+.fab {
+    position: fixed;
+    /*left:1150px;*/
+    /*top:100px;*/
+    left: 86%;
+    top: 30%;
+    z-index: 100;
+    align-items: center;
+    width: 30px;
+    height: 100px;
+
+}
+.fab-btn {
+    background-color: #537599;
+    border: white;
+    color: white;
+}
+.vsc-initialized {
+    background-color: #E1E1E1;
+}
+.container{
+    background-color: white;
+    width: 70%;
+}
