@@ -1,5 +1,7 @@
 package com.taehi.springfirst.config;
 
+import com.taehi.springfirst.persistence.ReplyDAO;
+import com.taehi.springfirst.persistence.ReplyDAOImpl;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,10 +23,16 @@ public class Config implements WebMvcConfigurer {
         return viewResolver;
     }
 
-    @Bean
-    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
-        return new JdbcTemplate(dataSource);
-    }
+//    @Bean
+//    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+//        return new JdbcTemplate(dataSource);
+//    }
+    //테스트용
+//    @Bean
+//    public ReplyDAO replyDAO(){
+//        ReplyDAO replyDAO = new ReplyDAOImpl(dataSource());
+//        return replyDAO;
+//    }
 
     @Bean
     public DataSource dataSource() {

@@ -9,12 +9,7 @@
     <script type="text/javascript" src="<c:url value="/resources/js/jquery-3.5.1.js"/>"></script>
 <%--    <script type="text/javascript" src="/resources/js/jquery-3.5.1.js"></script>--%>
     <title>해연갤</title>
-    <script type="text/javascript">
-        $(document).ready(function()
-        {
-            $(".toggle").click(function () { $(".reply").toggle(); });
-        });
-    </script>
+
 </head>
 <style>
 .btn-dark{
@@ -50,7 +45,7 @@
     </div>
     <div style="color:#777; border-bottom: 1px inset  #bcbcbc;">${board.h_url}</div>
     <div class="row" style="margin-left:5px">
-        <div><a class="toggle" href="#">댓글</a><span>[0]</span></div>
+        <div><a class="toggle" >댓글</a><span>[0]</span></div>
         <div class="col align-self-end">
             <input class="btn btn-dark" type="button" value="글 목록" style="float: right;" onclick="location.href='/'">
             <form id="writeForm" name="writeForm" method="post" action="/${url}/writeForm">
@@ -71,16 +66,43 @@
         </div>
     </div>
     <div class="reply" >
-        <div class="rep_info">
-a
+        <div class="rep_info" style="background-color: #f5f5f5;width: 99%;padding: 20px; ">
+<%--            <div class="row">--%>
+<%--                <div class="col-1">user</div>--%>
+<%--                <div class="col-3 offset-md-6">2020.~~~(~~~~~~)</div>--%>
+<%--                <div class="col-2 ">--%>
+<%--                    <button>신고</button>--%>
+<%--                    <button>x</button>--%>
+<%--                    <button>댓</button>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--            <div >content</div>--%>
+<%--            <div style="border-top:1px dashed #ccc; height: 20px"></div>--%>
         </div>
-        <div class="rep_edit">
- a
+        <div style="width: 99%;height:38px; border:1px inset  #EAEAEA;margin-top: 3px">
+            <button style="float: right;" class="btn-dark">댓로고침</button></div>
+        <div class="rep_edit" style=" height:180px">
+            <textarea style="width: 99%; height: 80px"></textarea>
+            <div><button style="float: right;" class="btn-dark">댓글등록</button></div></div>
         </div>
-        <button>d</button>
+
     </div>
 </div>
 <jsp:include page="hyboardList.jsp"/>
 <jsp:include page="include/footer.jsp"/>
+
+<script type="text/javascript">
+    getReply();
+    function getReply(){
+        $.getJSON("/reply/all/"+138,function (data){
+            console.log(data);
+        });
+    }
+
+    $(document).ready(function()
+    {
+        $(".toggle").click(function () { $(".reply").toggle(); });
+    });
+</script>
 </body>
 </html>
