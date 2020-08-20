@@ -57,7 +57,13 @@
                     </c:choose>
                     <td style="width:66%; text-align: start;">
                         <a href='/${url}/detail/${list.h_id}?nowPage=${paging.nowPage}&cntPerPage=${paging.cntPerPage}'>
-                            <c:out value="${list.h_subject }"/></a></td>
+                            <c:out value="${list.h_subject }"/></a>
+                        <span>
+                        <c:if test="${list.rep!=null}">
+                            [${list.rep}]
+                        </c:if>
+                        </span>
+                    </td>
                     <td style="width:8%;"><c:out value="${list.user_id }"/></td>
                     <c:set var="sysdate" value="<%= sf.format(nowTime)%>" scope="session"/>
                     <c:set var="h_created_date" value="${list.h_created_date}" scope="session"/>
@@ -99,7 +105,7 @@
         </c:if>
     </div>
     <div style="background-color: white; height: 50px">
-        <input class="btn btn-dark" style="float: right" type="button"  value="글쓰기"
+        <input class="btn btn-dark" style="float: right" type="button" value="글쓰기"
                onclick="location.href='/${url}/writeForm'">
     </div>
 </div>

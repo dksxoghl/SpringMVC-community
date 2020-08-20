@@ -14,11 +14,18 @@ import java.util.List;
 
 @Repository
 public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {
-    final String SELECT_ALL_SQL="select (ROW_NUMBER() OVER(order by h_id)) AS h_no\n" +
-            "     ,* from Hboard_TB " +
-            "where category_id=(\n" +
-            "\tselect category_id from category_tb where category_url=?)"+
-            "order by h_id desc limit ? offset (? - 1) * ?";
+    final String SELECT_ALL_SQL=
+            "select Hboard_TB.h_id,(ROW_NUMBER() OVER(order by Hboard_TB.h_id)) " +
+                    "AS h_no,category_id,h_subject,h_content,h_created_date,user_id,h_hit,h_like,h_url,file_name,h_img,rep" +
+                    " from Hboard_TB left outer join (select count(*) as rep, h_id from reply_tb group by h_id) B on Hboard_TB.h_id= B.h_id" +
+                    " where category_id=(select category_id from category_tb where category_url=?) " +
+                    "order by Hboard_TB.h_id desc limit ? offset (? - 1) * ?";
+//            "select (ROW_NUMBER() OVER(order by h_id)) AS h_no\n" +
+//            "     ,* from Hboard_TB " +
+//            "where category_id=(\n" +
+//            "\tselect category_id from category_tb where category_url=?)"+
+//            "order by h_id desc limit ? offset (? - 1) * ?";
+
     final String SELECT_ID_SQL="select * from Hboard_TB where h_id = ?";
     final String SELECT_SEQ_MAX = "select max(h_id) from Hboard_TB";
     final String SELECT_COUNT = "select count(*) from Hboard_TB where category_id=(\n" +

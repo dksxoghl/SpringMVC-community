@@ -20,10 +20,11 @@ public class BoardVO {
     private String h_url;
     private String file_name;
     private String h_img;
+    private String rep; //댓글개수
     public BoardVO() {
     }
 
-    public BoardVO(int h_id, int h_no, int category_id, String h_subject, String h_content, Date h_created_date, String user_id, int h_hit, int h_like, String h_url, String file_name, String h_img) {
+    public BoardVO(int h_id, int h_no, int category_id, String h_subject, String h_content, Date h_created_date, String user_id, int h_hit, int h_like, String h_url, String file_name, String h_img, String rep) {
         this.h_id = h_id;
         this.h_no = h_no;
         this.category_id = category_id;
@@ -36,5 +37,6 @@ public class BoardVO {
         this.h_url = h_url;
         this.file_name = file_name;
         this.h_img = h_img;
+        this.rep = rep;
     }
 }
