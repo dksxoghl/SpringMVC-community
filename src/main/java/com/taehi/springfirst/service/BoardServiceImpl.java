@@ -42,7 +42,7 @@ public class BoardServiceImpl implements BoardService{
         int retValue;
 // seq 따라 update,insert
         if(seq==0) {
-            boardVO.setCategory_id(boardDAO.findCategory(url));
+            boardVO.setCategoryId(boardDAO.findCategory(url));
             retValue = boardDAO.insertBoard(boardVO);
         }
         else {

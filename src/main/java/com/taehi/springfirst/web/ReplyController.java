@@ -20,17 +20,17 @@ public class ReplyController {
         this.replyService=replyService;
     }
 
-    @GetMapping(value = "/all/{hId}/{nowPage}")
-    public ResponseEntity<Map<String,Object>> list(@PathVariable("hId")int h_id,@PathVariable("nowPage")String nowPage){
-        int total= replyService.countReply(h_id);
-        if (nowPage == null ) {
-            nowPage = "1";
-        }
+    @GetMapping(value = "/all/{hyId}/{nowPage}")
+    public ResponseEntity<Map<String,Object>> list(@PathVariable("hyId")int hyId,@PathVariable("nowPage")String nowPage){
+        int total= replyService.countReply(hyId);
+//        if (nowPage == null ) {
+//            nowPage = "1";
+//        }
         PagingVO vo = new PagingVO(total,Integer.parseInt(nowPage), 10);
         ResponseEntity<Map<String,Object>> entity=null; //map으로
         try {
             Map<String,Object> map = new HashMap<>();
-            map.put("replyVO",replyService.list(h_id,vo));
+            map.put("replyVO",replyService.list(hyId,vo));
             map.put("replyPage",vo);
             entity= new ResponseEntity<>(map, HttpStatus.OK);
         }catch (Exception e){
@@ -42,7 +42,7 @@ public class ReplyController {
 
     @PostMapping(value = "/insert")
     public ResponseEntity<String> insertReply(@RequestBody ReplyVO replyVO) {
-        System.out.println(replyVO.getH_id()+replyVO.getRe_content()+replyVO.getUser_id());
+        System.out.println(replyVO.getHyId()+replyVO.getReContent()+replyVO.getUserId());
         ResponseEntity<String> entity = null;
         try {
             replyService.insertReply(replyVO);
@@ -53,11 +53,11 @@ public class ReplyController {
         }
         return entity;
     }
-    @DeleteMapping(value = "/{re_id}")
-    public ResponseEntity<String> deleteReply(@PathVariable int re_id){
+    @DeleteMapping(value = "/{reId}")
+    public ResponseEntity<String> deleteReply(@PathVariable int reId){
         ResponseEntity<String> entity=null;
         try{
-            replyService.deleteReply(re_id);
+            replyService.deleteReply(reId);
             entity= new ResponseEntity<>("delSuccess",HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();

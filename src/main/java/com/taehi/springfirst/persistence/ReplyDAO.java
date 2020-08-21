@@ -6,8 +6,8 @@ import com.taehi.springfirst.domain.paging.PagingVO;
 import java.util.List;
 
 public interface ReplyDAO {
-    public List<ReplyVO> list(int h_id, PagingVO vo);
+    public List<ReplyVO> list(int hyId, PagingVO vo);
     public int insertReply(ReplyVO replyVO);
-    public void deleteReply(int re_id);
-    public int countReply(int h_id);
+    public void deleteReply(int reId);
+    public int countReply(int hyId);
 }

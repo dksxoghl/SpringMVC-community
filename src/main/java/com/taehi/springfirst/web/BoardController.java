@@ -27,8 +27,8 @@ public class BoardController {
         return "redirect:/hy";
     }
 
-    @RequestMapping(value = {"/{url}/deleteForm"})
-    public String deleteForm(Model model,@RequestParam("seq")int seq,@PathVariable String url){
+    @RequestMapping(value = {"/{url}/deleteForm/{seq}"})
+    public String deleteForm(Model model,@PathVariable int seq,@PathVariable String url){
         System.out.println("deleteForm");
         List<CategoryVO> categoryList = boardService.selectCategoryList();
         model.addAttribute("categoryList",categoryList);
@@ -36,8 +36,8 @@ public class BoardController {
         model.addAttribute(url);
         return "boardDelete";
     }
-    @RequestMapping(value = {"{url}/delete"})
-    public String delete(@RequestParam("seq")int seq,@PathVariable String url){
+    @RequestMapping(value = {"{url}/delete/{seq}"})
+    public String delete(@PathVariable int seq,@PathVariable String url){
         System.out.println("delete");
         boardService.deleteBoard(seq);
         return "redirect:/"+url;
@@ -45,7 +45,7 @@ public class BoardController {
     @RequestMapping(value = {"/{url}/writeForm"})
 //    ,@RequestParam(value = "seq",required = false) int seq
     public String writeForm(Model model,@ModelAttribute("boardVO")BoardVO boardVO,@PathVariable String url){
-        System.out.println("writeForm"+boardVO.getH_created_date() +" "+ boardVO.getH_id());
+        System.out.println("writeForm"+boardVO.getHyCreatedDate() +" "+ boardVO.getHyId());
         List<CategoryVO> categoryList = boardService.selectCategoryList();
         model.addAttribute("categoryList",categoryList);
         model.addAttribute("board",boardVO);
@@ -55,7 +55,7 @@ public class BoardController {
     @RequestMapping(value = {"/{url}/write"})
     public String write(@ModelAttribute("boardVO")BoardVO boardVO,@PathVariable String url){
 //        System.out.println("write"+boardVO.getH_id()+"gethid cate"+boardVO.getCategory_id());
-        int seq = boardService.insertBoard(boardVO,boardVO.getH_id(),url);
+        int seq = boardService.insertBoard(boardVO,boardVO.getHyId(),url);
         return "redirect:/"+url+"/detail/"+seq;
     }
     @RequestMapping(value = {"/{url}/detail/{seq}"})
@@ -69,6 +69,7 @@ public class BoardController {
 
         PagingVO vo = createPaging(nowPage, cntPerPage,url);
         List<BoardVO> list = boardService.selectBoardList(vo,url);
+
         model.addAttribute("paging", vo);
         model.addAttribute("list", list);
         List<CategoryVO> categoryList = boardService.selectCategoryList();
@@ -101,6 +102,7 @@ public class BoardController {
         model.addAttribute("paging", vo);
 
         List<BoardVO> list = boardService.selectBoardList(vo,url);
+
         model.addAttribute("list", list);
         List<CategoryVO> categoryList = boardService.selectCategoryList();
         model.addAttribute("categoryList",categoryList);

@@ -11,44 +11,58 @@
 </head>
 <body>
 <script type="text/javascript" src="/resources/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/jquery-3.5.1.js"/>"></script>
 <jsp:include page="include/header.jsp"/>
 <div class="container" style="width:70%">
     <form id="writeForm" name="writeForm" method="post" action="/${url}/write">
-        <div class="row" >
+        <div class="row">
             <div class="col-sm-9" style="padding-top: 0px; padding-left: 0px">
                 <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm">제목</span>
                     </div>
-                    <input class="form-control form-control-sm" type="text" id="h_subject" name="h_subject"
-                           value="${board.h_subject}">
+                    <input class="form-control form-control-sm" type="text" id="hySubject" name="hySubject"
+                           value="${board.hySubject}">
                 </div>
             </div>
         </div>
         <div class="row " style="margin-top: 0">
             <div class="input-group">
-                <textarea class="form-control" id="h_content" name="h_content">${board.h_content}</textarea>
+                <textarea class="form-control" id="hyContent" name="hyContent">${board.hyContent}</textarea>
                 <script type="text/javascript">
-                    CKEDITOR.replace('h_content'
+                    CKEDITOR.replace('hyContent'
                         , {
                             height: 300, width: 1536
                         });
                 </script>
             </div>
         </div>
-        <input type='hidden' id='h_id' name='h_id' value='${board.h_id }'/>
-        <input type='hidden' id='category_id' name='category_id' value='${board.category_id }'/>
+        <input type='hidden' id='hyId' name='hyId' value='${board.hyId}'/>
+        <input type='hidden' id='categoryId' name='categoryId' value='${board.categoryId }'/>
         <hr/>
         <div style="background-color: white; height: 50px">
             작성자
-            <input type="text" id="user_id" name="user_id" value="${board.user_id}"/>
-            <input style="float: right" type="submit" class="btn btn-dark" value="글 등록">
+            <input type="text" id="userId" name="userId" value="${board.userId}"/>
+            <input style="float: right" type="submit" class="btn btn-dark" id="check" value="글 등록"/>
             <%--                    onclick="location.href='/{url}/write 젠장~~~--%>
         </div>
         <%--        <input type='hidden' id='seq' name='seq' value='${board.h_id }' />--%>
     </form>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(document).on("click", "#check", function (event) {
+                var userId = $("input[name=userId]");
+                console.log(userId.val());
+                if ( userId.val() == null || userId.val()=="") {
+                    alert('id 필수');
+                    event.preventDefault();
+                }
 
+            });
+        });
+    </script>
 </div>
 <jsp:include page="include/footer.jsp"/>
+
 </body>
 </html>

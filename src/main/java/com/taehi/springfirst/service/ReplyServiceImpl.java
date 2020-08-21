@@ -14,8 +14,8 @@ public class ReplyServiceImpl implements ReplyService{
         this.replyDAO=replyDAO;
     }
     @Override
-    public List<ReplyVO> list(int h_id, PagingVO vo) {
-        return replyDAO.list(h_id,vo);
+    public List<ReplyVO> list(int hyId, PagingVO vo) {
+        return replyDAO.list(hyId,vo);
     }
 
     @Override
@@ -24,12 +24,12 @@ public class ReplyServiceImpl implements ReplyService{
     }
 
     @Override
-    public void deleteReply(int re_id) {
-        replyDAO.deleteReply(re_id);
+    public void deleteReply(int reId) {
+        replyDAO.deleteReply(reId);
     }
 
     @Override
-    public int countReply(int h_id) {
-        return replyDAO.countReply(h_id);
+    public int countReply(int hyId) {
+        return replyDAO.countReply(hyId);
     }
 }

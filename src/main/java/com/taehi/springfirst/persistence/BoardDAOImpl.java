@@ -15,28 +15,27 @@ import java.util.List;
 @Repository
 public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {
     final String SELECT_ALL_SQL=
-            "select Hboard_TB.h_id,(ROW_NUMBER() OVER(order by Hboard_TB.h_id)) " +
-                    "AS h_no,category_id,h_subject,h_content,h_created_date,user_id,h_hit,h_like,h_url,file_name,h_img,rep" +
-                    " from Hboard_TB left outer join (select count(*) as rep, h_id from reply_tb group by h_id) B on Hboard_TB.h_id= B.h_id" +
+            "select Hboard_TB.hy_id,(ROW_NUMBER() OVER(order by Hboard_TB.hy_id)) " +
+                    "AS hy_no,category_id,hy_subject,hy_content,hy_created_date,user_id,hy_hit,hy_like,hy_url,file_name,hy_img,rep" +
+                    " from Hboard_TB left outer join (select count(*) as rep, hy_id from reply_tb group by hy_id) B on Hboard_TB.hy_id= B.hy_id" +
                     " where category_id=(select category_id from category_tb where category_url=?) " +
-                    "order by Hboard_TB.h_id desc limit ? offset (? - 1) * ?";
+                    "order by Hboard_TB.hy_id desc limit ? offset (? - 1) * ?";
 //            "select (ROW_NUMBER() OVER(order by h_id)) AS h_no\n" +
 //            "     ,* from Hboard_TB " +
 //            "where category_id=(\n" +
 //            "\tselect category_id from category_tb where category_url=?)"+
 //            "order by h_id desc limit ? offset (? - 1) * ?";
-
-    final String SELECT_ID_SQL="select * from Hboard_TB where h_id = ?";
-    final String SELECT_SEQ_MAX = "select max(h_id) from Hboard_TB";
+    final String SELECT_ID_SQL="select * from Hboard_TB where hy_id = ?";
+    final String SELECT_SEQ_MAX = "select max(hy_id) from Hboard_TB";
     final String SELECT_COUNT = "select count(*) from Hboard_TB where category_id=(\n" +
             "\tselect category_id from category_tb where category_url=?) ";
     final String SELECT_CATEGORY_SQL = " select * from category_tb";
     final String SELECT_FIND_ID="select category_id from category_tb where category_url=?";
-    final String INSERT_SQL="insert into Hboard_TB(category_id,h_subject,h_content,user_id,h_url)\n" +
+    final String INSERT_SQL="insert into Hboard_TB(category_id,hy_subject,hy_content,user_id,hy_url)\n" +
             "   \t\t\t\t values (?,?,?,?,?);\t";
-    final String DELETE_ID_SQL="delete from Hboard_TB where h_id= ? ";
-    final String UPDATE_SQL="update Hboard_TB set h_subject=?,h_content=?,user_id=? where h_id=?";
-    final String UPDATE_HIT_SQL="update Hboard_TB set h_hit=h_hit+1 where h_id=?";
+    final String DELETE_ID_SQL="delete from Hboard_TB where hy_id= ? ";
+    final String UPDATE_SQL="update Hboard_TB set hy_subject=?,hy_content=?,user_id=? where hy_id=?";
+    final String UPDATE_HIT_SQL="update Hboard_TB set hy_hit=hy_hit+1 where hy_id=?";
     public BoardDAOImpl(DataSource dataSource) {
         setDataSource(dataSource);
     }
@@ -73,14 +72,14 @@ public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {
     @Transactional //auto increment 키생성 기다리기위해, 글생성후 detail페이지 바로가야함.
     public int insertBoard(BoardVO boardVO) {
         int seq;
-        getJdbcTemplate().update(INSERT_SQL,boardVO.getCategory_id(),boardVO.getH_subject(),boardVO.getH_content(),boardVO.getUser_id(),"www.hy");
+        getJdbcTemplate().update(INSERT_SQL,boardVO.getCategoryId(),boardVO.getHySubject(),boardVO.getHyContent(),boardVO.getUserId(),"www.hy");
         seq = getJdbcTemplate().queryForObject(SELECT_SEQ_MAX,Integer.class);
         return seq;
     }
 
     @Override
     public void updateBoard(BoardVO boardVO,int seq) {
-        getJdbcTemplate().update(UPDATE_SQL,boardVO.getH_subject(),boardVO.getH_content(),boardVO.getUser_id(),seq);
+        getJdbcTemplate().update(UPDATE_SQL,boardVO.getHySubject(),boardVO.getHyContent(),boardVO.getUserId(),seq);
     }
 
     @Override

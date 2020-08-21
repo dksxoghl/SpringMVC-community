@@ -2,13 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
-<%@page import="java.util.Calendar" %>
-<%@ page import="java.util.Date" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%
-    Date nowTime = new Date();
-    SimpleDateFormat sf = new SimpleDateFormat("YYYY-MM-dd");
-%>
+<%--<%@ page import="java.util.Date" %>--%>
+<%--<%@ page import="java.text.SimpleDateFormat" %>--%>
+<%--<%--%>
+<%--    Date nowTime = new Date();--%>
+<%--    SimpleDateFormat sf = new SimpleDateFormat("YYYY-MM-dd");--%>
+<%--%>--%>
 <html>
 <head>
     <%--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">--%>
@@ -45,41 +44,44 @@
                 <td style="width:9%;"><c:out value="0"/></td>
                 <td style="width:8%;"><c:out value="0"/></td>
             </tr>
-            <c:forEach var="list" items="${list}" varStatus="status">
+            <c:forEach items="${list}" var="list" varStatus="status">
                 <tr class="board-list">
                     <c:choose>
-                        <c:when test="${seeingNow==list.h_id}">
+                        <c:when test="${seeingNow==list.hyId}">
                             <td style="width:9%; color: #537599">▶▶</td>
                         </c:when>
                         <c:otherwise>
-                            <td style="width:9%;"><c:out value="${list.h_no }"/></td>
+                            <td style="width:9%;"><c:out value="${list.hyNo}"/></td>
                         </c:otherwise>
                     </c:choose>
                     <td style="width:66%; text-align: start;">
-                        <a href='/${url}/detail/${list.h_id}?nowPage=${paging.nowPage}&cntPerPage=${paging.cntPerPage}'>
-                            <c:out value="${list.h_subject }"/></a>
+                        <a href='/${url}/detail/${list.hyId}?nowPage=${paging.nowPage}&cntPerPage=${paging.cntPerPage}'>
+                            <c:out value="${list.hySubject}"/></a>
                         <span>
                         <c:if test="${list.rep!=null}">
                             [${list.rep}]
                         </c:if>
                         </span>
                     </td>
-                    <td style="width:8%;"><c:out value="${list.user_id }"/></td>
-                    <c:set var="sysdate" value="<%= sf.format(nowTime)%>" scope="session"/>
-                    <c:set var="h_created_date" value="${list.h_created_date}" scope="session"/>
+                    <td style="width:8%;"><c:out value="${list.userId}"/></td>
+                    <jsp:useBean id="toDay" class="java.util.Date" />
+                    <fmt:formatDate value='${toDay}' pattern='YYYY-MM-dd' var="nowDate"/>
+<%--                    <c:set var="sysdate" value="<%= sf.format(nowTime)%>" scope="session"/>--%>
+                    <c:set var="sysdate" value="${nowDate}" scope="session"/>
+                    <c:set var="hyCreatedDate" value="${list.hyCreatedDate}" scope="session"/>
                     <c:choose>
-                        <c:when test="${sysdate==fn:substring(h_created_date,0,10)}">
-                            <td style="width:8%;"><fmt:formatDate value="${list.h_created_date}"
+                        <c:when test="${sysdate==fn:substring(hyCreatedDate,0,10)}">
+                            <td style="width:8%;"><fmt:formatDate value="${list.hyCreatedDate}"
                                                                   pattern="HH:mm"/></td>
                         </c:when>
                         <c:otherwise>
-                            <td style="width:8%;"><fmt:formatDate value="${list.h_created_date}"
+                            <td style="width:8%;"><fmt:formatDate value="${list.hyCreatedDate}"
                                                                   pattern="MM-dd"/></td>
                         </c:otherwise>
                     </c:choose>
                         <%--                    <td><c:out value="${list.h_created }"/></td>--%>
-                    <td style="width:9%;"><c:out value="${list.h_hit }"/></td>
-                    <td style="width:8%;"><c:out value="${list.h_like }"/></td>
+                    <td style="width:9%;"><c:out value="${list.hyHit }"/></td>
+                    <td style="width:8%;"><c:out value="${list.hyLike }"/></td>
                 </tr>
             </c:forEach>
             </tbody>

@@ -21,7 +21,7 @@
     <div class="head">
         <div class="row justify-content-between" style=" margin-left: 10px; text-align: center;">
             <c:forEach var="list" items="${categoryList}">
-                <div class="col col-lg-1 align-self-start"><a style="color: white;" href="/${list.category_url}">${list.category_name}</a>
+                <div class="col col-lg-1 align-self-start"><a style="color: white;" href="/${list.categoryUrl}">${list.categoryName}</a>
                 </div>
             </c:forEach>
             <%--            <div class="col-md-auto">--%>
@@ -38,8 +38,8 @@
 <div class="container" style="background-color: white; width:70%;  height: 50px;">
 
     <c:forEach var="list" items="${categoryList}">
-        <c:if test="${list.category_url eq url}">
-            <h3 style="padding-top: 10px;"><a style="color: #868686" href="/${list.category_url}">${list.category_name}</a></h3>
+        <c:if test="${list.categoryUrl eq url}">
+            <h3 style="padding-top: 10px;"><a style="color: #868686" href="/${list.categoryUrl}">${list.categoryName}</a></h3>
         </c:if>
 <%--            <a href="/${list.category_url}">${list.category_name}</a>--%>
     </c:forEach>
