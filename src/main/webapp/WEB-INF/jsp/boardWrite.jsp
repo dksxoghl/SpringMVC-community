@@ -10,8 +10,8 @@
     <title>해연갤</title>
 </head>
 <body>
-<script type="text/javascript" src="/resources/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="<c:url value="/resources/js/jquery-3.5.1.js"/>"></script>
+<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<c:url value="/js/jquery-3.5.1.js"/>"></script>
 <jsp:include page="include/header.jsp"/>
 <div class="container" style="width:70%">
     <form id="writeForm" name="writeForm" method="post" action="/${url}/write">

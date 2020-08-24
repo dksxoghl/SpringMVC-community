@@ -20,6 +20,7 @@ public class ReplyController {
         this.replyService=replyService;
     }
 
+    //답글 현재요청페이지로 페이징처리하여 list 리턴
     @GetMapping(value = "/all/{hyId}/{nowPage}")
     public ResponseEntity<Map<String,Object>> list(@PathVariable("hyId")int hyId,@PathVariable("nowPage")String nowPage){
         int total= replyService.countReply(hyId);
@@ -39,13 +40,26 @@ public class ReplyController {
         }
         return entity;
     }
-
-    @PostMapping(value = "/insert")
-    public ResponseEntity<String> insertReply(@RequestBody ReplyVO replyVO) {
-        System.out.println(replyVO.getHyId()+replyVO.getReContent()+replyVO.getUserId());
+    //페이지의 제일최신글을 먼저보기위해 마지막페이지 리턴
+    @GetMapping(value = "/lastPage/{hyId}")
+    public ResponseEntity<Integer> list(@PathVariable("hyId")int hyId){
+        int total= replyService.countReply(hyId);
+        PagingVO vo = new PagingVO(total,1, 10);
+        ResponseEntity<Integer> entity=null; //map으로
+        try {
+            entity= new ResponseEntity<>(vo.getLastPage(), HttpStatus.OK);
+        }catch (Exception e){
+            entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            e.printStackTrace();
+        }
+        return entity;
+    }
+    @PostMapping(value = "/insert/{groupId}")
+    public ResponseEntity<String> insertReply(@RequestBody ReplyVO replyVO, @PathVariable String groupId) {
+        System.out.println("insertReply"+groupId);
         ResponseEntity<String> entity = null;
         try {
-            replyService.insertReply(replyVO);
+            replyService.insertReply(replyVO,groupId);
             entity = new ResponseEntity<>("regSuccess", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

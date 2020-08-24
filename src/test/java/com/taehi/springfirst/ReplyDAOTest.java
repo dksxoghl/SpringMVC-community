@@ -35,7 +35,7 @@ public class ReplyDAOTest {
     public void testInsertReply(){
         for (int i = 0; i < 3; i++) {
             ReplyVO replyVO=new ReplyVO();
-            replyVO.setH_id(138);
+            replyVO.setHy_id(138);
             replyVO.setUser_id("ㅌㅎ");
             replyVO.setRe_content("aaa");
             replyDAO.insertReply(replyVO);

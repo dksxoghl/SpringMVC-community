@@ -4,7 +4,9 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" initial-scale="1">
-    <link rel="stylesheet" href="/resources/css/lib/bootstrap.min.css">
+<%--    <link rel="stylesheet" href="/resources/css/lib/bootstrap.min.css">--%>
+    <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css" type="text/css">
     <title>해연갤</title>
 </head>
 <body>

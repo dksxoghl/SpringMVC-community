@@ -22,6 +22,19 @@ public class Config implements WebMvcConfigurer {
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/css/**")
+                .addResourceLocations("/resources/css/")
+                .setCachePeriod(20);
+        registry.addResourceHandler("/ckeditor/**")
+                .addResourceLocations("/resources/ckeditor/")
+                .setCachePeriod(20);
+        registry.addResourceHandler("/js/**")
+                .addResourceLocations("/resources/js/")
+                .setCachePeriod(20);
+    }
+
 
 //    @Bean
 //    public JdbcTemplate jdbcTemplate(DataSource dataSource) {

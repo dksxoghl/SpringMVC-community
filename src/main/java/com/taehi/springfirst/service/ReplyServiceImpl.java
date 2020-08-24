@@ -6,6 +6,8 @@ import com.taehi.springfirst.persistence.ReplyDAO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalInt;
 
 @Service
 public class ReplyServiceImpl implements ReplyService{
@@ -19,8 +21,19 @@ public class ReplyServiceImpl implements ReplyService{
     }
 
     @Override
-    public int insertReply(ReplyVO replyVO) {
-        return replyDAO.insertReply(replyVO);
+    public int insertReply(ReplyVO replyVO,String groupId) {
+        if(groupId=="0") return replyDAO.insertReply(replyVO);
+        else{
+            int pId= replyVO.getReParent();
+            //패런트가진애 찾고 그 넘버에 패런트인에 찾고(반복)  그애의 오더+1 그리고 같은그룹 그오더 업데이트
+                while(true){
+                    replyDAO.idFromParent(pId).isPresent(); //무한반복으로 찾자
+                }
+            //Optional에 값이 없으면 orElse()의 인자로서 실행된 값이 반환되므로 실행한 의미가 있지만, Optional에 값이 있으면 orElse()의 인자로서 실행된 값이 무시되고 버려진다.
+           // System.out.println(replyDAO.idFromParent(replyVO.getReParent()).orElse(replyDAO.insertReReply(replyVO,Integer.parseInt(groupId))));
+            return 1;
+//            return replyDAO.insertReReply(replyVO,Integer.parseInt(groupId));
+        }
     }
 
     @Override
