@@ -2,6 +2,7 @@ package com.taehi.springfirst;
 
 import com.taehi.springfirst.config.Config;
 import com.taehi.springfirst.domain.board.ReplyVO;
+import com.taehi.springfirst.domain.paging.PagingVO;
 import com.taehi.springfirst.persistence.ReplyDAO;
 import com.taehi.springfirst.persistence.ReplyDAOImpl;
 import org.junit.Test;
@@ -29,15 +30,15 @@ public class ReplyDAOTest {
 
     @Test
     public void testList(){
-      replyDAO.list(138).stream().forEach(s-> System.out.println(s.getRe_content()));
+      replyDAO.list(138,new PagingVO(3,1,7)).stream().forEach(s-> System.out.println(s.getReContent()));
     }
     @Test
     public void testInsertReply(){
         for (int i = 0; i < 3; i++) {
             ReplyVO replyVO=new ReplyVO();
-            replyVO.setHy_id(138);
-            replyVO.setUser_id("ㅌㅎ");
-            replyVO.setRe_content("aaa");
+            replyVO.setHyId(138);
+            replyVO.setUserId("ㅌㅎ");
+            replyVO.setReContent("aaa");
             replyDAO.insertReply(replyVO);
         }
     }

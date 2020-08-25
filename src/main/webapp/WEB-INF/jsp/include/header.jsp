@@ -27,25 +27,20 @@
                 </div>
             </c:forEach>
             <%--            <div class="col-md-auto">--%>
-
             <%--            </div>--%>
             <div class="col col-lg-1 offset-md-1"><a style="color: white;" href="#">문의</a></div>
             <div class="col col-lg-1 align-self-end"><a style="color: white;" href="#">회원가입</a></div>
             <div class="col col-lg-1 align-self-end"><a style="color: white;" href="#">로그인</a></div>
         </div>
-
     </div>
-
 </div>
 <div class="container" style="background-color: white; width:70%;  height: 50px;">
-
     <c:forEach var="list" items="${categoryList}">
         <c:if test="${list.categoryUrl eq url}">
             <h3 style="padding-top: 10px;"><a style="color: #868686" href="/${list.categoryUrl}">${list.categoryName}</a></h3>
         </c:if>
 <%--            <a href="/${list.category_url}">${list.category_name}</a>--%>
     </c:forEach>
-
 </div>
 </body>
 </html>
