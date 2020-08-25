@@ -23,6 +23,8 @@ public class ReplyServiceImpl implements ReplyService {
         return replyDAO.list(hyId, vo);
     }
 
+
+    //부모인애들중 제일아래있는애 찾고 그 넘버가 부모인 넘버또찾고(반복) 찾으면 그애의 오더+1 후 같은그룹의 오더 쭉 업데이트 후 인서트. 트랜잭션처리
     @Override
     @Transactional
     public int insertReply(ReplyVO replyVO, String groupId) {
@@ -31,7 +33,6 @@ public class ReplyServiceImpl implements ReplyService {
             int pId = replyVO.getReParent();
             int count = 1;
             Optional<Integer> reNo = replyDAO.idFromParent(pId);
-            //패런트가진애 찾고 그 넘버에 패런트인에 찾고(반복)  그애의 오더+1 그리고 같은그룹 그오더 업데이트
             while (count < 5) {
                 if (!reNo.isPresent()) {  //반복으로 찾자
                     break;
@@ -56,9 +57,12 @@ public class ReplyServiceImpl implements ReplyService {
         }
     }
 
+    //있으면 [작성자가 삭제한 댓글입니다.] update 없으면 딜리트 그대로
     @Override
     public void deleteReply(int reId) {
-        replyDAO.deleteReply(reId);
+        Optional<Integer> reNo = replyDAO.idFromParent(reId);
+        if(reNo.isPresent()) replyDAO.updateDelete(reId);
+        else replyDAO.deleteReply(reId);
     }
 
     @Override

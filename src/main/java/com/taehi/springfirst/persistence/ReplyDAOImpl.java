@@ -23,6 +23,7 @@ public class ReplyDAOImpl extends JdbcDaoSupport implements ReplyDAO {
     final String SELECT_ID_PARENT="select re_id from reply_tb where re_parent=? order by re_order desc";
     final String SELECT_FIND_ORDER="select re_order from reply_tb where re_id=? ";
     final String UPDATE_ORDER="update reply_tb set re_order=re_order+1 where re_group=? and re_order>=?";
+    final String UPDATE_DELETE="update reply_tb set re_content='[작성자가 삭제한 댓글입니다.]' where re_id=?";
     public ReplyDAOImpl(DataSource dataSource){
         setDataSource(dataSource);
     }
@@ -30,7 +31,6 @@ public class ReplyDAOImpl extends JdbcDaoSupport implements ReplyDAO {
 
     @Override
     public List<ReplyVO> list(int hyId, PagingVO vo) {
-//        assert getJdbcTemplate() != null;
         return getJdbcTemplate().query(SELECT_ALL_SQL, BeanPropertyRowMapper.newInstance(ReplyVO.class),hyId,vo.getCntPerPage(),vo.getNowPage(),vo.getCntPerPage());
     }
 
@@ -56,6 +56,11 @@ public class ReplyDAOImpl extends JdbcDaoSupport implements ReplyDAO {
     @Override
     public int updateOrder(int groupId,int reOrder) {
         return getJdbcTemplate().update(UPDATE_ORDER,groupId,reOrder);
+    }
+
+    @Override
+    public void updateDelete(int reId) {
+        getJdbcTemplate().update(UPDATE_DELETE,reId);
     }
 
     @Override

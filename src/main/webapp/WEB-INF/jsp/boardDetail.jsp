@@ -15,10 +15,8 @@
     .btn-dark {
         margin: 3px;
     }
-
     .re_b {
         font-size: 5px;
-
     }
 </style>
 
@@ -32,7 +30,8 @@
         </div>
     </div>
     <div class="row" style="border-bottom: 1px inset  #bcbcbc; ">
-        <div style="margin-left: 10px;color:#777;">${board.hyUrl }</div>
+<%--        <div style="margin-left: 10px;color:#777;">${board.hyUrl }</div>--%>
+        <div style="margin-left: 10px;color:#777;">http://localhost:8080/${url}/detail/${board.hyId}</div>
         <div class="col align-self-end">
             <div style="float: right;">
                 <span style="font-weight: bold; color:#777;"> <fmt:formatDate value="${board.hyCreatedDate }"
@@ -55,7 +54,7 @@
             <button type="button" class="btn btn-outline-secondary">신고</button>
         </div>
     </div>
-    <div style="color:#777; border-bottom: 1px inset  #bcbcbc;">${board.hyUrl}</div>
+    <div style="color:#777; border-bottom: 1px inset  #bcbcbc;">http://localhost:8080/${url}/detail/${board.hyId}</div>
     <div class="row" style="margin-left:5px">
         <div><a id="toggle">댓글</a><span id="re_length">[0]</span></div>
         <div class="col align-self-end">
@@ -134,7 +133,8 @@
 
     function getLastPage(hyId) {
         $.getJSON("/reply/lastPage/" + hyId, function (data) {
-            nowpage = data;
+            if(data==0) nowpage=1;
+            else nowpage = data;
             getReply(${board.hyId}, nowpage);
         });
     }
@@ -146,20 +146,25 @@
             $(data.replyVO).each(function () {
                 let indent="";
                 let color="";
+                let deleteColor="";
                 for (let i=0;i<this.reIndent;i++){
                     indent+="&nbsp&nbsp&nbsp&nbsp";
                     color="#fafafa";
-                    if(i==this.reIndent-1) indent+="<img width='10px' height='10px' src='/resources/right-arrow.png'>&nbsp&nbsp";
+                    if(i===this.reIndent-1) indent+="<img width='10px' height='10px' src='/resources/right-arrow.png'>&nbsp&nbsp";
                 }
+                if(this.reContent==="[작성자가 삭제한 댓글입니다.]") {
+                    console.log(this.reContent);
+                    deleteColor+="#acacac";}
+
                 str += "<div style='background-color:"+color+"'><div style='padding-top: 5px' class='row' data-replyNo='" + this.reId + "'>" +
                     "<div class='col-2'>" +indent+this.userId + "</div>" +
                     "<div class='col-3 offset-md-5'><span style='font-weight: bold;color:#777;'>" + this.reRegdate.substr(0, 10) + "</span>" +
-                    "<span >(" + this.reRegdate.substr(11, 8) + ")</span></div>" +
+                    "<span>(" + this.reRegdate.substr(11, 8) + ")</span></div>" +
                     "<div class='col-2'>" +
                     "<button class='re_b btn-dark'>신고</button><button class='re_b' id='re_del' style='border:0;outline: 0'>x</button><button class='re_b' id='re_reply' style='border-color:#ccc'>" +
                     "<img width='9px' height='9px' src='/resources/right-arrow.png'></button>" +
                     "</div></div>" +
-                    "<div style='margin-top: 10px;margin-left:"+this.reIndent*25+"px'>" + this.reContent + "</div>" +
+                    "<div style='margin-top:10px; margin-left:"+this.reIndent*25+"px; color:"+deleteColor+"'>" + this.reContent + "</div>" +
                     "<div id=\"rerep_edit\">";
                         if(this.reId==cur_edit) {
                             str+="<textarea id=\"rerep_content\" style=\"width: 95%; \"></textarea>\n" +
@@ -230,7 +235,6 @@
                 }
             });
         });
-//패런트가진애 찾고 그 넘버에 패런트인에 찾고  그애의 오더+1 그리고 같은그룹 그오더 업데이트
         $(document).on('click', '#re_reply', function () {
             let parent = $(this).parent().parent();
             let reId = parent.attr("data-replyNo");

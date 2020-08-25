@@ -15,5 +15,5 @@ public interface ReplyDAO {
     public Optional<Integer> idFromParent(int parentId);
     public int findOrder(int reId);
     public int updateOrder(int groupId,int reOrder);
-
+    public void updateDelete(int reId);
 }
