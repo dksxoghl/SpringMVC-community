@@ -13,6 +13,7 @@ public interface ReplyDAO {
     public void deleteReply(int reId);
     public int countReply(int hyId);
     public Optional<Integer> idFromParent(int parentId);
-
+    public int findOrder(int reId);
+    public int updateOrder(int groupId,int reOrder);
 
 }

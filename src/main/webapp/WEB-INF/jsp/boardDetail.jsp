@@ -121,7 +121,6 @@
             </div>
         </div>
     </div>
-
 </div>
 </div>
 <jsp:include page="hyboardList.jsp"/>
@@ -148,22 +147,25 @@
                 let indent="";
                 let color="";
                 for (let i=0;i<this.reIndent;i++){
-                    indent+="→&nbsp";
+                    indent+="&nbsp&nbsp&nbsp&nbsp";
                     color="#fafafa";
+                    if(i==this.reIndent-1) indent+="<img width='10px' height='10px' src='/resources/right-arrow.png'>&nbsp&nbsp";
                 }
                 str += "<div style='background-color:"+color+"'><div style='padding-top: 5px' class='row' data-replyNo='" + this.reId + "'>" +
-                    "<div class='col-2'>" +indent+ this.userId + "</div>" +
+                    "<div class='col-2'>" +indent+this.userId + "</div>" +
                     "<div class='col-3 offset-md-5'><span style='font-weight: bold;color:#777;'>" + this.reRegdate.substr(0, 10) + "</span>" +
                     "<span >(" + this.reRegdate.substr(11, 8) + ")</span></div>" +
                     "<div class='col-2'>" +
-                    "<button class='re_b btn-dark'>신고</button><button class='re_b' id='re_del'>x</button><button class='re_b' id='re_reply'>댓</button>" +
+                    "<button class='re_b btn-dark'>신고</button><button class='re_b' id='re_del' style='border:0;outline: 0'>x</button><button class='re_b' id='re_reply' style='border-color:#ccc'>" +
+                    "<img width='9px' height='9px' src='/resources/right-arrow.png'></button>" +
                     "</div></div>" +
-                    "<div style='margin-top: 10px;margin-left:"+this.reIndent*15+"px'>" + this.reContent + "</div>" +
+                    "<div style='margin-top: 10px;margin-left:"+this.reIndent*25+"px'>" + this.reContent + "</div>" +
                     "<div id=\"rerep_edit\">";
                         if(this.reId==cur_edit) {
                             str+="<textarea id=\"rerep_content\" style=\"width: 95%; \"></textarea>\n" +
                             "<div>\n" +
-                            "<button style=\"float: right; margin-right: 50px; font-size:5px;\" class=\"btn-dark\" data-indent='"+this.reIndent+"' id=\"rerep_insert\">댓글등록</button>\n" +
+                            "<button style=\"float: right; margin-right: 50px; font-size:5px;\" " +
+                                "class=\"btn-dark\" data-indent='"+this.reIndent+"' id=\"rerep_insert\" data-order='"+this.reOrder+"' data-reGroup='"+this.reGroup+"'>댓글등록</button>\n" +
                             "</div>"
                         };
                     str+="</div>" +
@@ -238,11 +240,16 @@
             let reContent = $("#rerep_content");
             let reContentVal = reContent.val();
             let reIndent= $(this).attr("data-indent");
+            let reOrder=$(this).attr("data-order");
+            let reGroup=$(this).attr("data-reGroup");
             let reId = $(this).parent().parent().parent().children().attr("data-replyNo");
-            console.log(parseInt(reIndent)+1,reId);
+            console.log(parseInt(reIndent)+1,reGroup);
+            if(parseInt(reIndent)>5){
+                alert('대댓은 5번까지');
+            }else{
             $.ajax({
                 type: "post",
-                url: "/reply/insert/"+reId,
+                url: "/reply/insert/"+reGroup,
                 headers: {
                     "Content-type": "application/json",
                     "X-HTTP-Method-Override": "POST"
@@ -252,7 +259,8 @@
                     hyId: ${board.hyId},
                     userId: 'ㅌㅎ',
                     reContent: reContentVal,
-                    reIndent: reIndent+1,
+                    reOrder: reOrder ,
+                    reIndent:parseInt(reIndent)+1,
                     reParent: reId
                 }),
                 success: function (result) {
@@ -263,6 +271,7 @@
                     reContent.val(""); // 댓글 내용 초기화
                 }
             });
+            }
         });
         $(document).on("click", "#re_insert", function () {
             let reContent = $("#re_content");
