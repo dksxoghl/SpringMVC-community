@@ -29,8 +29,8 @@
             <%--            <div class="col-md-auto">--%>
             <%--            </div>--%>
             <div class="col col-lg-1 offset-md-1"><a style="color: white;" href="#">문의</a></div>
-            <div class="col col-lg-1 align-self-end"><a style="color: white;" href="#">회원가입</a></div>
-            <div class="col col-lg-1 align-self-end"><a style="color: white;" href="#">로그인</a></div>
+            <div class="col col-lg-1 align-self-end"><a style="color: white;" href="/${url}/joinForm">회원가입</a></div>
+            <div class="col col-lg-1 align-self-end"><a style="color: white;" href="/${url}/loginForm">로그인</a></div>
         </div>
     </div>
 </div>

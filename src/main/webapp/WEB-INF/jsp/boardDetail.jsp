@@ -150,7 +150,7 @@
                 for (let i=0;i<this.reIndent;i++){
                     indent+="&nbsp&nbsp&nbsp&nbsp";
                     color="#fafafa";
-                    if(i===this.reIndent-1) indent+="<img width='10px' height='10px' src='/resources/right-arrow.png'>&nbsp&nbsp";
+                    if(i===this.reIndent-1) indent+="<img width='10px' height='10px' src='/resources/img/right-arrow.png'>&nbsp&nbsp";
                 }
                 if(this.reContent==="[작성자가 삭제한 댓글입니다.]") {
                     console.log(this.reContent);
@@ -162,7 +162,7 @@
                     "<span>(" + this.reRegdate.substr(11, 8) + ")</span></div>" +
                     "<div class='col-2'>" +
                     "<button class='re_b btn-dark'>신고</button><button class='re_b' id='re_del' style='border:0;outline: 0'>x</button><button class='re_b' id='re_reply' style='border-color:#ccc'>" +
-                    "<img width='9px' height='9px' src='/resources/right-arrow.png'></button>" +
+                    "<img width='9px' height='9px' src='/resources/img/right-arrow.png'></button>" +
                     "</div></div>" +
                     "<div style='margin-top:10px; margin-left:"+this.reIndent*25+"px; color:"+deleteColor+"'>" + this.reContent + "</div>" +
                     "<div id=\"rerep_edit\">";

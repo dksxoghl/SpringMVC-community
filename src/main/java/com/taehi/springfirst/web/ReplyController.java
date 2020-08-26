@@ -3,6 +3,7 @@ package com.taehi.springfirst.web;
 import com.taehi.springfirst.domain.board.ReplyVO;
 import com.taehi.springfirst.domain.paging.PagingVO;
 import com.taehi.springfirst.service.ReplyService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,13 +13,10 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping(value = "/reply")
 public class ReplyController {
     private ReplyService replyService;
-
-    public ReplyController(ReplyService replyService){
-        this.replyService=replyService;
-    }
 
     //답글 현재요청페이지로 페이징처리하여 list 리턴
     @GetMapping(value = "/all/{hyId}/{nowPage}")

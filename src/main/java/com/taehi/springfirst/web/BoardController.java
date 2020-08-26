@@ -4,6 +4,7 @@ import com.taehi.springfirst.domain.board.BoardVO;
 import com.taehi.springfirst.domain.category.CategoryVO;
 import com.taehi.springfirst.domain.paging.PagingVO;
 import com.taehi.springfirst.service.BoardService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,16 +13,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@AllArgsConstructor
 @RequestMapping("/")
 public class BoardController {
 
     private BoardService boardService;
 
-    @Autowired
-    public BoardController(BoardService boardService) {
-        this.boardService = boardService;
-    }
-
+//    @Autowired
+//    public BoardController(BoardService boardService) {
+//        this.boardService = boardService;
+//    }
     @RequestMapping(value = {"/"})
     public String redirect(){
         return "redirect:/hy";
@@ -109,4 +110,5 @@ public class BoardController {
 
         return "index";
     }
+
 }
