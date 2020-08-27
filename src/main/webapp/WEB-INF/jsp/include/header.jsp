@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -31,6 +32,7 @@
             <div class="col col-lg-1 offset-md-1"><a style="color: white;" href="#">문의</a></div>
             <div class="col col-lg-1 align-self-end"><a style="color: white;" href="/${url}/joinForm">회원가입</a></div>
             <div class="col col-lg-1 align-self-end"><a style="color: white;" href="/${url}/loginForm">로그인</a></div>
+            과연:<sec:authentication property="name"/>
         </div>
     </div>
 </div>

@@ -19,11 +19,11 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class MemberServiceImpl implements  UserDetailsService {
+public class MemberServiceImpl implements MemberService {
 
     private MemberDAO memberDAO;
 
-//    @Override
+    @Override
     public int joinUser(MemberVO memberVO) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberVO.setPassword(passwordEncoder.encode(memberVO.getPassword()));
@@ -33,9 +33,11 @@ public class MemberServiceImpl implements  UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<MemberVO> optionalMemberVO = memberDAO.findByUserId(username);
-        MemberVO memberVO = optionalMemberVO.orElseThrow(()->new NoSuchElementException());
+        System.out.println(username + "유저네임" + optionalMemberVO);
+//        MemberVO memberVO = optionalMemberVO.orElseThrow(()->new NoSuchElementException());
+        MemberVO memberVO = optionalMemberVO.get();
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("USER"));
-        return new User(memberVO.getUserId(),memberVO.getPassword(),authorities);
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        return new User(memberVO.getUserId(), memberVO.getPassword(), authorities);
     }
 }

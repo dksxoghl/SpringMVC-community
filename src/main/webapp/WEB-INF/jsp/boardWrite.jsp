@@ -47,6 +47,7 @@
             <%--                    onclick="location.href='/{url}/write 젠장~~~--%>
         </div>
         <%--        <input type='hidden' id='seq' name='seq' value='${board.h_id }' />--%>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     </form>
     <script type="text/javascript">
         $(document).ready(function () {

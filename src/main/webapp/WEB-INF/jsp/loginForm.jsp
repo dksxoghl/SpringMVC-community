@@ -18,22 +18,26 @@
 <div class="container" style=" background-color:white;padding-bottom: 50px">
     <div class="card" style="width: 30%; text-align: center;margin:auto;">
         <div class="card-body">
-            <form id="loginForm" name="loginForm" method="post" action="/user/login">
+            <form method="post" action="/loginForm">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="userId" id="userId">
+                    <input type="text" class="form-control" name="username" id="username">
                 </div>
                 <div class="form-group">
                     <input type="password" class="form-control" id="password" name="password">
                 </div>
-                <button type="submit" class="btn" style="width: 100%; background-color:#537599;color: white">로그인</button>
+                <input type="submit" class="btn" style="width: 100%; background-color:#537599;color: white" value="로그인">
                 <div class="form-group form-check col-6" style="margin-top: 20px">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1" name="remember-me">  <%--RememberMe 파라메터 기본값이 remember-me--%>
                     <label class="form-check-label" for="exampleCheck1" style="font-size: 15px;text-align: center">로그인 유지</label>
                 </div>
-
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                <c:if test="${not empty param.error}">
+                    Reason: ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+                </c:if>
             </form>
         </div>
     </div>
+
 </div>
 <jsp:include page="include/footer.jsp"/>
 

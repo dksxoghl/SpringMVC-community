@@ -9,7 +9,8 @@
     <script type="text/javascript" src="<c:url value="/js/jquery-3.5.1.js"/>"></script>
     <%--    <script type="text/javascript" src="/resources/js/jquery-3.5.1.js"></script>--%>
     <title>해연갤</title>
-
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
 </head>
 <style>
     .btn-dark {
@@ -70,6 +71,7 @@
                 <input type='hidden' id='hyContent' name='hyContent' value='${board.hyContent }'/>
                 <input type='hidden' id='hyLike' name='hyLike' value='${board.hyLike }'/>
                 <input class="b_rud btn btn-dark" type="submit" value="글 수정" style="float: right;font-size:6px">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             </form>
             <%--        <input type="button" value="글 수정" style="float: right;" onclick="location.href=--%>
             <%--                '/${url}/writeForm?h_subject=${board.h_subject}&h_content=${board.h_content}&user_id=${board.user_id}&h_id=${board.h_id}&category_id=${board.category_id}'">--%>
@@ -127,7 +129,8 @@
 
 <script type="text/javascript">
     let nowpage = 1;
-
+    let token = $("meta[name='_csrf']").attr("content");
+    let header = $("meta[name='_csrf_header']").attr("content");
     //첫페이지 끝페이지로 설정.
     getLastPage(${board.hyId});
 
@@ -201,6 +204,9 @@
     }
 
     $(document).ready(function () {     //dom생성시 reday메소드 실행,  모든요소(이미지등) 로드완료시는 window.load  ,ready 해당 셀렉터에이벤트를 직접바인딩 on은 이벤트를위임
+        $(document).ajaxSend(function (e, xhr, options) {         //ajax통신에 csrf토큰포함
+            xhr.setRequestHeader(header, token);
+        });
         $(document).on("click", "#toggle", function () {
             $("#reply").toggle();
         });
@@ -240,7 +246,7 @@
             let reId = parent.attr("data-replyNo");
             getReply(${board.hyId}, nowpage,reId);
         });
-        $(document).on("click", "#rerep_insert", function () {
+        $(document).on("click", "#rerep_insert", function (e,xmlHttpRequest) {
             let reContent = $("#rerep_content");
             let reContentVal = reContent.val();
             let reIndent= $(this).attr("data-indent");
@@ -256,7 +262,7 @@
                 url: "/reply/insert/"+reGroup,
                 headers: {
                     "Content-type": "application/json",
-                    "X-HTTP-Method-Override": "POST"
+                    "X-HTTP-Method-Override": "POST",
                 },
                 dataType: "text",
                 data: JSON.stringify({

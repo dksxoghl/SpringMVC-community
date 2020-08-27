@@ -1,6 +1,7 @@
 package com.taehi.springfirst.persistence;
 
 import com.taehi.springfirst.domain.member.MemberVO;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
@@ -27,8 +28,9 @@ public class MemberDAOImpl extends JdbcDaoSupport implements MemberDAO {
 
     @Override
     public Optional<MemberVO> findByUserId(String userId) {
-  MemberVO memberVO = getJdbcTemplate().queryForObject(FIND_USER_SQL,  BeanPropertyRowMapper.newInstance(MemberVO.class),userId);
-        return Optional.ofNullable(memberVO);
+//  MemberVO memberVO = ;
+        return Optional.ofNullable(DataAccessUtils.singleResult(getJdbcTemplate().query(FIND_USER_SQL,  BeanPropertyRowMapper.newInstance(MemberVO.class),userId)));
+//        return Optional.ofNullable(getJdbcTemplate().queryForObject(FIND_USER_SQL,  BeanPropertyRowMapper.newInstance(MemberVO.class),userId));
     }
 //    private class A implements RowMapper<Optional<MemberVO>>{
 //

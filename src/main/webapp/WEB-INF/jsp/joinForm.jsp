@@ -86,6 +86,7 @@
                 <button class="btn-info">취소</button>
             </div>
         </div>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     </form>
 </div>
 <jsp:include page="include/footer.jsp"/>
