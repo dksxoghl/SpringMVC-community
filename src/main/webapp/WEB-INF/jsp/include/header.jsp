@@ -30,8 +30,20 @@
             <%--            <div class="col-md-auto">--%>
             <%--            </div>--%>
             <div class="col col-lg-1 offset-md-1"><a style="color: white;" href="#">문의</a></div>
-            <div class="col col-lg-1 align-self-end"><a style="color: white;" href="/${url}/joinForm">회원가입</a></div>
-            <div class="col col-lg-1 align-self-end"><a style="color: white;" href="/${url}/loginForm">로그인</a></div>
+            <sec:authorize access="isAnonymous()">
+                <div class="col col-lg-1 align-self-end"><a style="color: white;" href="/${url}/joinForm">회원가입</a></div>
+                <div class="col col-lg-1 align-self-end"><a style="color: white;" href="/${url}/loginForm">로그인</a></div>
+            </sec:authorize>
+            <sec:authorize access="isAuthenticated()">
+                <div class="col col-lg-1 align-self-end"><a style="color: white;" href="/${url}/myPage">My</a></div>
+                <div class="col col-lg-1 align-self-end">
+<%--                    <form id="logOut" action="/${url}/logOut" method="POST">--%>
+<%--                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />--%>
+<%--                        <input  type="submit" value="로그아웃"/>--%>
+<%--                    </form>--%>
+                    <a style="color: white;" href="/${url}/logOut">로그아웃</a>
+                </div>
+            </sec:authorize>
             과연:<sec:authentication property="name"/>
         </div>
     </div>

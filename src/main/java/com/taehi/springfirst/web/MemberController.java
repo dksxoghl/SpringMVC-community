@@ -7,10 +7,14 @@ import com.taehi.springfirst.service.BoardService;
 import com.taehi.springfirst.service.MemberService;
 import com.taehi.springfirst.service.MemberServiceImpl;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
@@ -35,11 +39,22 @@ public class MemberController {
         model.addAttribute(url);
         return "loginForm";
     }
+//    @PostMapping("/{url}/logOut")
+//    public String logOut() {
+//        System.out.println("logout");
+//        return "redirect:/hy";
+//    }
     @PostMapping("/user/join")
     public String join(@ModelAttribute MemberVO memberVO) {
         System.out.println(memberVO.getEmail()+memberVO.getUserId()+memberVO.isAdult());
         memberVO.setAdult(memberVO.isAdult());
         memberService.joinUser(memberVO);
+        return "redirect:/hy";
+    }
+    //기본 제공해주는 SecurityContextLogoutHandler의 logout을 사용해서 로그아웃 처리
+    @GetMapping(value = "/{url}/logOut")
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+        new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
         return "redirect:/hy";
     }
 //    @PostMapping("/user/login")
