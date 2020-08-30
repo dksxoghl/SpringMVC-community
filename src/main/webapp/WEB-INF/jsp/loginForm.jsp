@@ -8,11 +8,6 @@
     <link rel="stylesheet" href="/css/main.css" type="text/css">
     <title>해연갤</title>
 </head>
-<style>
-    .join {
-        padding: 10px;
-    }
-</style>
 <body>
 <jsp:include page="include/header.jsp"/>
 <div class="container" style=" background-color:white;padding-bottom: 50px">

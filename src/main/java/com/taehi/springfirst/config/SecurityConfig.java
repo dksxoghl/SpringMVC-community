@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginPage("/**/loginForm")
 //                .loginProcessingUrl("/loginForm")
                     .defaultSuccessUrl("/hy")
-                    .failureUrl("/**/loginForm?error=tre")
+                    .failureUrl("/**/loginForm?error=true")
                     .permitAll()
                  .and() // 로그아웃 설정
                 .logout()

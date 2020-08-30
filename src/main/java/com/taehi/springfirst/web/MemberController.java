@@ -39,6 +39,7 @@ public class MemberController {
         model.addAttribute(url);
         return "loginForm";
     }
+
 //    @PostMapping("/{url}/logOut")
 //    public String logOut() {
 //        System.out.println("logout");
