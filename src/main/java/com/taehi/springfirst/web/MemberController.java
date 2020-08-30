@@ -56,14 +56,7 @@ public class MemberController {
 //        model.addAttribute("errorMessage",errorMessage);
         return "loginForm";
     }
-    @GetMapping("/{url}/myPage")
-    public String myPageForm(Model model, @PathVariable String url){
-        System.out.println("myPageForm");
-        List<CategoryVO> categoryList = boardService.selectCategoryList();
-        model.addAttribute("categoryList",categoryList);
-        model.addAttribute(url);
-        return "myPage";
-    }
+
 //    @PostMapping("/{url}/logOut")
 //    public String logOut() {
 //        System.out.println("logout");

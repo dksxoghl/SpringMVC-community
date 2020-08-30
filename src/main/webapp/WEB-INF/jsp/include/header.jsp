@@ -48,13 +48,14 @@
         </div>
     </div>
 </div>
-<div class="container" style="background-color: white; width:70%;  height: 50px;">
+<div class="container" style="background-color: white; width:70%;  height: 10%;">
+    <c:if test="${myPage==null}">
     <c:forEach var="list" items="${categoryList}">
         <c:if test="${list.categoryUrl eq url}">
-            <h3 style="padding-top: 10px;"><a style="color: #868686" href="/${list.categoryUrl}">${list.categoryName}</a></h3>
+            <h3 style="padding-top: 10px;margin:0px"><a style="color: #868686" href="/${list.categoryUrl}">${list.categoryName}</a></h3>
         </c:if>
-<%--            <a href="/${list.category_url}">${list.category_name}</a>--%>
     </c:forEach>
+    </c:if>
 </div>
 </body>
 </html>

@@ -15,7 +15,16 @@
 </style>
 <body>
 <jsp:include page="include/header.jsp"/>
-닉네임<sec:authentication property="name"/>
+<div class="container">
+    <div class="row">
+        <div class="col-1">
+            <button>회원정보</button>
+        </div>
+    </div>
+<sec:authentication property="principal" var="user" />
+${user.username}
+    과연:<sec:authentication property="name"/>
+</div>
 <jsp:include page="include/footer.jsp"/>
 
 </body>
