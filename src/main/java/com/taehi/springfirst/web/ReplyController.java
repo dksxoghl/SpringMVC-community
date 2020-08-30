@@ -65,7 +65,7 @@ public class ReplyController {
         }
         return entity;
     }
-    @DeleteMapping(value = "/{reId}")
+    @DeleteMapping(value = "/delete/{reId}")
     public ResponseEntity<String> deleteReply(@PathVariable int reId){
         ResponseEntity<String> entity=null;
         try{

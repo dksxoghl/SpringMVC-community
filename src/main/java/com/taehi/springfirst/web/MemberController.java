@@ -7,7 +7,11 @@ import com.taehi.springfirst.service.BoardService;
 import com.taehi.springfirst.service.MemberService;
 import com.taehi.springfirst.service.MemberServiceImpl;
 import lombok.AllArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,13 +35,34 @@ public class MemberController {
         model.addAttribute(url);
         return "joinForm";
     }
-    @GetMapping("/{url}/loginForm")
-    public String loginForm(Model model,@PathVariable String url){
-        System.out.println("loginForm");
+    @RequestMapping("/{url}/loginForm")     //get post 둘다받기위함. 실패할때 post그대로 주게됨
+    public String loginForm(Model model,@PathVariable String url,@RequestParam(required = false,value = "error") boolean error){
+        System.out.println("loginForm"+error);
+
+//        if(error){
+//        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+//                username, password);
+//            // 로그인
+//            Authentication auth = authenticationManager.authenticate(token);
+//            SecurityContextHolder.getContext().setAuthentication(auth);
+//            repository.saveContext(SecurityContextHolder.getContext(), request, response);
+//
+//        }
+
         List<CategoryVO> categoryList = boardService.selectCategoryList();
         model.addAttribute("categoryList",categoryList);
         model.addAttribute(url);
+//        if(errorMessage!=null)
+//        model.addAttribute("errorMessage",errorMessage);
         return "loginForm";
+    }
+    @GetMapping("/{url}/myPage")
+    public String myPageForm(Model model, @PathVariable String url){
+        System.out.println("myPageForm");
+        List<CategoryVO> categoryList = boardService.selectCategoryList();
+        model.addAttribute("categoryList",categoryList);
+        model.addAttribute(url);
+        return "myPage";
     }
 //    @PostMapping("/{url}/logOut")
 //    public String logOut() {

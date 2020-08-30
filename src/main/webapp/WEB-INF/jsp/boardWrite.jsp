@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>--%>
 <%--<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>--%>
 <%--<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>--%>
@@ -13,6 +14,9 @@
 <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="<c:url value="/js/jquery-3.5.1.js"/>"></script>
 <jsp:include page="include/header.jsp"/>
+<sec:authorize access="isAuthenticated()">
+    <sec:authentication property="principal" var="user"/>
+</sec:authorize>
 <div class="container" style="width:70%">
     <form id="writeForm" name="writeForm" method="post" action="/${url}/write">
         <div class="row">
@@ -37,14 +41,15 @@
                 </script>
             </div>
         </div>
+
         <input type='hidden' id='hyId' name='hyId' value='${board.hyId}'/>
         <input type='hidden' id='categoryId' name='categoryId' value='${board.categoryId }'/>
         <hr/>
+        <input type="hidden" id="userId" name="userId" value="${user.username}"/>
         <div style="background-color: white; height: 50px">
-            작성자
-            <input type="text" id="userId" name="userId" value="${board.userId}"/>
+<%--            작성자--%>
+<%--            <input type="text" id="userId" name="userId" value="${board.userId}"/>--%>
             <input style="float: right" type="submit" class="btn btn-dark" id="check" value="글 등록"/>
-            <%--                    onclick="location.href='/{url}/write 젠장~~~--%>
         </div>
         <%--        <input type='hidden' id='seq' name='seq' value='${board.h_id }' />--%>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">

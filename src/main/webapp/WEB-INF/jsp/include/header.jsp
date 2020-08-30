@@ -44,7 +44,7 @@
                     <a style="color: white;" href="/${url}/logOut">로그아웃</a>
                 </div>
             </sec:authorize>
-            과연:<sec:authentication property="name"/>
+<%--            과연:<sec:authentication property="name"/>--%>
         </div>
     </div>
 </div>

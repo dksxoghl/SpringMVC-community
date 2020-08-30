@@ -2,6 +2,7 @@
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,6 +24,9 @@
 
 <body>
 <jsp:include page="include/header.jsp"/>
+<sec:authorize access="isAuthenticated()">
+    <sec:authentication property="principal" var="user"/>
+</sec:authorize>
 <div class="container" style="width:70%">
     <div class="row" style=" border-bottom: 3px inset  #bcbcbc; ">
         <div style="font-size: 1.4em; font-weight: bold; margin-left: 10px">●${board.hySubject }</div>
@@ -70,13 +74,15 @@
                 <input type='hidden' id='hyHit' name='hyHit' value='${board.hyHit }'/>
                 <input type='hidden' id='hyContent' name='hyContent' value='${board.hyContent }'/>
                 <input type='hidden' id='hyLike' name='hyLike' value='${board.hyLike }'/>
+                <c:if test="${user.username==board.userId}">
                 <input class="b_rud btn btn-dark" type="submit" value="글 수정" style="float: right;font-size:6px">
+                </c:if>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             </form>
-            <%--        <input type="button" value="글 수정" style="float: right;" onclick="location.href=--%>
-            <%--                '/${url}/writeForm?h_subject=${board.h_subject}&h_content=${board.h_content}&user_id=${board.user_id}&h_id=${board.h_id}&category_id=${board.category_id}'">--%>
+            <c:if test="${user.username==board.userId}">
             <input class="b_rud btn btn-dark" type="button" value="글 삭제" style="float: right;font-size: 6px"
                    onclick="location.href='/${url}/deleteForm/${board.hyId}'">
+            </c:if>
         </div>
     </div>
     <div id="reply">
@@ -202,7 +208,10 @@
         }
         $('.rep_page').html(str);
     }
-
+    window.onload = function(){
+        console.log( '${user.username}');
+    }
+    console.log( "${user.username}");
     $(document).ready(function () {     //dom생성시 reday메소드 실행,  모든요소(이미지등) 로드완료시는 window.load  ,ready 해당 셀렉터에이벤트를 직접바인딩 on은 이벤트를위임
         $(document).ajaxSend(function (e, xhr, options) {         //ajax통신에 csrf토큰포함
             xhr.setRequestHeader(header, token);
@@ -227,7 +236,7 @@
             console.log(reId);
             $.ajax({
                 type: "Delete",
-                url: "/reply/" + reId,
+                url: "/reply/delete/" + reId,
                 headers: {
                     "Content-type": "application/json",
                     "X-HTTP-Method-Override": "DELETE"
@@ -267,7 +276,7 @@
                 dataType: "text",
                 data: JSON.stringify({
                     hyId: ${board.hyId},
-                    userId: 'ㅌㅎ',
+                    userId: '${user.username}',
                     reContent: reContentVal,
                     reOrder: reOrder ,
                     reIndent:parseInt(reIndent)+1,
@@ -296,7 +305,7 @@
                 dataType: "text",
                 data: JSON.stringify({
                     hyId: ${board.hyId},
-                    userId: 'ㅌㅎ',
+                    userId: ${user.username},
                     reContent: reContentVal
                 }),
                 success: function (result) {

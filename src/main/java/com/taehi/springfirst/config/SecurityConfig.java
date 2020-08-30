@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @Configuration
 @AllArgsConstructor
@@ -33,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/resources/css/**", "/resources/js/**", "/resources/ckeditor/**", "/img/**");      //해당경로파일 스프링이 무시하도록
-        web.ignoring().mvcMatchers("/favicon.ico");
+//        web.ignoring().mvcMatchers("/favicon.ico");
 //        web.ignoring().requestMatchers(PathRequest.toStaticResources())
     }
 
@@ -41,14 +42,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 // 페이지 권한 설정
-                .antMatchers("/**/writeForm*","/**/deleteForm/*").hasRole("USER")
+                .antMatchers("/**/writeForm*","/**/deleteForm/*","/reply/delete/*","/reply/insert/*").hasRole("USER")
                 .antMatchers("/**").permitAll()
                 .and() // 로그인 설정
                 .formLogin()
                     .loginPage("/**/loginForm")
 //                .loginProcessingUrl("/loginForm")
                     .defaultSuccessUrl("/hy")
-                    .failureUrl("/**/loginForm?error=tre")
+                    .failureUrl("/**/loginForm?error=true")
+//                    .failureHandler(failureHandler())
                     .permitAll()
                  .and() // 로그아웃 설정
                 .logout()
@@ -56,12 +58,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                  .logoutSuccessUrl("/hy")
                  .invalidateHttpSession(true)
                  .and()
-                .headers();         //보안헤더활성화시 브라우저가 더이상페이지 캐시하지않음.
+                .headers()   //보안헤더활성화시 브라우저가 더이상페이지 캐시하지않음.
+                .and()
+                .rememberMe();
 
 //                .and().csrf().disable();
 
 //                .and()
 //                // 403 예외처리 핸들링  커스텀페이지필요
 //                .exceptionHandling().accessDeniedPage("/user/denied");
+    }
+    @Bean
+    public AuthenticationFailureHandler failureHandler(){
+        return new CustomAuthFailureHandler();
     }
 }
