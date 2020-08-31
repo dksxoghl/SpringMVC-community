@@ -47,8 +47,6 @@
         <hr/>
         <input type="hidden" id="userId" name="userId" value="${user.username}"/>
         <div style="background-color: white; height: 50px">
-<%--            작성자--%>
-<%--            <input type="text" id="userId" name="userId" value="${board.userId}"/>--%>
             <input style="float: right" type="submit" class="btn btn-dark" id="check" value="글 등록"/>
         </div>
         <%--        <input type='hidden' id='seq' name='seq' value='${board.h_id }' />--%>

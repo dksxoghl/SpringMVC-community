@@ -41,6 +41,7 @@ body {
     background-color: #537599;
     border: white;
     color: white;
+    margin-bottom: 1px;
 }
 .vsc-initialized {
     background-color: #E1E1E1;

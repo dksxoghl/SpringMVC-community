@@ -10,7 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor
@@ -77,6 +82,7 @@ public class BoardController {
         model.addAttribute("categoryList",categoryList);
 
         model.addAttribute("seeingNow",seq); //현재보고있는글표시
+        model.addAttribute("detail","detail"); //글보기페이지 댓글네비게이션때문
         return "boardDetail";
     }
     public PagingVO createPaging(String nowPage, String cntPerPage,String url){
@@ -105,6 +111,29 @@ public class BoardController {
         List<BoardVO> list = boardService.selectBoardList(vo,url);
 
         model.addAttribute("list", list);
+
+        Date date=new Date();
+        DateFormat sfday = new SimpleDateFormat("YYYY-MM-dd");
+        DateFormat sfmin = new SimpleDateFormat("HH:mm");
+        List<String> li= list.stream().map(BoardVO::getHyCreatedDate).map(l-> {
+            if (l.toString().substring(0, 10).equals(sfday.format(date))) {
+                    return sfmin.format(l);
+            } else {
+                    return sfday.format(l).substring(5,10);
+            }
+        }).collect(Collectors.toList());
+//        li.stream().forEach(l-> System.out.println(l));
+        model.addAttribute("date",li);
+//       List<Date> li= list.stream().map(l->{
+//
+//                if (l.getHyCreatedDate().toString().substring(0, 10).equals(sfday.format(date))) {
+//                  return  l.setHyCreatedDate(new Date(sfday.format(l.getHyCreatedDate())));
+//                } else {
+//                   return  l.setHyCreatedDate(new Date(sfmin.format(l.getHyCreatedDate())));
+//                }
+//
+////            return date;
+//        }).collect(Collectors.toList());
         List<CategoryVO> categoryList = boardService.selectCategoryList();
         model.addAttribute("categoryList",categoryList);
 

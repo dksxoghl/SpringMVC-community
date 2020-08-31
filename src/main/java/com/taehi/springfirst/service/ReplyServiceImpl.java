@@ -61,8 +61,11 @@ public class ReplyServiceImpl implements ReplyService {
     @Override
     public void deleteReply(int reId) {
         Optional<Integer> reNo = replyDAO.idFromParent(reId);
-        if(reNo.isPresent()) replyDAO.updateDelete(reId);
-        else replyDAO.deleteReply(reId);
+        if(reNo.isPresent()) {
+            replyDAO.updateDelete(reId);
+        } else {
+            replyDAO.deleteReply(reId);
+        }
     }
 
     @Override

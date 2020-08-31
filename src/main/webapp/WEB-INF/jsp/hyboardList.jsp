@@ -22,6 +22,7 @@
 </head>
 
 <body>
+${li}
 <div class="container" style="width:70%">
     <div class="row">
         <table class="table">
@@ -44,7 +45,7 @@
                 <td style="width:9%;"><c:out value="0"/></td>
                 <td style="width:8%;"><c:out value="0"/></td>
             </tr>
-            <c:forEach items="${list}" var="list" varStatus="status">
+            <c:forEach items="${list}" var="list"   varStatus="status">
                 <tr class="board-list">
                     <c:choose>
                         <c:when test="${seeingNow==list.hyId}">
@@ -64,22 +65,19 @@
                         </span>
                     </td>
                     <td style="width:8%;"><c:out value="${list.userId}"/></td>
-                    <jsp:useBean id="toDay" class="java.util.Date" />
-                    <fmt:formatDate value='${toDay}' pattern='YYYY-MM-dd' var="nowDate"/>
-<%--                    <c:set var="sysdate" value="<%= sf.format(nowTime)%>" scope="session"/>--%>
-                    <c:set var="sysdate" value="${nowDate}" scope="session"/>
-                    <c:set var="hyCreatedDate" value="${list.hyCreatedDate}" scope="session"/>
-                    <c:choose>
-                        <c:when test="${sysdate==fn:substring(hyCreatedDate,0,10)}">
-                            <td style="width:8%;"><fmt:formatDate value="${list.hyCreatedDate}"
-                                                                  pattern="HH:mm"/></td>
-                        </c:when>
-                        <c:otherwise>
-                            <td style="width:8%;"><fmt:formatDate value="${list.hyCreatedDate}"
-                                                                  pattern="MM-dd"/></td>
-                        </c:otherwise>
-                    </c:choose>
-                        <%--                    <td><c:out value="${list.h_created }"/></td>--%>
+<%--                    <jsp:useBean id="toDay" class="java.util.Date" />--%>
+<%--                    <fmt:formatDate value='${toDay}' pattern='YYYY-MM-dd' var="nowDate"/>--%>
+<%--                    <c:choose>--%>
+<%--                        <c:when test="${nowDate==fn:substring(list.hyCreatedDate,0,10)}">--%>
+<%--                            <td style="width:8%;"><fmt:formatDate value="${list.hyCreatedDate}"--%>
+<%--                                                                  pattern="HH:mm"/></td>--%>
+<%--                        </c:when>--%>
+<%--                        <c:otherwise>--%>
+<%--                            <td style="width:8%;"><fmt:formatDate value="${list.hyCreatedDate}"--%>
+<%--                                                                  pattern="MM-dd"/></td>--%>
+<%--                        </c:otherwise>--%>
+<%--                    </c:choose>--%>
+                                            <td style="width:8%;"><c:out value="${date[status.index]}"/></td>
                     <td style="width:9%;"><c:out value="${list.hyHit }"/></td>
                     <td style="width:8%;"><c:out value="${list.hyLike }"/></td>
                 </tr>
