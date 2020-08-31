@@ -40,9 +40,11 @@ function getReply(hyId, nowpage,cur_edit) {         //세번째 가변인자로 
                 "<button class='re_b btn-dark'>신고</button>";
             if(username===this.userId)
                 str += "<button class='re_b' id='re_del' style='border:0;outline: 0'>x</button>";
-            str+= "<button class='re_b' id='re_reply' style='border-color:#ccc'>" +
-                "<img width='9px' height='9px' src='/resources/img/right-arrow.png'></button>" +
-                "</div></div>" +
+            if(this.reIndent<4) {
+                str += "<button class='re_b' id='re_reply' style='border-color:#ccc'>"+
+                "<img width='9px' height='9px' src='/resources/img/right-arrow.png'></button>";
+            }
+                str+="</div></div>" +
                 "<div style='margin-top:10px; margin-left:"+this.reIndent*25+"px; color:"+deleteColor+"'>" + this.reContent + "</div>" +
                 "<div id=\"rerep_edit\">";
             if(this.reId==cur_edit) {
@@ -106,7 +108,7 @@ $(document).ready(function () {     //dom생성시 reday메소드 실행,  모�
         console.log(reId);
         $.ajax({
             type: "Delete",
-            url: "/reply/delete/" + reId,
+            url: "/reply/" + reId,
             headers: {
                 "Content-type": "application/json",
                 "X-HTTP-Method-Override": "DELETE"
@@ -132,13 +134,9 @@ $(document).ready(function () {     //dom생성시 reday메소드 실행,  모�
         let reOrder=$(this).attr("data-order");
         let reGroup=$(this).attr("data-reGroup");
         let reId = $(this).parent().parent().parent().children().attr("data-replyNo");
-        console.log(parseInt(reIndent)+1,reGroup);
-        if(parseInt(reIndent)>5){
-            alert('대댓은 5번까지');
-        }else{
             $.ajax({
                 type: "post",
-                url: "/reply/insert/"+reGroup,
+                url: "/reply",
                 headers: {
                     "Content-type": "application/json",
                     "X-HTTP-Method-Override": "POST",
@@ -149,6 +147,7 @@ $(document).ready(function () {     //dom생성시 reday메소드 실행,  모�
                     userId: username,
                     reContent: reContentVal,
                     reOrder: reOrder ,
+                    reGroup: reGroup,
                     reIndent:parseInt(reIndent)+1,
                     reParent: reId
                 }),
@@ -160,14 +159,13 @@ $(document).ready(function () {     //dom생성시 reday메소드 실행,  모�
                     reContent.val(""); // 댓글 내용 초기화
                 }
             });
-        }
     });
     $(document).on("click", "#re_insert", function () {
         let reContent = $("#re_content");
         let reContentVal = reContent.val();
         $.ajax({
             type: "post",
-            url: "/reply/insert/0",
+            url: "/reply",
             headers: {
                 "Content-type": "application/json",
                 "X-HTTP-Method-Override": "POST"
@@ -176,7 +174,8 @@ $(document).ready(function () {     //dom생성시 reday메소드 실행,  모�
             data: JSON.stringify({
                 hyId: boardHyId,
                 userId: username,
-                reContent: reContentVal
+                reContent: reContentVal,
+                reGroup: 0
             }),
             success: function (result) {
                 if (result == "regSuccess") {

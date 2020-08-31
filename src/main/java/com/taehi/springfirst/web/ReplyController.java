@@ -52,12 +52,12 @@ public class ReplyController {
         }
         return entity;
     }
-    @PostMapping(value = "/insert/{groupId}")
-    public ResponseEntity<String> insertReply(@RequestBody ReplyVO replyVO, @PathVariable String groupId) {
-        System.out.println("insertReply"+groupId);
+    @PostMapping
+    public ResponseEntity<String> insertReply(@RequestBody ReplyVO replyVO) {
+        System.out.println("insertReply");
         ResponseEntity<String> entity = null;
         try {
-            replyService.insertReply(replyVO,groupId);
+            replyService.insertReply(replyVO);
             entity = new ResponseEntity<>("regSuccess", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,7 +65,7 @@ public class ReplyController {
         }
         return entity;
     }
-    @DeleteMapping(value = "/delete/{reId}")
+    @DeleteMapping(value = "/{reId}")
     public ResponseEntity<String> deleteReply(@PathVariable int reId){
         ResponseEntity<String> entity=null;
         try{

@@ -23,9 +23,9 @@
                 </div>
                 <input type="submit" class="btn" style="width: 100%; background-color:#537599;color: white" value="로그인" >
                 <div class="form-group form-check col-6" style="margin-top: 20px">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1"
+                    <input type="checkbox" class="form-check-input" id="remem-check"
                            name="remember-me"> <%--RememberMe 파라메터 기본값이 remember-me--%>
-                    <label class="form-check-label" for="exampleCheck1" style="font-size: 15px;text-align: center">로그인
+                    <label class="form-check-label" for="remem-check" style="font-size: 15px;text-align: center">로그인
                         유지</label>
                 </div>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">

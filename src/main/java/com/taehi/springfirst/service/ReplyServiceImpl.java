@@ -27,8 +27,9 @@ public class ReplyServiceImpl implements ReplyService {
     //부모인애들중 제일아래있는애 찾고 그 넘버가 부모인 넘버또찾고(반복) 찾으면 그애의 오더+1 후 같은그룹의 오더 쭉 업데이트 후 인서트. 트랜잭션처리
     @Override
     @Transactional
-    public int insertReply(ReplyVO replyVO, String groupId) {
-        if (groupId.equals("0")) return replyDAO.insertReply(replyVO);
+    public int insertReply(ReplyVO replyVO) {
+        int groupId= replyVO.getReGroup();
+        if (groupId==0) return replyDAO.insertReply(replyVO);
         else {
             int pId = replyVO.getReParent();
             int count = 1;
@@ -49,11 +50,11 @@ public class ReplyServiceImpl implements ReplyService {
             }
             System.out.println(reOrder + "그애의 오더 플러스1전 ");
             replyVO.setReOrder(++reOrder);
-            replyDAO.updateOrder(Integer.parseInt(groupId), reOrder);
+            replyDAO.updateOrder(groupId, reOrder);
             //Optional에 값이 없으면 orElse()의 인자로서 실행된 값이 반환되므로 실행한 의미가 있지만, Optional에 값이 있으면 orElse()의 인자로서 실행된 값이 무시되고 버려진다.
             // System.out.println(replyDAO.idFromParent(replyVO.getReParent()).orElse(replyDAO.insertReReply(replyVO,Integer.parseInt(groupId))));
 
-            return replyDAO.insertReReply(replyVO, Integer.parseInt(groupId));
+            return replyDAO.insertReReply(replyVO, groupId);
         }
     }
 
