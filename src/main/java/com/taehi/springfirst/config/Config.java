@@ -51,8 +51,8 @@ public class Config implements WebMvcConfigurer {
     public DataSource dataSource() {
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setUsername("postgres");
-//        dataSource.setPassword("1q2w3e4r5t");
-        dataSource.setPassword("password");
+        dataSource.setPassword("1q2w3e4r5t");
+//        dataSource.setPassword("password");
         dataSource.setJdbcUrl("jdbc:postgresql://localhost:5432/postgres");
         dataSource.setMinimumIdle(2);
         dataSource.setMaximumPoolSize(5);

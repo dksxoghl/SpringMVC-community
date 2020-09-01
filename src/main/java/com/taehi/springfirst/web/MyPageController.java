@@ -21,7 +21,7 @@ public class MyPageController {
         List<CategoryVO> categoryList = boardService.selectCategoryList();
         model.addAttribute("categoryList",categoryList);
         model.addAttribute(url);
-        model.addAttribute("myPage","myPage");  //헤더 소개없애기위해
+        model.addAttribute("deleteNav","deleteNav");  // 헤더 소개없애기위해
         return "myPage";
     }
 }

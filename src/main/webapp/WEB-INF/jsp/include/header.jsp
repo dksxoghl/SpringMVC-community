@@ -9,22 +9,39 @@
     <%--    <link rel="stylesheet" href="/resources/css/main.css" type="text/css">--%>
     <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css" type="text/css">
+    <script type="text/javascript" src="<c:url value="/js/jquery-3.5.1.js"/>"></script>
     <script src="https://kit.fontawesome.com/c3f6082297.js" crossorigin="anonymous"></script>
     <title>해연갤</title>
 </head>
 <body>
+<sec:authorize access="isAuthenticated()">
+    <sec:authentication property="principal" var="user"/>
+</sec:authorize>
+<c:forEach var="list" items="${categoryList}">
+    <c:if test="${list.categoryUrl eq url}">
+        <style type="text/css">
+            .fab-btn {
+                background-color: ${list.categoryColor};
+                border: white;
+                color: white;
+                margin-bottom: 1px;
+            }
+        </style>
+    </c:if>
+</c:forEach>
+<input type="hidden" id="user" value='<c:out value="${user.username}"/>'>
 <div class="fab">
-    <%--    <button type="button" class="btn btn-primary">▲</button>--%>
     <a href="#">
         <button class="fab-btn">▲</button>
     </a>
-        <c:if test="${detail !=null}">
-    <a href="#rep_refresh">
-        <button class="fab-btn " style="width: 27.84px">
-        <i class="far fa-comment"></i>
-        </button></a>
-        </c:if>
-    <a href="/${url}/writeForm">
+    <c:if test="${detail !=null}">
+        <a href="#rep_refresh">
+            <button class="fab-btn " style="width: 27.84px">
+                <i class="far fa-comment"></i>
+            </button>
+        </a>
+    </c:if>
+    <a href="/${url}/writeForm" id="writeForm">
         <button class="fab-btn " style="width: 27.84px">
             <%--                <img &lt;%&ndash;width='10px' height='10px'&ndash;%&gt; src='/resources/img/pen-solid.svg'>--%>
             <i class="fas fa-pen"></i>
@@ -34,7 +51,11 @@
         <button class="fab-btn">▼</button>
     </a>
 </div>
-<div class="container" id="header" style="background-color: #537599;width:70%">
+<c:forEach var="list" items="${categoryList}">
+<c:if test="${list.categoryUrl eq url}">
+<div class="container" id="header" style="width:70%; background-color: ${list.categoryColor}">
+    </c:if>
+    </c:forEach>
     <div class="head">
         <div class="row justify-content-between" style=" margin-left: 10px; text-align: center;">
             <c:forEach var="list" items="${categoryList}">
@@ -42,12 +63,12 @@
                                                               href="/${list.categoryUrl}">${list.categoryName}</a>
                 </div>
             </c:forEach>
-            <%--            <div class="col-md-auto">--%>
-            <%--            </div>--%>
             <div class="col col-lg-1 offset-md-1"><a style="color: white;" href="#">문의</a></div>
             <sec:authorize access="isAnonymous()">
-                <div class="col col-lg-1 align-self-end"><a style="color: white;" href="/${url}/joinForm">회원가입</a></div>
-                <div class="col col-lg-1 align-self-end"><a style="color: white;" href="/${url}/loginForm">로그인</a></div>
+                <div class="col col-lg-1 align-self-end"><a style="color: white;" href="/joinForm?url=${url}">회원가입</a>
+                </div>
+                <div class="col col-lg-1 align-self-end"><a style="color: white;" href="/loginForm?url=${url}">로그인</a>
+                </div>
             </sec:authorize>
             <sec:authorize access="isAuthenticated()">
                 <div class="col col-lg-1 align-self-end"><a style="color: white;" href="/${url}/myPage">My</a></div>
@@ -59,12 +80,11 @@
                     <a style="color: white;" href="/${url}/logOut">로그아웃</a>
                 </div>
             </sec:authorize>
-            <%--            과연:<sec:authentication property="name"/>--%>
         </div>
     </div>
 </div>
 <div class="container" style="background-color: white; width:70%;  height: 10%;">
-    <c:if test="${myPage==null}">
+    <c:if test="${deleteNav==null}">
         <c:forEach var="list" items="${categoryList}">
             <c:if test="${list.categoryUrl eq url}">
                 <h3 style="padding-top: 10px;margin:0px"><a style="color: #868686"
@@ -73,5 +93,6 @@
         </c:forEach>
     </c:if>
 </div>
+<script type="text/javascript" src="<c:url value="/js/userCheck.js"/>"></script>
 </body>
 </html>

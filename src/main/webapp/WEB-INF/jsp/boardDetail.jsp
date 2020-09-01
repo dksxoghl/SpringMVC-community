@@ -59,7 +59,8 @@
             <button type="button" class="btn btn-outline-secondary">북마크</button>
         </div>
         <div class="col-md-3 offset-md-2">
-            <button type="button" class="btn btn-outline-secondary">추천 ${board.hyLike}</button>
+            <button type="button" id="like-up" class="btn btn-outline-secondary"><img width='13px' height='13px' src='/resources/img/thumbs-up-regular.svg'>&nbsp추천 <span style="color: orangered">0</span></button>
+            <button type="button" id="like-already" class="btn btn-outline-secondary"><img width='13px' height='13px' src='/resources/img/thumbs-up-solid.svg'>&nbsp추천 <span style="color: orangered">1</span></button>
         </div>
         <div class="col-md-2 offset-md-2">
             <button type="button" class="btn btn-outline-secondary">신고</button>
@@ -127,6 +128,8 @@
         <div id="rep_refresh" style="width: 99%;height:38px; border:1px inset #F6F6F6;margin-top: 3px">
             <button style="float: right;" class="btn-dark" id="refresh">댓로고침</button>
         </div>
+        <div id="rep_ban" style= "height:180px;">
+            <textarea style="width: 99%; height: 80px" readonly="readonly">로그인이 필요한 서비스입니다.</textarea></div>
         <div id="rep_edit" style=" height:180px">
             <textarea id="re_content" style="width: 99%; height: 80px"></textarea>
             <div>

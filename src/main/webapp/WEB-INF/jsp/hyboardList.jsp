@@ -22,18 +22,13 @@
 </head>
 
 <body>
-${li}
+<sec:authorize access="isAuthenticated()">
+    <sec:authentication property="principal" var="user"/>
+</sec:authorize>
+<input type="hidden"  id="userDouble"  value='<c:out value="${user.username}"/>'>
 <div class="container" style="width:70%">
     <div class="row">
         <table class="table">
-            <%--            <tr>--%>
-            <%--                <th style="background-color: #eeeeee; text-align: center;">번호</th>--%>
-            <%--                <th style="background-color: #eeeeee; text-align: center;">제목</th>--%>
-            <%--                <th style="background-color: #eeeeee; text-align: center;">작성자</th>--%>
-            <%--                <th style="background-color: #eeeeee; text-align: center;">작성일</th>--%>
-            <%--                <th style="background-color: #eeeeee; text-align: center;">조회수</th>--%>
-            <%--                <th style="background-color: #eeeeee; text-align: center;">좋아요</th>--%>
-            <%--            </tr>--%>
             <tbody>
             <tr class="board-notice">
                 <td style="width:9%; ">notice</td>
@@ -105,9 +100,10 @@ ${li}
         </c:if>
     </div>
     <div style="background-color: white; height: 50px">
-        <input class="btn btn-dark" style="float: right" type="button" value="글쓰기"
-               onclick="location.href='/${url}/writeForm'">
+        <a class="btn btn-dark" style="float: right"<%-- type="submit" value="글쓰기"--%>
+                id="writeForm2"  <%--onclick="location.href='/${url}/writeForm'--%>href="/${url}/writeForm"">글쓰기</a>  <%--버튼,input은왜? 리다이렉트되지..--%>
     </div>
 </div>
+<script type="text/javascript" src="<c:url value="/js/userCheck2.js"/>"></script>
 </body>
 </html>

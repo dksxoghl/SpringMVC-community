@@ -27,18 +27,18 @@ public class MemberController {
     private MemberService memberService;
     private BoardService boardService;
 
-    @GetMapping("/{url}/joinForm")
-    public String joinForm(Model model,@PathVariable String url){
+    @GetMapping("/joinForm")
+    public String joinForm(Model model,@RequestParam(required = false,value = "url") String url){
         System.out.println("joinForm");
         List<CategoryVO> categoryList = boardService.selectCategoryList();
         model.addAttribute("categoryList",categoryList);
-        model.addAttribute(url);
+        model.addAttribute("url",url);
+        model.addAttribute("deleteNav","deleteNav");  // 헤더 소개없애기위해
         return "joinForm";
     }
-    @RequestMapping("/{url}/loginForm")     //get post 둘다받기위함. 실패할때 post그대로 주게됨
-    public String loginForm(Model model,@PathVariable String url,@RequestParam(required = false,value = "error") boolean error){
-        System.out.println("loginForm"+error);
-
+    @RequestMapping("/loginForm")     //get post 둘다받기위함. 실패할때 post그대로 주게됨
+    public String loginForm(Model model,@RequestParam(required = false,value = "url") String url,@RequestParam(required = false,value = "error") boolean error){
+        System.out.println("loginForm"+error+url);
 //        if(error){
 //        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
 //                username, password);
@@ -48,10 +48,10 @@ public class MemberController {
 //            repository.saveContext(SecurityContextHolder.getContext(), request, response);
 //
 //        }
-
         List<CategoryVO> categoryList = boardService.selectCategoryList();
         model.addAttribute("categoryList",categoryList);
-        model.addAttribute(url);
+        model.addAttribute("deleteNav","deleteNav");  // 헤더 소개없애기위해
+        model.addAttribute("url",url);
 //        if(errorMessage!=null)
 //        model.addAttribute("errorMessage",errorMessage);
         return "loginForm";

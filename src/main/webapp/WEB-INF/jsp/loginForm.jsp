@@ -7,21 +7,22 @@
     <meta name="viewport" content="width=device-width" initial-scale="1">
     <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css" type="text/css">
+    <script type="text/javascript" src="<c:url value="/js/jquery-3.5.1.js"/>"></script>
     <title>해연갤</title>
 </head>
 <body>
 <jsp:include page="include/header.jsp"/>
-<div class="container" style=" background-color:white;padding-bottom: 50px">
+<div class="container" style=" background-color:white;padding-bottom: 50px;padding-top: 20px">
     <div class="card" style="width: 30%; text-align: center;margin:auto;">
         <div class="card-body">
-            <form method="post" action="/${url}/loginForm">
+            <form method="post" action="/loginForm">
                 <div class="form-group">
                     <input type="text" placeholder="아이디" class="form-control" name="username" id="username">
                 </div>
                 <div class="form-group">
                     <input type="password"  placeholder="비밀번호" class="form-control" id="password" name="password">
                 </div>
-                <input type="submit" class="btn" style="width: 100%; background-color:#537599;color: white" value="로그인" >
+                <input type="submit" id="loginForm" class="btn" style="width: 100%; background-color:#537599;color: white" value="로그인" >
                 <div class="form-group form-check col-6" style="margin-top: 20px">
                     <input type="checkbox" class="form-check-input" id="remem-check"
                            name="remember-me"> <%--RememberMe 파라메터 기본값이 remember-me--%>
@@ -49,6 +50,6 @@
 
 </div>
 <jsp:include page="include/footer.jsp"/>
-
+<script type="text/javascript" src="<c:url value="/js/validation.js"/>"></script>
 </body>
 </html>
