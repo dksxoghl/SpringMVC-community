@@ -15,9 +15,11 @@ import java.util.List;
 @Repository
 public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {
     final String SELECT_ALL_SQL=
-            "select Hboard_TB.hy_id,(ROW_NUMBER() OVER(order by Hboard_TB.hy_id)) " +
-                    "AS hy_no,category_id,hy_subject,hy_content,hy_created_date,user_id,hy_hit,hy_like,hy_url,file_name,hy_img,rep" +
-                    " from Hboard_TB left outer join (select count(*) as rep, hy_id from reply_tb group by hy_id) B on Hboard_TB.hy_id= B.hy_id" +
+            "select Hboard_TB.hy_id,(ROW_NUMBER() OVER(order by Hboard_TB.hy_id)) AS hy_no,Hboard_TB.*,rep, hy_like" +
+                    " from Hboard_TB left outer join (select count(*) as rep, hy_id from reply_tb group by hy_id) B " +
+                    "on Hboard_TB.hy_id= B.hy_id" +
+                    " left outer join (select count(*) as hy_like,hy_id from like_tb group by hy_id) C \n" +
+                    "on Hboard_TB.hy_id= C.hy_id "+
                     " where category_id=(select category_id from category_tb where category_url=?) " +
                     "order by Hboard_TB.hy_id desc limit ? offset (? - 1) * ?";
 //            "select (ROW_NUMBER() OVER(order by h_id)) AS h_no\n" +

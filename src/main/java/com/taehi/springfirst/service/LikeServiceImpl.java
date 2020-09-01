@@ -13,7 +13,7 @@ public class LikeServiceImpl implements LikeService{
 
     @Override
     public int insertLike(LikeVO likeVO) {
-        return 0;
+        return likeDAO.insertLike(likeVO);
     }
 
     @Override

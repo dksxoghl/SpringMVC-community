@@ -14,7 +14,9 @@ if (!username) {
     $('#rep_edit').show();
     $('#rep_ban').hide();
 }
-getLike();
+if(username){
+    getLike();
+}
 
 function getLike() {
     $.getJSON("/like/" + username + "/" + boardHyId, function (data) {
@@ -65,7 +67,7 @@ function getReply(hyId, nowpage, cur_edit) {         //세번째 가변인자로
             str += "<span>(" + new Date(this.reRegdate).toString().substr(16, 8) + ")</span></div>";
             // str+= "<span>(" + this.reRegdate.substr(11, 8) + ")</span></div>" +
             if (username) {
-                "<div class='col-2'>" +
+                str+="<div class='col-2'>" +
                 "<button class='re_b btn-dark'>신고</button>";
                 if (username === this.userId)
                     str += "<button class='re_b' id='re_del' style='border:0;outline: 0'>x</button>";
@@ -220,24 +222,32 @@ $(document).ready(function () {     //dom생성시 reday메소드 실행,  모�
         });
     });
     //  post 삽입,  자원의 부분교체 >patch
-    $(document).on("click", "#like-up", function () {
-
-        $.ajax({
-            type: "POST",
-            url: "/like",
-            headers: {
-                "Content-type": "application/json",
-                "X-HTTP-Method-Override": "POST"
-            },
-            dataType: "text",
-            data: JSON.stringify({
-                hyId: boardHyId,
-                userId: username,
-            }),
-            success: function (result) {
-                likeUp.hide();
-                likeAlready.show();
-            }
-        });
+    $(document).on("click", "#like-up", function (e) {
+        if(!username){
+            alert('로그인이 필요한 서비스입니다.');
+            e.preventDefault();
+        }else {
+            $.ajax({
+                type: "POST",
+                url: "/like",
+                headers: {
+                    "Content-type": "application/json",
+                    "X-HTTP-Method-Override": "POST"
+                },
+                dataType: "text",
+                data: JSON.stringify({
+                    hyId: boardHyId,
+                    userId: username,
+                }),
+                success: function (result) {
+                    likeUp.hide();
+                    likeAlready.show();
+                }
+            });
+        }
+    });
+    $(document).on("click", "#like-already", function (e) {
+            alert('이미 추천을 하였습니다.');
+            e.preventDefault();
     });
 });

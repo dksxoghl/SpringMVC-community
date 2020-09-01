@@ -29,9 +29,10 @@ public class LikeController {
     }
     @PostMapping
     public ResponseEntity<String> insertLike(@RequestBody LikeVO likeVO) {
-        System.out.println("insertLike");
+        System.out.println("insertLike"+likeVO.getUserId());
         ResponseEntity<String> entity = null;
         try {
+            likeService.insertLike(likeVO);
             entity = new ResponseEntity<>("regSuccess", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

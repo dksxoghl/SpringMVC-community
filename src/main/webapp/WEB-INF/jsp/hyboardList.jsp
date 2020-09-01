@@ -25,7 +25,7 @@
 <sec:authorize access="isAuthenticated()">
     <sec:authentication property="principal" var="user"/>
 </sec:authorize>
-<input type="hidden"  id="userDouble"  value='<c:out value="${user.username}"/>'>
+<input type="hidden" id="userDouble" value='<c:out value="${user.username}"/>'> <%--헤더와충돌?글쓰기체크--%>
 <div class="container" style="width:70%">
     <div class="row">
         <table class="table">
@@ -40,7 +40,7 @@
                 <td style="width:9%;"><c:out value="0"/></td>
                 <td style="width:8%;"><c:out value="0"/></td>
             </tr>
-            <c:forEach items="${list}" var="list"   varStatus="status">
+            <c:forEach items="${list}" var="list" varStatus="status">
                 <tr class="board-list">
                     <c:choose>
                         <c:when test="${seeingNow==list.hyId}">
@@ -60,19 +60,19 @@
                         </span>
                     </td>
                     <td style="width:8%;"><c:out value="${list.userId}"/></td>
-<%--                    <jsp:useBean id="toDay" class="java.util.Date" />--%>
-<%--                    <fmt:formatDate value='${toDay}' pattern='YYYY-MM-dd' var="nowDate"/>--%>
-<%--                    <c:choose>--%>
-<%--                        <c:when test="${nowDate==fn:substring(list.hyCreatedDate,0,10)}">--%>
-<%--                            <td style="width:8%;"><fmt:formatDate value="${list.hyCreatedDate}"--%>
-<%--                                                                  pattern="HH:mm"/></td>--%>
-<%--                        </c:when>--%>
-<%--                        <c:otherwise>--%>
-<%--                            <td style="width:8%;"><fmt:formatDate value="${list.hyCreatedDate}"--%>
-<%--                                                                  pattern="MM-dd"/></td>--%>
-<%--                        </c:otherwise>--%>
-<%--                    </c:choose>--%>
-                                            <td style="width:8%;"><c:out value="${date[status.index]}"/></td>
+                        <%--                    <jsp:useBean id="toDay" class="java.util.Date" />--%>
+                        <%--                    <fmt:formatDate value='${toDay}' pattern='YYYY-MM-dd' var="nowDate"/>--%>
+                        <%--                    <c:choose>--%>
+                        <%--                        <c:when test="${nowDate==fn:substring(list.hyCreatedDate,0,10)}">--%>
+                        <%--                            <td style="width:8%;"><fmt:formatDate value="${list.hyCreatedDate}"--%>
+                        <%--                                                                  pattern="HH:mm"/></td>--%>
+                        <%--                        </c:when>--%>
+                        <%--                        <c:otherwise>--%>
+                        <%--                            <td style="width:8%;"><fmt:formatDate value="${list.hyCreatedDate}"--%>
+                        <%--                                                                  pattern="MM-dd"/></td>--%>
+                        <%--                        </c:otherwise>--%>
+                        <%--                    </c:choose>--%>
+                    <td style="width:8%;"><c:out value="${date[status.index]}"/></td>
                     <td style="width:9%;"><c:out value="${list.hyHit }"/></td>
                     <td style="width:8%;"><c:out value="${list.hyLike }"/></td>
                 </tr>
@@ -101,7 +101,8 @@
     </div>
     <div style="background-color: white; height: 50px">
         <a class="btn btn-dark" style="float: right"<%-- type="submit" value="글쓰기"--%>
-                id="writeForm2"  <%--onclick="location.href='/${url}/writeForm'--%>href="/${url}/writeForm"">글쓰기</a>  <%--버튼,input은왜? 리다이렉트되지..--%>
+           id="writeForm2"
+           <%--onclick="location.href='/${url}/writeForm'--%>href="/${url}/writeForm"">글쓰기</a>  <%--버튼,input은왜? 리다이렉트되지..--%>
     </div>
 </div>
 <script type="text/javascript" src="<c:url value="/js/userCheck2.js"/>"></script>
