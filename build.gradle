@@ -23,10 +23,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation 'org.springframework.boot:spring-boot-starter-test'
     implementation "javax.servlet:jstl:1.2"
     implementation "org.apache.tomcat.embed:tomcat-embed-jasper"  // 부트 jsp뷰 지원안해줌. Thymeleaf 등 다른템플릿엔진 추천중.
-
-
+    implementation 'org.springframework.boot:spring-boot-devtools:2.3.2.RELEASE'        //라이브로더위해
+    implementation 'org.springframework.boot:spring-boot-starter-security';
+    compile group: 'org.springframework.security', name: 'spring-security-taglibs', version: '5.3.3.RELEASE'
 
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.postgresql:postgresql'
