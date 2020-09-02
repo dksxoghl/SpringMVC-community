@@ -7,7 +7,7 @@ $(document).ready(function () {
             alert('로그인이 필요합니다.');
             e.preventDefault();
         }
-        else if(url==='nt' && user!=='admin'){
+        else if(url==='nt' && user!=='admin'){     //공지게시글일때 admin아니면
             alert('권한이 없습니다.');
             e.preventDefault();
         }

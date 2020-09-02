@@ -40,7 +40,7 @@ public class ReplyDAOImpl extends JdbcDaoSupport implements ReplyDAO {
     }
     @Override
     public int insertReReply(ReplyVO replyVO,int groupId) {
-        System.out.println("서브인서트");
+        System.out.println("대댓글인서트");
         return getJdbcTemplate().update(INSERT_SQL_RE,replyVO.getHyId(),replyVO.getUserId(),replyVO.getReContent(),groupId,replyVO.getReOrder(),replyVO.getReIndent(),replyVO.getReParent());
     }
     @Override
