@@ -66,6 +66,7 @@
                 </div>
                 </c:if>
             </c:forEach>
+            <c:if test="${url!='nt'}">
             <div class="col col-lg-1 align-self-start dropdown">
                 <a style="color: white;" href="/${url}?best=1" id="dropdownMenuLink" <%--data-toggle="dropdown"--%> aria-haspopup="true" aria-expanded="false">
                 개념글</a>
@@ -78,6 +79,7 @@
                     <a class="dropdown-item" href="/${url}?best=3">3</a>
                 </div>
             </div>
+            </c:if>
             <c:forEach var="list" items="${categoryList}">
                 <c:if test="${list.categoryUrl ne url}">
                 <div class="col col-lg-1 align-self-start"><a style="color: white;" href="/${list.categoryUrl}">

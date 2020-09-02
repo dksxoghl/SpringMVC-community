@@ -48,6 +48,7 @@ public class MemberController {
 //            repository.saveContext(SecurityContextHolder.getContext(), request, response);
 //
 //        }
+        if(url==null) url="hy";
         List<CategoryVO> categoryList = boardService.selectCategoryList();
         model.addAttribute("categoryList",categoryList);
         model.addAttribute("deleteNav","deleteNav");  // 헤더 소개없애기위해

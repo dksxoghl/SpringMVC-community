@@ -50,11 +50,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 // 페이지 권한 설정
                 .antMatchers("/**/writeForm*","/**/deleteForm/*","/reply/*","/reply*").hasAnyRole("USER","ADMIN")
+                .antMatchers("/**/myPage*").hasRole("USER")
                 .antMatchers("/**").permitAll()
                 .and() // 로그인 설정
                 .formLogin()
                     .loginPage("/loginForm")
-//                .loginProcessingUrl("/loginForm")
+//                    .loginProcessingUrl("/loginForm")
                     .defaultSuccessUrl("/hy")
                     .failureUrl("/loginForm?error=true&url=hy")
 //                    .failureHandler(failureHandler())
