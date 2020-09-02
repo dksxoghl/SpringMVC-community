@@ -110,16 +110,14 @@
     <c:if test="${deleteNav==null}">
         <c:forEach var="list" items="${categoryList}">
             <c:if test="${list.categoryUrl eq url}">
-             <h3 style="padding-top: 10px;margin-left:1%"><a style="color: #868686;font-weight: bold; "
-                                                            href="/${list.categoryUrl}">${list.categoryName}</a></h3>
+             <h3 style="padding-top: 10px;margin-left:1%"><a style="color: #868686;font-weight: bold; " href="/${list.categoryUrl}">${list.categoryName}</a></h3>
                 <c:if test="${best!=0}">
-                  <h5 style="padding-top: 10px;margin-left:1%;margin-top:6px; "><a style="color: ${list.categoryColor};font-weight: bold;  "
-                                                            href="/${list.categoryUrl}?best=${best}">개념글</a></h5>
+                  <h5 style="padding-top: 10px;margin-left:1%;margin-top:6px; "><a style="color: ${list.categoryColor};font-weight: bold;  " href="/${list.categoryUrl}?best=${best}">개념글</a></h5>
                 </c:if>
-
             </c:if>
         </c:forEach>
     </c:if>
+        <sec:authentication property="name"/>
     </div>
 </div>
 <script type="text/javascript" src="<c:url value="/js/userCheck.js"/>"></script>

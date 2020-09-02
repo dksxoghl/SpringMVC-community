@@ -34,16 +34,14 @@
                     <script type="text/javascript">
                         alert('${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}');
                     </script>
-<%--                    Reason: ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}--%>
                 </c:if>
-                <c:if test="${not empty errorMessage}">
+<%--                <c:if test="${not empty errorMessage}">--%>
+<%--                    <script type="text/javascript">--%>
+<%--                        alert('${errorMessage }');--%>
+<%--                    </script>--%>
+<%--                </c:if>--%>
 
-<%--                        <p style="color:red">${errorMessage }</p>--%>
-                </c:if>
-            <sec:authentication property="authorities" var="authorities"/>
-<%--            <c:forEach items="${authorities}" var="authority">--%>
-<%--                <a>${authority.authority}</a>--%>
-<%--            </c:forEach>--%>
+<%--            <sec:authentication property="authorities" var="authorities"/>--%>
             </form>
         </div>
     </div>

@@ -14,7 +14,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 public class CustomAuthFailureHandler implements AuthenticationFailureHandler {
-    private final String DEFAULT_FAILURE_URL = "/**/loginForm?error=true";//?error=true
+    private final String DEFAULT_FAILURE_URL = "/loginForm?error=true&url=hy";//?error=true
 
 
     @Override
