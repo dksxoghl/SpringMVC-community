@@ -20,13 +20,17 @@ public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {
                     "on Hboard_TB.hy_id= B.hy_id" +
                     " left outer join (select count(*) as hy_like,hy_id from like_tb group by hy_id) C \n" +
                     "on Hboard_TB.hy_id= C.hy_id "+
-                    " where category_id=(select category_id from category_tb where category_url=?) " +
+                    " where category_id=(select category_id from category_tb where category_url=?)" +
                     "order by Hboard_TB.hy_id desc limit ? offset (? - 1) * ?";
-//            "select (ROW_NUMBER() OVER(order by h_id)) AS h_no\n" +
-//            "     ,* from Hboard_TB " +
-//            "where category_id=(\n" +
-//            "\tselect category_id from category_tb where category_url=?)"+
-//            "order by h_id desc limit ? offset (? - 1) * ?";
+    final String SELECT_ALLBEST_SQL=
+            "select Hboard_TB.hy_id,(ROW_NUMBER() OVER(order by Hboard_TB.hy_id)) AS hy_no,Hboard_TB.*,rep, hy_like" +
+                    " from Hboard_TB left outer join (select count(*) as rep, hy_id from reply_tb group by hy_id) B " +
+                    "on Hboard_TB.hy_id= B.hy_id" +
+                    " left outer join (select count(*) as hy_like,hy_id from like_tb group by hy_id) C \n" +
+                    "on Hboard_TB.hy_id= C.hy_id "+
+                    " where category_id=(select category_id from category_tb where category_url=?)" +
+                    "and hy_like>=? " +
+                    "order by Hboard_TB.hy_id desc limit ? offset (? - 1) * ?";
     final String SELECT_ID_SQL="select * from Hboard_TB where hy_id = ?";
     final String SELECT_SEQ_MAX = "select max(hy_id) from Hboard_TB";
     final String SELECT_COUNT = "select count(*) from Hboard_TB where category_id=(\n" +
@@ -59,6 +63,10 @@ public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {
 //
         return getJdbcTemplate().query(SELECT_ALL_SQL, BeanPropertyRowMapper.newInstance(BoardVO.class),url,vo.getCntPerPage(),vo.getNowPage(),vo.getCntPerPage());
         //레시피 480장 참조,  RowMapper하위클래스,  특정클래스의 새인스턴스로 자동매핑가능. 프로퍼티 언더스코어 추가컬럼까지 매핑가능.
+    }
+    @Override
+    public List<BoardVO> selectBestBoardList(PagingVO vo,String url,int best) {
+        return getJdbcTemplate().query(SELECT_ALLBEST_SQL, BeanPropertyRowMapper.newInstance(BoardVO.class),url,best,vo.getCntPerPage(),vo.getNowPage(),vo.getCntPerPage());
     }
     @Override
     public BoardVO selectBoardById(int seq) {

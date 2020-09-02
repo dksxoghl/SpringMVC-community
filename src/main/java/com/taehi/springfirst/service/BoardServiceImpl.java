@@ -21,8 +21,11 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public List<BoardVO> selectBoardList(PagingVO vo,String url) {
-        return boardDAO.selectBoardList(vo,url);
+    public List<BoardVO> selectBoardList(PagingVO vo,String url,int best) {
+        if(best==0){
+            return boardDAO.selectBoardList(vo,url);
+        }
+        return boardDAO.selectBestBoardList(vo,url,best);
     }
     @Override
     @Transactional

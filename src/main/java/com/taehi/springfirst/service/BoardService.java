@@ -7,7 +7,7 @@ import com.taehi.springfirst.domain.paging.PagingVO;
 import java.util.List;
 
 public interface BoardService {
-    public List<BoardVO> selectBoardList(PagingVO vo,String url) ;
+    public List<BoardVO> selectBoardList(PagingVO vo,String url,int best) ;
     public int insertBoard(BoardVO boardVO,int seq, String url);
     public void deleteBoard(int seq);
     public BoardVO selectBoardById(int seq);

@@ -59,7 +59,9 @@ function getReply(hyId, nowpage, cur_edit) {         //세번째 가변인자로
                 console.log(this.reContent);
                 deleteColor += "#acacac";
             }
-
+            if(this.userId===username){
+                color="#d7e1ec";
+            }
             str += "<div style='background-color:" + color + "'><div style='padding-top: 5px' class='row' data-replyNo='" + this.reId + "'>" +
                 "<div class='col-2'>" + indent + this.userId + "</div>" +
                 "<div class='col-3 offset-md-5'><span style='font-weight: bold;color:#777;'>" + this.reRegdate.substr(0, 10) + "</span>";

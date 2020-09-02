@@ -51,7 +51,7 @@
                         </c:otherwise>
                     </c:choose>
                     <td style="width:66%; text-align: start;">
-                        <a href='/${url}/detail/${list.hyId}?nowPage=${paging.nowPage}&cntPerPage=${paging.cntPerPage}'>
+                        <a href='/${url}/detail/${list.hyId}?nowPage=${paging.nowPage}&cntPerPage=${paging.cntPerPage}&best=${best}'>
                             <c:out value="${list.hySubject}"/></a>
                         <span>
                         <c:if test="${list.rep!=null}">

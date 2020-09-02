@@ -1,4 +1,4 @@
-let user = $('#user').val();
+const user = $('#user').val();
 $(document).ready(function () {
     $(document).on('click', '#writeForm', function (e) {
         console.log(user,'??')
@@ -7,6 +7,14 @@ $(document).ready(function () {
             e.preventDefault();
         }
     });
-
+    $('.dropdown').hover(function () {
+        $('.dropdown-menu').show();
+    },function () {
+    });
+    $('.dropdown-menu').hover(function () {
+        $('.dropdown-menu').show();
+    },function () {
+        $('.dropdown-menu').hide();
+    })
 });
 

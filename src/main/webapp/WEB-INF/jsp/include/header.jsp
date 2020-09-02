@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css" type="text/css">
     <script type="text/javascript" src="<c:url value="/js/jquery-3.5.1.js"/>"></script>
+    <script type="text/javascript" src="/js/lib/bootstrap.bundle.js"></script> <%--min 링크시 dropdown안됨,jquery보다밑에--%>
     <script src="https://kit.fontawesome.com/c3f6082297.js" crossorigin="anonymous"></script>
     <title>해연갤</title>
 </head>
@@ -59,9 +60,30 @@
     <div class="head">
         <div class="row justify-content-between" style=" margin-left: 10px; text-align: center;">
             <c:forEach var="list" items="${categoryList}">
-                <div class="col col-lg-1 align-self-start"><a style="color: white;"
-                                                              href="/${list.categoryUrl}">${list.categoryName}</a>
+                <c:if test="${list.categoryUrl eq url}">
+                <div class="col col-lg-1 align-self-start"><a style="color: white;" href="/${list.categoryUrl}">
+                        ${list.categoryName}</a>
                 </div>
+                </c:if>
+            </c:forEach>
+            <div class="col col-lg-1 align-self-start dropdown">
+                <a style="color: white;" href="/${url}?best=1" id="dropdownMenuLink" <%--data-toggle="dropdown"--%> aria-haspopup="true" aria-expanded="false">
+                개념글</a>
+<%--    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--%>
+<%--        Small button--%>
+<%--    </button>--%>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
+                    <a class="dropdown-item" href="/${url}?best=1">1</a>
+                    <a class="dropdown-item" href="/${url}?best=2">2</a>
+                    <a class="dropdown-item" href="/${url}?best=3">3</a>
+                </div>
+            </div>
+            <c:forEach var="list" items="${categoryList}">
+                <c:if test="${list.categoryUrl ne url}">
+                <div class="col col-lg-1 align-self-start"><a style="color: white;" href="/${list.categoryUrl}">
+                        ${list.categoryName}</a>
+                </div>
+                </c:if>
             </c:forEach>
             <div class="col col-lg-1 offset-md-1"><a style="color: white;" href="#">문의</a></div>
             <sec:authorize access="isAnonymous()">
@@ -84,14 +106,21 @@
     </div>
 </div>
 <div class="container" style="background-color: white; width:70%;  height: 10%;">
+    <div class="row">
     <c:if test="${deleteNav==null}">
         <c:forEach var="list" items="${categoryList}">
             <c:if test="${list.categoryUrl eq url}">
-                <h3 style="padding-top: 10px;margin:0px"><a style="color: #868686"
+             <h3 style="padding-top: 10px;margin-left:1%"><a style="color: #868686;font-weight: bold; "
                                                             href="/${list.categoryUrl}">${list.categoryName}</a></h3>
+                <c:if test="${best!=0}">
+                  <h5 style="padding-top: 10px;margin-left:1%;margin-top:6px; "><a style="color: ${list.categoryColor};font-weight: bold;  "
+                                                            href="/${list.categoryUrl}?best=${best}">개념글</a></h5>
+                </c:if>
+
             </c:if>
         </c:forEach>
     </c:if>
+    </div>
 </div>
 <script type="text/javascript" src="<c:url value="/js/userCheck.js"/>"></script>
 </body>

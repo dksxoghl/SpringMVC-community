@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface BoardDAO {
     public List<BoardVO> selectBoardList(PagingVO vo,String url) ;
+    public List<BoardVO> selectBestBoardList(PagingVO vo,String url,int best) ;
     public int insertBoard(BoardVO boardVO);
     public void updateBoard(BoardVO boardVO,int seq);
     public void deleteBoard(int seq);

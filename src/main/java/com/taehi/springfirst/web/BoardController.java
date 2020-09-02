@@ -68,13 +68,17 @@ public class BoardController {
     public String boardDetail(Model model,@PathVariable("seq")int seq,
                               @RequestParam(value="nowPage", required=false)String nowPage
             , @RequestParam(value="cntPerPage", required=false)String cntPerPage,
+                              @RequestParam(value="best", required=false)String best ,
                               @PathVariable(required = false) String url){
         System.out.println("hydetail"+seq);
+        if(best==null||best.equals("")) best="0";
+        model.addAttribute("best",best);
+
         BoardVO boardVO = boardService.selectBoardById(seq);
         model.addAttribute("board", boardVO);
 
         PagingVO vo = createPaging(nowPage, cntPerPage,url);
-        List<BoardVO> list = boardService.selectBoardList(vo,url);
+        List<BoardVO> list = boardService.selectBoardList(vo,url,Integer.parseInt(best));
 
         model.addAttribute("paging", vo);
         model.addAttribute("list", list);
@@ -99,16 +103,19 @@ public class BoardController {
     }
     @RequestMapping(value = {"/{url}"})
     public String boardList( Model model, @RequestParam(value="nowPage", required=false)String nowPage
-            , @RequestParam(value="cntPerPage", required=false)String cntPerPage,@PathVariable String url)  {
+            , @RequestParam(value="cntPerPage", required=false)String cntPerPage,@RequestParam(value="best", required=false)String best ,@PathVariable String url)  {
 //        System.out.println("hy"+vo.getNowPage()+" "+vo.getCntPerPage()+" "+vo.getStartPage());
-        System.out.println(url+"과연");
-        if(url==null) url="hy";
+        System.out.println(url+"과연"+best);
+//        if(url==null) url="hy";
+        if(best==null||best.equals("")) best="0";
+
         model.addAttribute(url);
+        model.addAttribute("best",best);
 
         PagingVO vo= createPaging(nowPage, cntPerPage,url);
         model.addAttribute("paging", vo);
 
-        List<BoardVO> list = boardService.selectBoardList(vo,url);
+        List<BoardVO> list = boardService.selectBoardList(vo,url,Integer.parseInt(best));
 
         model.addAttribute("list", list);
 
