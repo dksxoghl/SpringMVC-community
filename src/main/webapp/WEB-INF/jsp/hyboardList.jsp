@@ -1,6 +1,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%--<%@ page import="java.util.Date" %>--%>
 <%--<%@ page import="java.text.SimpleDateFormat" %>--%>
@@ -99,10 +100,28 @@
             <a href="/${url}?nowPage=${paging.nowPage+1}&cntPerPage=${paging.cntPerPage}">&gt;다음 페이지</a>
         </c:if>
     </div>
+<%--    <c:if test="${url!='nt' or (url=='nt'and user.username=='admin')}">--%>
+<%--    <div style="background-color: white; height: 50px">--%>
+<%--        <a class="btn btn-dark" style="float: right"&lt;%&ndash; type="submit" value="글쓰기"&ndash;%&gt;--%>
+<%--           id="writeForm2"--%>
+<%--           &lt;%&ndash;onclick="location.href='/${url}/writeForm'&ndash;%&gt;href="/${url}/writeForm"">글쓰기</a>  &lt;%&ndash;버튼,input은왜? 리다이렉트되지..&ndash;%&gt;--%>
+<%--    </div>--%>
+<%--    </c:if>--%>  ${user.username}
     <div style="background-color: white; height: 50px">
-        <a class="btn btn-dark" style="float: right"<%-- type="submit" value="글쓰기"--%>
-           id="writeForm2"
-           <%--onclick="location.href='/${url}/writeForm'--%>href="/${url}/writeForm"">글쓰기</a>  <%--버튼,input은왜? 리다이렉트되지..--%>
+    <c:choose>
+        <c:when test="${url!='nt'}">
+            <a class="btn btn-dark" style="float: right"<%-- type="submit" value="글쓰기"--%>
+               id="writeForm2"
+               <%--onclick="location.href='/${url}/writeForm'--%>href="/${url}/writeForm"">글쓰기</a>  <%--버튼,input은왜? 리다이렉트되지..--%>
+        </c:when>
+        <c:when test="${url=='nt'and user.username=='admin'}">
+            <a class="btn btn-dark" style="float: right"<%-- type="submit" value="글쓰기"--%>
+               id="writeForm2"
+               <%--onclick="location.href='/${url}/writeForm'--%>href="/${url}/writeForm"">글쓰기</a>
+        </c:when>
+        <c:otherwise>
+        </c:otherwise>
+    </c:choose>
     </div>
 </div>
 <script type="text/javascript" src="<c:url value="/js/userCheck2.js"/>"></script>

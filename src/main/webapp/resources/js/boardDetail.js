@@ -3,11 +3,13 @@ const boardHyId = $('#boardHyId').val();
 const username = $('#username').val();
 const likeUp = $("#like-up");
 const likeAlready = $("#like-already");
+
+
 let nowpage = 1;
-const token = $("meta[name='_csrf']").attr("content");
+const token = $("meta[name='_csrf']").attr("content");         //ajax csrf토큰 추가위함
 const header = $("meta[name='_csrf_header']").attr("content");
 
-if (!username) {
+if (!username) {        //인증사용자없을시 댓글막기
     $('#rep_edit').hide();
     $('#rep_ban').show();
 } else {
@@ -18,7 +20,7 @@ if(username){
     getLike();
 }
 
-function getLike() {
+function getLike() {        //해당게시글 사용자가 이미 좋아요누름여부 표시
     $.getJSON("/like/" + username + "/" + boardHyId, function (data) {
         if (data === 0) {
             likeUp.show();
@@ -31,7 +33,7 @@ function getLike() {
 }
 
 
-//첫페이지 끝페이지로 설정.
+//댓글처음페이지를 끝페이지로 설정.
 getLastPage(boardHyId);
 
 function getLastPage(hyId) {
@@ -56,7 +58,6 @@ function getReply(hyId, nowpage, cur_edit) {         //세번째 가변인자로
                 if (i === this.reIndent - 1) indent += "<img width='10px' height='10px' src='/resources/img/right-arrow.png'>&nbsp&nbsp";
             }
             if (this.reContent === "[작성자가 삭제한 댓글입니다.]") {
-                console.log(this.reContent);
                 deleteColor += "#acacac";
             }
             if(this.userId===username){
@@ -71,9 +72,9 @@ function getReply(hyId, nowpage, cur_edit) {         //세번째 가변인자로
             if (username) {
                 str+="<div class='col-2'>" +
                 "<button class='re_b btn-dark'>신고</button>";
-                if (username === this.userId)
+                if (username === this.userId || username==='admin')         //관리자는 어느댓글이나 삭제가능
                     str += "<button class='re_b' id='re_del' style='border:0;outline: 0'>x</button>";
-                if (this.reIndent < 4) {
+                if (this.reIndent < 4) {           //뎁스4이하로
                     str += "<button class='re_b' id='re_reply' style='border-color:#ccc'>" +
                         "<img width='9px' height='9px' src='/resources/img/right-arrow.png'>" +
                         "</button></div>";
@@ -102,7 +103,7 @@ function getReply(hyId, nowpage, cur_edit) {         //세번째 가변인자로
 
 function printPage(replyPage) {
     let str = "";
-    if (replyPage.total > 10) {
+    if (replyPage.total > 10) {  //10개이상일때만 페이지수출력
         str += "<a class=1 href='#'>&lt;첫 페이지</a>\n";
         for (let i = replyPage.startPage; replyPage.endPage >= i; i++) {
             if (i == replyPage.nowPage) {
@@ -128,6 +129,7 @@ $(document).ready(function () {     //dom생성시 reday메소드 실행,  모�
     $(document).on("click", "#toggle", function () {
         $("#reply").toggle();
     });
+
 
     $(document).on("click", ".rep_page a", function (event) {
         event.preventDefault();

@@ -21,7 +21,7 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public List<BoardVO> selectBoardList(PagingVO vo,String url,int best) {
+    public List<BoardVO> selectBoardList(PagingVO vo,String url,int best) { //추천수0 or 이상으로 개념글판별
         if(best==0){
             return boardDAO.selectBoardList(vo,url);
         }
@@ -29,7 +29,7 @@ public class BoardServiceImpl implements BoardService{
     }
     @Override
     @Transactional
-    public BoardVO selectBoardById(int seq) {
+    public BoardVO selectBoardById(int seq) {   //상세보기시 조회수 증가먼저.
         boardDAO.boardHit(seq);
         return boardDAO.selectBoardById(seq);
     }

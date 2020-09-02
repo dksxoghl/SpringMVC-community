@@ -1,4 +1,4 @@
-let userDouble = $('#userDouble').val();
+const userDouble = $('#userDouble').val();
 $(document).ready(function () {
     $(document).on('click', '#writeForm2', function (e) {
         console.log(userDouble,'????')

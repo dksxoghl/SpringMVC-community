@@ -22,7 +22,7 @@ public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {
                     "on Hboard_TB.hy_id= C.hy_id "+
                     " where category_id=(select category_id from category_tb where category_url=?)" +
                     "order by Hboard_TB.hy_id desc limit ? offset (? - 1) * ?";
-    final String SELECT_ALLBEST_SQL=
+    final String SELECT_ALLBEST_SQL=       //일정치이상 추천수 게시글
             "select Hboard_TB.hy_id,(ROW_NUMBER() OVER(order by Hboard_TB.hy_id)) AS hy_no,Hboard_TB.*,rep, hy_like" +
                     " from Hboard_TB left outer join (select count(*) as rep, hy_id from reply_tb group by hy_id) B " +
                     "on Hboard_TB.hy_id= B.hy_id" +

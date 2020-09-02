@@ -17,6 +17,7 @@
 <body>
 <sec:authorize access="isAuthenticated()">
     <sec:authentication property="principal" var="user"/>
+<%--    <sec:authentication property="name"/>--%>
 </sec:authorize>
 <c:forEach var="list" items="${categoryList}">
     <c:if test="${list.categoryUrl eq url}">
@@ -31,6 +32,7 @@
     </c:if>
 </c:forEach>
 <input type="hidden" id="user" value='<c:out value="${user.username}"/>'>
+<input type="hidden" id="url" value='<c:out value="${url}"/>'>
 <div class="fab">
     <a href="#">
         <button class="fab-btn">▲</button>
@@ -119,7 +121,7 @@
             </c:if>
         </c:forEach>
     </c:if>
-        <sec:authentication property="name"/>
+
     </div>
 </div>
 <script type="text/javascript" src="<c:url value="/js/userCheck.js"/>"></script>
