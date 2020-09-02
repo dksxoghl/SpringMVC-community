@@ -81,12 +81,12 @@
                 <input type='hidden' id='hyHit' name='hyHit' value='${board.hyHit }'/>
                 <input type='hidden' id='hyContent' name='hyContent' value='${board.hyContent }'/>
                 <input type='hidden' id='hyLike' name='hyLike' value='${board.hyLike }'/>
-                <c:if test="${user.username==board.userId}">
+                <c:if test="${user.username==board.userId ||user.username=='admin'}">
                 <input class="b_rud btn btn-dark" type="submit" value="글 수정" style="float: right;font-size:6px">
                 </c:if>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             </form>
-            <c:if test="${user.username==board.userId}">
+            <c:if test="${user.username==board.userId ||user.username=='admin'}">
             <input class="b_rud btn btn-dark" type="button" value="글 삭제" style="float: right;font-size: 6px"
                    onclick="location.href='/${url}/deleteForm/${board.hyId}'">
             </c:if>

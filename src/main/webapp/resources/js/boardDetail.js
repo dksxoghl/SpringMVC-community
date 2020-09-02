@@ -3,6 +3,8 @@ const boardHyId = $('#boardHyId').val();
 const username = $('#username').val();
 const likeUp = $("#like-up");
 const likeAlready = $("#like-already");
+
+
 let nowpage = 1;
 const token = $("meta[name='_csrf']").attr("content");
 const header = $("meta[name='_csrf_header']").attr("content");
@@ -71,7 +73,7 @@ function getReply(hyId, nowpage, cur_edit) {         //세번째 가변인자로
             if (username) {
                 str+="<div class='col-2'>" +
                 "<button class='re_b btn-dark'>신고</button>";
-                if (username === this.userId)
+                if (username === this.userId || username==='admin')
                     str += "<button class='re_b' id='re_del' style='border:0;outline: 0'>x</button>";
                 if (this.reIndent < 4) {
                     str += "<button class='re_b' id='re_reply' style='border-color:#ccc'>" +
@@ -128,6 +130,7 @@ $(document).ready(function () {     //dom생성시 reday메소드 실행,  모�
     $(document).on("click", "#toggle", function () {
         $("#reply").toggle();
     });
+
 
     $(document).on("click", ".rep_page a", function (event) {
         event.preventDefault();
