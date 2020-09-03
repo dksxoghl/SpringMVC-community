@@ -83,7 +83,7 @@
         </div>
         <div class="row" style="background-color:#EAEAEA;width: 100%; margin:0px">
             <div class="offset-10 join">
-                <input type="submit" class="btn-dark" value="회원가입" id="joinForm">
+                <input type="submit" class="btn-dark" value="회원가입" id="joinButton">
                 <a class="btn-info" onclick="location.href='javascript:history.back();'">취소</a>
             </div>
         </div>

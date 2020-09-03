@@ -59,8 +59,10 @@
             <button type="button" class="btn btn-outline-secondary">북마크</button>
         </div>
         <div class="col-md-3 offset-md-2">
-            <button type="button" id="like-up" class="btn btn-outline-secondary"><img width='13px' height='13px' src='/resources/img/thumbs-up-regular.svg'>&nbsp추천 <span style="color: orangered">0</span></button>
-            <button type="button" id="like-already" class="btn btn-outline-secondary" style=" display: none"><img width='13px' height='13px' src='/resources/img/thumbs-up-solid.svg'>&nbsp추천 <span style="color: orangered">1</span></button>
+            <button type="button" <%--id="like-up"--%> class="btn btn-outline-secondary like-up">
+                <img class="like-img" width='13px' height='13px' src='/resources/img/thumbs-up-regular.svg'>&nbsp추천 <span id="like-count" style="color: orangered">0</span>
+            </button>
+<%--            <button type="button" id="like-already" class="btn btn-outline-secondary" style=" display: none"><img width='13px' height='13px' src='/resources/img/thumbs-up-solid.svg'>&nbsp추천 <span style="color: orangered">1</span></button>--%>
         </div>
         <div class="col-md-2 offset-md-2">
             <button type="button" class="btn btn-outline-secondary">신고</button>
@@ -81,12 +83,12 @@
                 <input type='hidden' id='hyHit' name='hyHit' value='${board.hyHit }'/>
                 <input type='hidden' id='hyContent' name='hyContent' value='${board.hyContent }'/>
                 <input type='hidden' id='hyLike' name='hyLike' value='${board.hyLike }'/>
-                <c:if test="${user.username==board.userId}">
+                <c:if test="${user.username==board.userId ||user.username=='admin'}">
                 <input class="b_rud btn btn-dark" type="submit" value="글 수정" style="float: right;font-size:6px">
                 </c:if>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             </form>
-            <c:if test="${user.username==board.userId}">
+            <c:if test="${user.username==board.userId ||user.username=='admin'}">
             <input class="b_rud btn btn-dark" type="button" value="글 삭제" style="float: right;font-size: 6px"
                    onclick="location.href='/${url}/deleteForm/${board.hyId}'">
             </c:if>

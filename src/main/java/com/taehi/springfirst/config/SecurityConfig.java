@@ -49,8 +49,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 // 페이지 권한 설정
-                .antMatchers("/**/writeForm*","/**/deleteForm/*","/reply/*","/reply*").hasAnyRole("USER","ADMIN")
                 .antMatchers("/**/myPage*").hasRole("USER")
+                .antMatchers("/nt/writeForm*","/nt/deleteForm/*","/nt/delete/*").hasRole("ADMIN")
+                .antMatchers("/**/writeForm*","/**/deleteForm/*","/**/delete/*","/reply/*","/reply*").hasAnyRole("USER","ADMIN")
                 .antMatchers("/**").permitAll()
                 .and() // 로그인 설정
                 .formLogin()

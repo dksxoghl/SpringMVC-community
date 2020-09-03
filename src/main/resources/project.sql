@@ -12,13 +12,14 @@ CREATE TABLE IF NOT EXISTS hboard_tb
     hy_url VARCHAR NOT NULL,
     file_name VARCHAR,
     hy_img VARCHAR,
+    is_admin boolean default false,
     PRIMARY KEY(hy_id)
 );
 update Hboard_TB set hy_hit=hy_hit+1 where hy_id=140;
-ALTER TABLE hboard_tb drop column hy_like;
+ALTER TABLE hboard_tb add column is_admin boolean default false;
 alter table hboard_tb add h_no Integer Not NULL Default (ROW_NUMBER() OVER())
 
-    - drop table hboard_tb cascade;
+    -- drop table hboard_tb cascade;
 
 SELECT (ROW_NUMBER() OVER()) AS h_no
      , *
@@ -30,25 +31,32 @@ from Hboard_TB left outer join (select count(*) as rep, hy_id from reply_tb grou
                                on Hboard_TB.hy_id= B.hy_id
                left outer join (select count(*) as hy_like,hy_id from like_tb group by hy_id) C
                                on Hboard_TB.hy_id= C.hy_id
-where category_id=(select category_id from category_tb where category_url='hy')
--- and hy_like>=0
+where category_id=(select category_id from category_tb where category_url='hy') and not hboard_tb.is_admin
+and hy_like>=0
 order by Hboard_TB.hy_id desc limit 10 offset (1 - 1) * 10;
 
+delete from hboard_tb where hy_id=193;
+--notice
+select (ROW_NUMBER() OVER(order by A.hy_id)) AS hy_no,A.*,rep,hy_like
+from Hboard_TB A left outer join (select count(*) as rep, hy_id from reply_tb group by hy_id) B
+                               on A.hy_id= B.hy_id
+               left outer join (select count(*) as hy_like,hy_id from like_tb group by hy_id) C
+                               on A.hy_id= C.hy_id
+where category_id=(select category_id from category_tb where category_url='hy') and A.is_admin;
 
-
-—리스트
+-- 리스트
 select (ROW_NUMBER() OVER(order by Hboard_TB.hy_id)) AS hy_no,Hboard_TB.*,rep
 from Hboard_TB left outer join (select count(*) as rep, hy_id from reply_tb group by hy_id) B
                                on Hboard_TB.hy_id= B.hy_id
 where category_id=(select category_id from category_tb where category_url='hy')
 order by Hboard_TB.hy_id desc limit 10 offset (1 - 1) * 10;
 
-select (ROW_NUMBER() OVER(order by h_id)) AS h_no
+select (ROW_NUMBER() OVER(order by hy_id)) AS h_no
      ,* from Hboard_TB where category_id=1
-order by h_id desc limit 10 offset (1 - 1) * 10;
+order by hy_id desc limit 10 offset (1 - 1) * 10;
 select * from Hboard_TB where category_id=(
     select category_id from category_tb where category_url='ch')
-order by h_id desc limit 10 offset (1 - 1) * 10;
+order by hy_id desc limit 10 offset (1 - 1) * 10;
 
 select count(*) from Hboard_TB where category_id=(
     select category_id from category_tb where category_url='ja');
@@ -113,7 +121,7 @@ CREATE TABLE IF NOT EXISTS like_tb
 );
 select count(*) from like_tb where hy_id=181 and user_id='asd';
 insert into like_tb(user_id,hy_id) values('asd',182);
-ALTER TABLE like_tb rename column h_id to hy_id;
+ALTER TABLE like_tb rename column hy_id to hy_id;
 
 CREATE TABLE IF NOT EXISTS reply_tb
 (
@@ -182,13 +190,23 @@ ALTER TABLE like_tb
         REFERENCES hboard_tb(hy_id)
             MATCH SIMPLE
 ;
-
+alter table like_tb
+    drop CONSTRAINT like_tb_h_id_fkey,
+    ADD CONSTRAINT like_tb_h_id_fkey FOREIGN KEY (hy_id)
+        references hboard_tb(hy_id)
+        on delete cascade
+;
 ALTER TABLE reply_tb
     ADD FOREIGN KEY (user_id)
         REFERENCES user_tb(user_id)
             MATCH SIMPLE
 ;
-
+alter table reply_tb
+    drop CONSTRAINT reply_tb_hy_id_fkey,
+    ADD CONSTRAINT reply_tb_hy_id_fkey FOREIGN KEY (hy_id)
+        references hboard_tb(hy_id)
+        on delete cascade
+;
 ALTER TABLE reply_tb
     ADD FOREIGN KEY (hy_id)
         REFERENCES hboard_tb(hy_id)

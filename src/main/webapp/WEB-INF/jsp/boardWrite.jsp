@@ -33,12 +33,6 @@
         <div class="row " style="margin-top: 0">
             <div class="input-group">
                 <textarea class="form-control" id="hyContent" name="hyContent">${board.hyContent}</textarea>
-                <script type="text/javascript">
-                    CKEDITOR.replace('hyContent'
-                        , {
-                            height: 300, width: 1536
-                        });
-                </script>
             </div>
         </div>
 
@@ -46,26 +40,32 @@
         <input type='hidden' id='categoryId' name='categoryId' value='${board.categoryId }'/>
         <hr/>
         <input type="hidden" id="userId" name="userId" value="${user.username}"/>
+        <c:if test="${url!=nt and user.username=='admin'}">
+        <input type="hidden" id="isAdmin" name="isAdmin" value="true"/>
+        </c:if>
+        <c:if test="${user.username!='admin'}">
+            <input type="hidden" id="isAdmin" name="isAdmin" value="false"/>
+        </c:if>
         <div style="background-color: white; height: 50px">
-            <input style="float: right" type="submit" class="btn btn-dark" id="check" value="글 등록"/>
+            <input style="float: right" type="submit" class="btn btn-dark" id="wirteButton" value="글 등록"/>
         </div>
         <%--        <input type='hidden' id='seq' name='seq' value='${board.h_id }' />--%>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     </form>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $(document).on("click", "#check", function (event) {
-                var userId = $("input[name=userId]");
-                console.log(userId.val());
-                if ( userId.val() == null || userId.val()=="") {
-                    alert('id 필수');
-                    event.preventDefault();
-                }
-
-            });
-        });
-    </script>
+<%--    <script type="text/javascript">--%>
+<%--        $(document).ready(function () {--%>
+<%--            $(document).on("click", "#check", function (event) {--%>
+<%--                var userId = $("input[name=userId]");--%>
+<%--                console.log(userId.val());--%>
+<%--                if ( userId.val() == null || userId.val()=="") {--%>
+<%--                    alert('id 필수');--%>
+<%--                    event.preventDefault();--%>
+<%--                }--%>
+<%--            });--%>
+<%--        });--%>
+<%--    </script>--%>
 </div>
+<script type="text/javascript" src="<c:url value="/js/validation.js"/>"></script>
 <jsp:include page="include/footer.jsp"/>
 
 </body>

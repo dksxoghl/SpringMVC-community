@@ -1,6 +1,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%--<%@ page import="java.util.Date" %>--%>
 <%--<%@ page import="java.text.SimpleDateFormat" %>--%>
@@ -30,16 +31,26 @@
     <div class="row">
         <table class="table">
             <tbody>
-            <tr class="board-notice">
-                <td style="width:9%; ">notice</td>
-                <td style="width:66%; text-align: start; color: #0f74a8">
-                    [필독] 해연갤입니다.
-                </td>
-                <td style="width:8%;"><c:out value="공지"/></td>
-                <td style="width:8%;">06-03</td>
-                <td style="width:9%;"><c:out value="0"/></td>
-                <td style="width:8%;"><c:out value="0"/></td>
-            </tr>
+            <c:forEach items="${ntList}" var="ntList" varStatus="status">
+                <tr class="board-notice">
+                    <td style="width:9%; "><img class="notice-img" width='55px' height='26px'
+                                                src='/resources/img/notice-images.png'></td>
+                    <td style="width:66%; text-align: start; color: #0f74a8">
+                        <a href='/${url}/detail/${ntList.hyId}?nowPage=${paging.nowPage}&cntPerPage=${paging.cntPerPage}&best=${best}'>
+                              <span style="font-weight: bold; color: #2266EE;">${ntList.hySubject}</span>
+                        </a>
+                        <span>
+                        <c:if test="${ntList.rep!=null}">
+                            [${ntList.rep}]
+                        </c:if>
+                        </span>
+                    </td>
+                    <td style="width:8%;"><c:out value="${ntList.userId}"/></td>
+                    <td style="width:8%;">${ntList.hyCreatedDate}</td>
+                    <td style="width:9%;"><c:out value="${ntList.hyHit}"/></td>
+                    <td style="width:8%;"><c:out value="${ntList.hyLike}"/></td>
+                </tr>
+            </c:forEach>
             <c:forEach items="${list}" var="list" varStatus="status">
                 <tr class="board-list">
                     <c:choose>
@@ -72,7 +83,8 @@
                         <%--                                                                  pattern="MM-dd"/></td>--%>
                         <%--                        </c:otherwise>--%>
                         <%--                    </c:choose>--%>
-                    <td style="width:8%;"><c:out value="${date[status.index]}"/></td>
+                    <td style="width:8%;"><c:out value="${list.hyCreatedDate}"/></td>
+                        <%--<td style="width:8%;"><c:out value="${date[status.index]}"/></td>--%>
                     <td style="width:9%;"><c:out value="${list.hyHit }"/></td>
                     <td style="width:8%;"><c:out value="${list.hyLike }"/></td>
                 </tr>
@@ -83,7 +95,7 @@
 
     <div style="text-align: center; background-color: white;">
         <%--        <c:if test="${paging.startPage != 1 }">--%>
-        <a href="/${url}?nowPage=1&cntPerPage=${paging.cntPerPage}">&lt;첫 페이지</a>
+        <a href="/${url}?nowPage=1&cntPerPage=${paging.cntPerPage}&best=${best}">&lt;첫 페이지</a>
         <%--        </c:if>--%>
         <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
             <c:choose>
@@ -96,13 +108,26 @@
             </c:choose>
         </c:forEach>
         <c:if test="${paging.endPage != paging.lastPage}">
-            <a href="/${url}?nowPage=${paging.nowPage+1}&cntPerPage=${paging.cntPerPage}">&gt;다음 페이지</a>
+            <a href="/${url}?nowPage=${paging.nowPage+1}&cntPerPage=${paging.cntPerPage}&best=${best}">&gt;다음 페이지</a>
         </c:if>
     </div>
+    <%--    <c:if test="${url!='nt' or (url=='nt'and user.username=='admin')}">--%>
+    <%--    </c:if>--%>
     <div style="background-color: white; height: 50px">
-        <a class="btn btn-dark" style="float: right"<%-- type="submit" value="글쓰기"--%>
-           id="writeForm2"
-           <%--onclick="location.href='/${url}/writeForm'--%>href="/${url}/writeForm"">글쓰기</a>  <%--버튼,input은왜? 리다이렉트되지..--%>
+        <c:choose>
+            <c:when test="${url!='nt'}">
+                <a class="btn btn-dark" style="float: right;color: whitesmoke"<%-- type="submit" value="글쓰기"--%>
+                   id="writeForm2"
+                   <%--onclick="location.href='/${url}/writeForm'--%>href="/${url}/writeForm">글쓰기</a>  <%--버튼,input은왜? 리다이렉트되지..--%>
+            </c:when>
+            <c:when test="${url=='nt'and user.username=='admin'}">
+                <a class="btn btn-dark" style="float: right;color: whitesmoke"<%-- type="submit" value="글쓰기"--%>
+                   id="writeForm2"
+                   <%--onclick="location.href='/${url}/writeForm'--%>href="/${url}/writeForm">글쓰기</a>
+            </c:when>
+            <c:otherwise>
+            </c:otherwise>
+        </c:choose>
     </div>
 </div>
 <script type="text/javascript" src="<c:url value="/js/userCheck2.js"/>"></script>

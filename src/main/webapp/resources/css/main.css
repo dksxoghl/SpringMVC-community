@@ -50,3 +50,13 @@ body {
     background-color: white;
     width: 70%;
 }
+a:link  {
+    text-decoration: none;
+    color: #646464;
+}
+a:visited {
+    color: #770088;
+}
+a:hover {
+    text-decoration: underline;
+}
