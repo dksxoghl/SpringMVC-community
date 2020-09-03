@@ -1,9 +1,6 @@
 // let boardHyId = document.getElementById('boardHyId').value;
 const boardHyId = $('#boardHyId').val();
 const username = $('#username').val();
-const likeUp = $("#like-up");
-const likeAlready = $("#like-already");
-
 
 let nowpage = 1;
 const token = $("meta[name='_csrf']").attr("content");         //ajax csrf토큰 추가위함
@@ -22,12 +19,10 @@ if(username){
 
 function getLike() {        //해당게시글 사용자가 이미 좋아요누름여부 표시
     $.getJSON("/like/" + username + "/" + boardHyId, function (data) {
-        if (data === 0) {
-            likeUp.show();
-            likeAlready.hide();
-        } else {
-            likeUp.hide();
-            likeAlready.show();
+        if (data !== 0) {
+            $('.like-up').attr('class','btn btn-outline-secondary like-already')
+            $('.like-img').attr('src','/resources/img/thumbs-up-solid.svg');
+            $('#like-count').html(1);
         }
     });
 }
@@ -158,6 +153,9 @@ $(document).ready(function () {     //dom생성시 reday메소드 실행,  모�
                     alert("댓글 삭제 완료!");
                 }
                 getReply(boardHyId, nowpage); // 댓글 목록 출력 함수 호출
+            },
+            error:function(request,status,error){
+                alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
             }
         });
     });
@@ -196,6 +194,9 @@ $(document).ready(function () {     //dom생성시 reday메소드 실행,  모�
                 }
                 getReply(boardHyId, nowpage); // 댓글 목록 출력 함수 호출
                 reContent.val(""); // 댓글 내용 초기화
+            },
+            error:function(request,status,error){
+                alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
             }
         });
     });
@@ -222,14 +223,16 @@ $(document).ready(function () {     //dom생성시 reday메소드 실행,  모�
                 }
                 getReply(boardHyId, nowpage); // 댓글 목록 출력 함수 호출
                 reContent.val(""); // 댓글 내용 초기화
+            },
+            error:function(request,status,error){
+                alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
             }
         });
     });
     //  post 삽입,  자원의 부분교체 >patch
-    $(document).on("click", "#like-up", function (e) {
+    $(document).on("click", ".like-up", function (e) {
         if(!username){
             alert('로그인이 필요한 서비스입니다.');
-            e.preventDefault();
         }else {
             $.ajax({
                 type: "POST",
@@ -244,14 +247,19 @@ $(document).ready(function () {     //dom생성시 reday메소드 실행,  모�
                     userId: username,
                 }),
                 success: function (result) {
-                    likeUp.hide();
-                    likeAlready.show();
+                    // likeUp.hide();
+                    // likeAlready.show();
+                    $('.like-img').attr('src','/resources/img/thumbs-up-solid.svg');
+                    $('.like-up').attr('class','btn btn-outline-secondary like-already')
+                    $('#like-count').html(1);
+                },
+                error:function(request,status,error){
+                    alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
                 }
             });
         }
     });
-    $(document).on("click", "#like-already", function (e) {
+    $(document).on("click", ".like-already", function (e) {
             alert('이미 추천을 하였습니다.');
-            e.preventDefault();
     });
 });

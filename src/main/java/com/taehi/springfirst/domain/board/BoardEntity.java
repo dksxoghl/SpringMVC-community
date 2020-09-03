@@ -4,18 +4,18 @@ import lombok.*;
 
 import java.util.Date;
 
-@Setter
 @Getter
-@NoArgsConstructor
+@Setter
+@ToString
 @AllArgsConstructor
-@Builder
-public class BoardVO {
+@NoArgsConstructor
+public class BoardEntity {
     private int hyId;
     private int hyNo;
     private int categoryId;
     private String hySubject;
     private String hyContent;
-    private String hyCreatedDate; // String hyCreatedDate; 현재: 시분 이전: 년월일시분
+    private Date hyCreatedDate; // String hyCreatedDate; 현재: 시분 이전: 년월일시분
     private String userId;
     private int hyHit;
     private String hyLike;

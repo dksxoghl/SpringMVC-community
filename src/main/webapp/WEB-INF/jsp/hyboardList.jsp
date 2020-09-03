@@ -73,7 +73,8 @@
                         <%--                                                                  pattern="MM-dd"/></td>--%>
                         <%--                        </c:otherwise>--%>
                         <%--                    </c:choose>--%>
-                    <td style="width:8%;"><c:out value="${date[status.index]}"/></td>
+                    <td style="width:8%;"><c:out value="${list.hyCreatedDate}"/></td>
+                    <%--<td style="width:8%;"><c:out value="${date[status.index]}"/></td>--%>
                     <td style="width:9%;"><c:out value="${list.hyHit }"/></td>
                     <td style="width:8%;"><c:out value="${list.hyLike }"/></td>
                 </tr>
@@ -84,7 +85,7 @@
 
     <div style="text-align: center; background-color: white;">
         <%--        <c:if test="${paging.startPage != 1 }">--%>
-        <a href="/${url}?nowPage=1&cntPerPage=${paging.cntPerPage}">&lt;첫 페이지</a>
+        <a href="/${url}?nowPage=1&cntPerPage=${paging.cntPerPage}&best=${best}">&lt;첫 페이지</a>
         <%--        </c:if>--%>
         <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
             <c:choose>
@@ -97,7 +98,7 @@
             </c:choose>
         </c:forEach>
         <c:if test="${paging.endPage != paging.lastPage}">
-            <a href="/${url}?nowPage=${paging.nowPage+1}&cntPerPage=${paging.cntPerPage}">&gt;다음 페이지</a>
+            <a href="/${url}?nowPage=${paging.nowPage+1}&cntPerPage=${paging.cntPerPage}&best=${best}">&gt;다음 페이지</a>
         </c:if>
     </div>
 <%--    <c:if test="${url!='nt' or (url=='nt'and user.username=='admin')}">--%>

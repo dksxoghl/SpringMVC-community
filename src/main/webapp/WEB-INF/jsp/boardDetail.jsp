@@ -59,8 +59,10 @@
             <button type="button" class="btn btn-outline-secondary">북마크</button>
         </div>
         <div class="col-md-3 offset-md-2">
-            <button type="button" id="like-up" class="btn btn-outline-secondary"><img width='13px' height='13px' src='/resources/img/thumbs-up-regular.svg'>&nbsp추천 <span style="color: orangered">0</span></button>
-            <button type="button" id="like-already" class="btn btn-outline-secondary" style=" display: none"><img width='13px' height='13px' src='/resources/img/thumbs-up-solid.svg'>&nbsp추천 <span style="color: orangered">1</span></button>
+            <button type="button" <%--id="like-up"--%> class="btn btn-outline-secondary like-up">
+                <img class="like-img" width='13px' height='13px' src='/resources/img/thumbs-up-regular.svg'>&nbsp추천 <span id="like-count" style="color: orangered">0</span>
+            </button>
+<%--            <button type="button" id="like-already" class="btn btn-outline-secondary" style=" display: none"><img width='13px' height='13px' src='/resources/img/thumbs-up-solid.svg'>&nbsp추천 <span style="color: orangered">1</span></button>--%>
         </div>
         <div class="col-md-2 offset-md-2">
             <button type="button" class="btn btn-outline-secondary">신고</button>

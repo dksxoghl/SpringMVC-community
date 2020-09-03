@@ -44,7 +44,7 @@
             </button>
         </a>
     </c:if>
-    <a href="/${url}/writeForm" id="writeForm">
+    <a href="/${url}/writeForm" id="writeLink">
         <button class="fab-btn " style="width: 27.84px">
             <%--                <img &lt;%&ndash;width='10px' height='10px'&ndash;%&gt; src='/resources/img/pen-solid.svg'>--%>
             <i class="fas fa-pen"></i>
@@ -115,7 +115,7 @@
         <c:forEach var="list" items="${categoryList}">
             <c:if test="${list.categoryUrl eq url}">
              <h3 style="padding-top: 10px;margin-left:1%"><a style="color: #868686;font-weight: bold; " href="/${list.categoryUrl}">${list.categoryName}</a></h3>
-                <c:if test="${best!=0}">
+                <c:if test="${best!=0 and not empty best}">     <%--best null일경우도 체크--%>
                   <h5 style="padding-top: 10px;margin-left:1%;margin-top:6px; "><a style="color: ${list.categoryColor};font-weight: bold;  " href="/${list.categoryUrl}?best=${best}">개념글</a></h5>
                 </c:if>
             </c:if>

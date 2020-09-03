@@ -46,6 +46,9 @@
         <input type='hidden' id='categoryId' name='categoryId' value='${board.categoryId }'/>
         <hr/>
         <input type="hidden" id="userId" name="userId" value="${user.username}"/>
+        <c:if test="${url!=nt and user.username=='admin'}">
+        <input type="hidden" id="isAdmin" name="isAdmin" value="true"/>
+        </c:if>
         <div style="background-color: white; height: 50px">
             <input style="float: right" type="submit" class="btn btn-dark" id="check" value="글 등록"/>
         </div>
@@ -61,7 +64,6 @@
                     alert('id 필수');
                     event.preventDefault();
                 }
-
             });
         });
     </script>
