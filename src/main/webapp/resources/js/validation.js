@@ -31,5 +31,20 @@ $(document).ready(function () {
             e.preventDefault();
         }
     });
-
+    $(document).on("click", "#wirteButton", function (event) {
+        let errMessage="";
+        if (!$("#hySubject").val()) {
+            errMessage='제목 필수';
+        } else if (!(CKEDITOR.instances['hyContent'].getData())) {
+            errMessage='내용 필수';
+        }
+        if(errMessage) {
+            alert(errMessage);
+            event.preventDefault();
+        }
+    });
+    CKEDITOR.replace('hyContent'
+        , {
+            height: 300, width: 1536
+        });
 });

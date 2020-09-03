@@ -28,6 +28,10 @@ public class BoardServiceImpl implements BoardService{
         return boardDAO.selectBestBoardList(vo,url,best);
     }
     @Override
+    public List<BoardEntity> selectNoticeList(String url) {
+        return boardDAO.selectNoticeList(url);
+    }
+    @Override
     @Transactional
     public BoardEntity selectBoardById(int seq) {   //상세보기시 조회수 증가먼저.
         boardDAO.boardHit(seq);
@@ -64,4 +68,6 @@ public class BoardServiceImpl implements BoardService{
     public List<CategoryVO> selectCategoryList() {
         return boardDAO.selectCategoryList();
     }
+
+
 }

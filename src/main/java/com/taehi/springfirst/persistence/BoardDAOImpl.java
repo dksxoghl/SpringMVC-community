@@ -20,7 +20,7 @@ public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {
                     "on Hboard_TB.hy_id= B.hy_id" +
                     " left outer join (select count(*) as hy_like,hy_id from like_tb group by hy_id) C \n" +
                     "on Hboard_TB.hy_id= C.hy_id "+
-                    " where category_id=(select category_id from category_tb where category_url=?)" +
+                    " where category_id=(select category_id from category_tb where category_url=?) and not hboard_tb.is_admin " +
                     "order by Hboard_TB.hy_id desc limit ? offset (? - 1) * ?";
     final String SELECT_ALLBEST_SQL=       //일정치이상 추천수 게시글
             "select Hboard_TB.hy_id,(ROW_NUMBER() OVER(order by Hboard_TB.hy_id)) AS hy_no,Hboard_TB.*,rep, hy_like" +
@@ -28,9 +28,15 @@ public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {
                     "on Hboard_TB.hy_id= B.hy_id" +
                     " left outer join (select count(*) as hy_like,hy_id from like_tb group by hy_id) C \n" +
                     "on Hboard_TB.hy_id= C.hy_id "+
-                    " where category_id=(select category_id from category_tb where category_url=?)" +
+                    " where category_id=(select category_id from category_tb where category_url=?) and not hboard_tb.is_admin " +
                     "and hy_like>=? " +
                     "order by Hboard_TB.hy_id desc limit ? offset (? - 1) * ?";
+    final String SELECT_NOTICE_ALL="select (ROW_NUMBER() OVER(order by A.hy_id)) AS hy_no,A.*,rep,hy_like\n" +
+            "from Hboard_TB A left outer join (select count(*) as rep, hy_id from reply_tb group by hy_id) B\n" +
+            "                               on A.hy_id= B.hy_id\n" +
+            "               left outer join (select count(*) as hy_like,hy_id from like_tb group by hy_id) C\n" +
+            "                               on A.hy_id= C.hy_id\n" +
+            "where category_id=(select category_id from category_tb where category_url=?) and A.is_admin";
     final String SELECT_ID_SQL="select * from Hboard_TB where hy_id = ?";
     final String SELECT_SEQ_MAX = "select max(hy_id) from Hboard_TB";
     final String SELECT_COUNT = "select count(*) from Hboard_TB where category_id=(\n" +
@@ -74,6 +80,13 @@ public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {
     public List<BoardEntity> selectBestBoardList(PagingVO vo, String url, int best) {
         return getJdbcTemplate().query(SELECT_ALLBEST_SQL, BeanPropertyRowMapper.newInstance(BoardEntity.class),url,best,vo.getCntPerPage(),vo.getNowPage(),vo.getCntPerPage());
     }
+
+    @Override
+    public List<BoardEntity> selectNoticeList(String url) {
+        return getJdbcTemplate().query(SELECT_NOTICE_ALL, BeanPropertyRowMapper.newInstance(BoardEntity.class),url);
+    }
+
+
     @Override
     public BoardEntity selectBoardById(int seq) {
         return getJdbcTemplate().queryForObject(SELECT_ID_SQL,BeanPropertyRowMapper.newInstance(BoardEntity.class) ,seq);
@@ -93,7 +106,7 @@ public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {
     @Transactional //auto increment 키생성 기다리기위해, 글생성후 detail페이지 바로가야함.
     public int insertBoard(BoardEntity boardEntity) {
         int seq;
-        getJdbcTemplate().update(INSERT_SQL, boardEntity.getCategoryId(), boardEntity.getHySubject(), boardEntity.getHyContent(), boardEntity.getUserId(),"www.hy", boardEntity.isAdmin()   );
+        getJdbcTemplate().update(INSERT_SQL, boardEntity.getCategoryId(), boardEntity.getHySubject(), boardEntity.getHyContent(), boardEntity.getUserId(),"www.hy", boardEntity.getIsAdmin()   );
         seq = getJdbcTemplate().queryForObject(SELECT_SEQ_MAX,Integer.class);
         return seq;
     }

@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface BoardService {
     public List<BoardEntity> selectBoardList(PagingVO vo, String url, int best) ;
+    public List<BoardEntity> selectNoticeList(String url);
     public int insertBoard(BoardEntity boardEntity, int seq, String url);
     public void deleteBoard(int seq);
     public BoardEntity selectBoardById(int seq);

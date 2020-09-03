@@ -23,5 +23,5 @@ public class BoardVO {
     private String fileName;
     private String hyImg;
     private String rep; //댓글개수
-    private boolean isAdmin;
+    private Boolean isAdmin;
 }

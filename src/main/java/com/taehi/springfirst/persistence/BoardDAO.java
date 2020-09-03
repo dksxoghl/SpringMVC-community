@@ -9,6 +9,7 @@ import java.util.List;
 public interface BoardDAO {
     public List<BoardEntity> selectBoardList(PagingVO vo, String url) ;
     public List<BoardEntity> selectBestBoardList(PagingVO vo, String url, int best) ;
+    public List<BoardEntity> selectNoticeList(String url) ;
     public int insertBoard(BoardEntity boardEntity);
     public void updateBoard(BoardEntity boardEntity, int seq);
     public void deleteBoard(int seq);

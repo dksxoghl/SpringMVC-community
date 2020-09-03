@@ -59,7 +59,7 @@ public class BoardController {
     }
     @RequestMapping(value = {"/{url}/write"})
     public String write(@ModelAttribute("boardVO") BoardEntity boardEntity, @PathVariable String url){
-        System.out.println("write"+ boardEntity.getHyId()+"gethid "+ boardEntity.isAdmin());
+        System.out.println("write"+ boardEntity.getHyId()+"gethid "+ boardEntity.getIsAdmin());
         int seq = boardService.insertBoard(boardEntity, boardEntity.getHyId(),url);
         return "redirect:/"+url+"/detail/"+seq;         //쓰기 후 바로 디테일페이지 이동
     }
@@ -80,7 +80,10 @@ public class BoardController {
         model.addAttribute("paging", vo);
 
         List<BoardEntity> list = boardService.selectBoardList(vo,url,Integer.parseInt(best));
-        model.addAttribute("list", changeDate(list));
+        model.addAttribute("list",  changeDate(list));
+        List<BoardEntity> ntList= boardService.selectNoticeList(url);
+
+        model.addAttribute("ntList",  changeDate(ntList));
 
         List<CategoryVO> categoryList = boardService.selectCategoryList();
         model.addAttribute("categoryList",categoryList);
@@ -111,7 +114,7 @@ public class BoardController {
             return BoardVO.builder()
                     .hyId(be.getHyId()).hyNo(be.getHyNo()).categoryId(be.getCategoryId()).hySubject(be.getHySubject())
                     .hyContent(be.getHyContent()).hyCreatedDate(hyCreateDate).userId(be.getUserId()).hyHit(be.getHyHit())
-                    .hyLike(be.getHyLike()).hyUrl(be.getHyUrl()).fileName(be.getFileName()).hyImg(be.getHyImg()).rep(be.getRep()).isAdmin(be.isAdmin())
+                    .hyLike(be.getHyLike()).hyUrl(be.getHyUrl()).fileName(be.getFileName()).hyImg(be.getHyImg()).rep(be.getRep()).isAdmin(be.getIsAdmin())
                     .build();
         }).collect(Collectors.toList());
         return boardVOList;
@@ -131,10 +134,10 @@ public class BoardController {
         model.addAttribute("paging", vo);
 
         List<BoardEntity> list = boardService.selectBoardList(vo,url,Integer.parseInt(best));
-
-
-
         model.addAttribute("list",  changeDate(list));
+
+        List<BoardEntity> ntList= boardService.selectNoticeList(url);
+        model.addAttribute("ntList",  changeDate(ntList));
         /*List<String> li= list.stream().map(BoardEntity::getHyCreatedDate).map(l-> {
             if (l.toString().substring(0, 10).equals(sfday.format(date))) {
                 return sfmin.format(l);
