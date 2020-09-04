@@ -67,10 +67,10 @@ public class BoardController {
     public String boardDetail(Model model,@PathVariable("seq")int seq,  //게시글번호
                               @RequestParam(value="nowPage", required=false)String nowPage  //페이징
             , @RequestParam(value="cntPerPage", required=false)String cntPerPage,
-                              @RequestParam(value="best", required=false)String best ,  //추천글만보기 분류
+                              @RequestParam(value="best", required=false, defaultValue = "0")String best ,  //추천글만보기 분류
                               @PathVariable(required = false) String url){
         System.out.println("hydetail"+seq);
-        if(best==null||best.equals("")) best="0";
+//        if(best==null||best.equals("")) best="0";
         model.addAttribute("best",best);
 
         BoardEntity boardEntity = boardService.selectBoardById(seq);
@@ -121,11 +121,12 @@ public class BoardController {
     }
     @RequestMapping(value = {"/{url}"})
     public String boardList( Model model, @RequestParam(value="nowPage", required=false)String nowPage
-            , @RequestParam(value="cntPerPage", required=false)String cntPerPage,@RequestParam(value="best", required=false)String best ,@PathVariable String url)  {
+            , @RequestParam(value="cntPerPage", required=false)String cntPerPage,@RequestParam(value="best", required=false, defaultValue = "0")String best ,
+                             @RequestParam(required = false) String searchTarget, @RequestParam(required = false) String searchKeyword,          @PathVariable String url)  {
 //        System.out.println("hy"+vo.getNowPage()+" "+vo.getCntPerPage()+" "+vo.getStartPage());
-        System.out.println(url+"과연"+best);
+        System.out.println(url+"과연"+best+"search"+searchTarget+searchKeyword);
 //        if(url==null) url="hy";
-        if(best==null||best.equals("")) best="0";
+//        if(best==null||best.equals("")) best="0";
 
         model.addAttribute(url);
         model.addAttribute("best",best);
