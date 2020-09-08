@@ -92,7 +92,6 @@
             </tbody>
         </table>
     </div>
-
     <div style="text-align: center; background-color: white;">
         <%--        <c:if test="${paging.startPage != 1 }">--%>
         <a href="/${url}?nowPage=1&cntPerPage=${paging.cntPerPage}&best=${best}">&lt;첫 페이지</a>
@@ -113,7 +112,7 @@
     </div>
     <%--    <c:if test="${url!='nt' or (url=='nt'and user.username=='admin')}">--%>
     <%--    </c:if>--%>
-    <div style="background-color: white; height: 50px">
+    <div style=" height: 50px">
         <c:choose>
             <c:when test="${url!='nt'}">
                 <a class="btn btn-dark" style="float: right;color: whitesmoke"<%-- type="submit" value="글쓰기"--%>
@@ -128,7 +127,18 @@
             <c:otherwise>
             </c:otherwise>
         </c:choose>
+
     </div>
+    <form action="/${url}" method="get" style="padding-bottom: 30px">
+        <select name="searchTarget" style="border-color: #ccc #aaa #aaa #ccc; height: 30px">
+            <option value="hyAll" selected="selected">제목+내용</option>
+            <option value="hySubject">제목</option>
+            <option value="hyContent">내용</option>
+        </select>
+        <input type="text" maxlength="40"  style="border-color: #ccc #aaa #aaa #ccc;" name="searchKeyword">
+        <input type="checkbox" name="best" value="1">
+        <span class="button"><input type="submit" value="검색"></span>
+    </form>
 </div>
 <script type="text/javascript" src="<c:url value="/js/userCheck2.js"/>"></script>
 </body>

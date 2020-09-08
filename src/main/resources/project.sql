@@ -62,7 +62,9 @@ select count(*) from Hboard_TB where category_id=(
     select category_id from category_tb where category_url='ja');
 
 insert into Hboard_TB(category_id,hy_subject,hy_content,user_id,hy_url)
-values (1,'aaa','실험','ㅌㅎ','www.asfd');
+values (1,'반가워요','실험','dksxoghl','hy');
+insert into Hboard_TB(category_id,hy_subject,hy_content,user_id,hy_url)
+values (1,'해연겔 게시판이죠?','실험','dksxoghl','hy');
 insert into Hboard_TB(category_id,hy_subject,hy_content,user_id,hy_url)
 values (1,'bbb','실험2','ㅌㅎ2','www.asfd');
 insert into Hboard_TB(category_id,hy_subject,hy_content,user_id,hy_url)
@@ -74,20 +76,21 @@ insert into user_tb(user_id,password,adult)
 values ('ㅌㅎ','asd',true);
 insert into user_tb(user_id,password,adult)
 values ('ㅌㅎ2','asd',false);
-insert into category_tb(category_id,category_name,category_url)
-values (1,'해외연예','hy');
-insert into category_tb(category_id,category_name,category_url)
-values (2,'중국연예','ch');
-insert into category_tb(category_id,category_name,category_url)
-values (3,'일본연예','ja');
-insert into category_tb(category_id,category_name,category_url)
-values (4,'게임','ga');
-insert into category_tb(category_id,category_name,category_url)
-values (5,'스포츠','sp');
-insert into category_tb(category_id,category_name,category_url)
-values (6,'라이프','li');
+insert into category_tb(category_id,category_name,category_url,category_color)
+values (1,'해외연예','hy','#537599');
+insert into category_tb(category_id,category_name,category_url,category_color)
+values (2,'중국연예','ch','#a5774f');
+insert into category_tb(category_id,category_name,category_url,category_color)
+values (3,'일본연예','ja','#bb416b');
+insert into category_tb(category_id,category_name,category_url,category_color)
+values (4,'게임','ga','#706496');
+insert into category_tb(category_id,category_name,category_url,category_color)
+values (5,'스포츠','sp','#159b78');
+insert into category_tb(category_id,category_name,category_url,category_color)
+values (6,'라이프','li','#969696');
 insert into category_tb(category_id,category_name,category_url,category_color)
 values (7,'공지','nt','#3a3a3a');
+update category_tb set category_color='#3a3a3a' where category_id=7;
 -- drop table hboard_tb cascade;
 CREATE TABLE IF NOT EXISTS category_tb
 (
