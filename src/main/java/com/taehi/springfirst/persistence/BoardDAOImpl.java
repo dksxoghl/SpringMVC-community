@@ -22,6 +22,7 @@ public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {
                     "on Hboard_TB.hy_id= C.hy_id "+
                     " where category_id=(select category_id from category_tb where category_url=?) and not hboard_tb.is_admin " +
                     "order by Hboard_TB.hy_id desc limit ? offset (? - 1) * ?";
+
     final String SELECT_ALLBEST_SQL=       //일정치이상 추천수 게시글
             "select Hboard_TB.hy_id,(ROW_NUMBER() OVER(order by Hboard_TB.hy_id)) AS hy_no,Hboard_TB.*,rep, hy_like" +
                     " from Hboard_TB left outer join (select count(*) as rep, hy_id from reply_tb group by hy_id) B " +
@@ -76,9 +77,56 @@ public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {
         return getJdbcTemplate().query(SELECT_ALL_SQL, BeanPropertyRowMapper.newInstance(BoardEntity.class),url,vo.getCntPerPage(),vo.getNowPage(),vo.getCntPerPage());
         //레시피 480장 참조,  RowMapper하위클래스,  특정클래스의 새인스턴스로 자동매핑가능. 프로퍼티 언더스코어 추가컬럼까지 매핑가능.
     }
+
+    @Override
+    public List<BoardEntity> selectSearchList(PagingVO vo, String url, String searchTarget, String searchKeyword) {
+        String likeKeyword= "%"+searchKeyword+"%";
+       String  target1=searchTarget;
+       String  target2=searchTarget;
+        System.out.println(target1+likeKeyword);
+        if(searchTarget.equals("hyAll")){
+            target1="hy_subject";
+            target2="hy_content";
+        }
+        String SELECT_SEARCH_SQL=
+                "select Hboard_TB.hy_id,(ROW_NUMBER() OVER(order by Hboard_TB.hy_id)) AS hy_no,Hboard_TB.*,rep, hy_like" +
+                        " from Hboard_TB left outer join (select count(*) as rep, hy_id from reply_tb group by hy_id) B " +
+                        "on Hboard_TB.hy_id= B.hy_id" +
+                        " left outer join (select count(*) as hy_like,hy_id from like_tb group by hy_id) C \n" +
+                        "on Hboard_TB.hy_id= C.hy_id "+
+                        " where category_id=(select category_id from category_tb where category_url=?) and not hboard_tb.is_admin " +
+                        "and ("+target1+" like ? or "+target2+" like ?) order by Hboard_TB.hy_id desc limit ? offset (? - 1) * ?";
+        return getJdbcTemplate().query(SELECT_SEARCH_SQL, BeanPropertyRowMapper.newInstance(BoardEntity.class),
+                url,likeKeyword,likeKeyword,vo.getCntPerPage(),vo.getNowPage(),vo.getCntPerPage());
+    }
+
     @Override
     public List<BoardEntity> selectBestBoardList(PagingVO vo, String url, int best) {
         return getJdbcTemplate().query(SELECT_ALLBEST_SQL, BeanPropertyRowMapper.newInstance(BoardEntity.class),url,best,vo.getCntPerPage(),vo.getNowPage(),vo.getCntPerPage());
+    }
+
+    @Override
+    public List<BoardEntity> selectBestSearchList(PagingVO vo, String url, int best, String searchTarget, String searchKeyword) {
+        String likeKeyword= "%"+searchKeyword+"%";
+        String  target1=searchTarget;
+        String  target2=searchTarget;
+        System.out.println(target1+likeKeyword);
+        if(searchTarget.equals("hyAll")){
+            target1="hy_subject";
+            target2="hy_content";
+        }
+        String SELECT_SEARCHBEST_SQL=       //일정치이상 추천수 게시글
+                "select Hboard_TB.hy_id,(ROW_NUMBER() OVER(order by Hboard_TB.hy_id)) AS hy_no,Hboard_TB.*,rep, hy_like" +
+                        " from Hboard_TB left outer join (select count(*) as rep, hy_id from reply_tb group by hy_id) B " +
+                        "on Hboard_TB.hy_id= B.hy_id" +
+                        " left outer join (select count(*) as hy_like,hy_id from like_tb group by hy_id) C \n" +
+                        "on Hboard_TB.hy_id= C.hy_id "+
+                        " where category_id=(select category_id from category_tb where category_url=?) and not hboard_tb.is_admin " +
+                        "and hy_like>=? " +
+                        "and ("+target1+" like ? or "+target2+" like ?)"+
+                        "order by Hboard_TB.hy_id desc limit ? offset (? - 1) * ?";
+        return getJdbcTemplate().query(SELECT_SEARCHBEST_SQL, BeanPropertyRowMapper.newInstance(BoardEntity.class),
+                url,best,likeKeyword,likeKeyword,vo.getCntPerPage(),vo.getNowPage(),vo.getCntPerPage());
     }
 
     @Override
@@ -96,9 +144,46 @@ public class BoardDAOImpl extends JdbcDaoSupport implements BoardDAO {
     public int countBoard(String url) {
         return getJdbcTemplate().queryForObject(SELECT_COUNT,Integer.class,url);
     }
+
+    @Override
+    public int countSearchBoard(String url, String searchTarget, String searchKeyword) {
+        String likeKeyword= "%"+searchKeyword+"%";
+        String  target1=searchTarget;
+        String  target2=searchTarget;
+        System.out.println(target1+likeKeyword);
+        if(searchTarget.equals("hyAll")){
+            target1="hy_subject";
+            target2="hy_content";
+        }
+        String SELECT_SEARCH_COUNT = "select count(*) from Hboard_TB where category_id=(\n" +
+                "\tselect category_id from category_tb where category_url=?) " +
+                "and ("+target1+" like ? or "+target2+" like ?) ";
+        return getJdbcTemplate().queryForObject(SELECT_SEARCH_COUNT,Integer.class,url,likeKeyword,likeKeyword);
+    }
+
     @Override
     public int countBestBoard(String url,int best) {
         return getJdbcTemplate().queryForObject(SELECT_BEST_COUNT,Integer.class,url,best);
+    }
+
+    @Override
+    public int countSearchBestBoard(String url,int best, String searchTarget, String searchKeyword) {
+        String likeKeyword= "%"+searchKeyword+"%";
+        String  target1=searchTarget;
+        String  target2=searchTarget;
+        System.out.println(target1+likeKeyword);
+        if(searchTarget.equals("hyAll")){
+            target1="hy_subject";
+            target2="hy_content";
+        }
+        String SELECT_SEARCHBEST_COUNT="select count(*) from (select Hboard_TB.hy_id, hy_like\n" +
+                "                    from Hboard_TB \n" +
+                "                     left outer join (select count(*) as hy_like,hy_id from like_tb group by hy_id) C \n" +
+                "                   on Hboard_TB.hy_id= C.hy_id \n" +
+                "                    where category_id=(select category_id from category_tb where category_url=?)\n" +
+                "                    and hy_like>=? " +
+                "and ("+target1+" like ? or "+target2+" like ?)   ) B";
+        return getJdbcTemplate().queryForObject(SELECT_SEARCHBEST_COUNT,Integer.class,url,best,likeKeyword,likeKeyword);
     }
 
 

@@ -32,7 +32,8 @@ from Hboard_TB left outer join (select count(*) as rep, hy_id from reply_tb grou
                left outer join (select count(*) as hy_like,hy_id from like_tb group by hy_id) C
                                on Hboard_TB.hy_id= C.hy_id
 where category_id=(select category_id from category_tb where category_url='hy') and not hboard_tb.is_admin
-and hy_like>=0
+-- and hy_like>=0
+and (hy_subject like '%aaa%' or hy_content like '%aaa%')
 order by Hboard_TB.hy_id desc limit 10 offset (1 - 1) * 10;
 
 delete from hboard_tb where hy_id=193;
@@ -60,6 +61,16 @@ order by hy_id desc limit 10 offset (1 - 1) * 10;
 
 select count(*) from Hboard_TB where category_id=(
     select category_id from category_tb where category_url='ja');
+
+select count(*) from (select Hboard_TB.hy_id, hy_like
+                                from Hboard_TB
+                              left outer join (select count(*) as hy_like,hy_id from like_tb group by hy_id) C
+                           on Hboard_TB.hy_id= C.hy_id
+                            where category_id=(select category_id from category_tb where category_url='hy')
+                            and hy_like>=1
+                          and (hy_subject like '%aaa%' or hy_content like '%aaa%')
+    ) B;
+
 
 insert into Hboard_TB(category_id,hy_subject,hy_content,user_id,hy_url)
 values (1,'반가워요','실험','dksxoghl','hy');
