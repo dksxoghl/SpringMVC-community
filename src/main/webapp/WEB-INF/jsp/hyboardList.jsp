@@ -37,7 +37,7 @@
                                                 src='/resources/img/notice-images.png'></td>
                     <td style="width:66%; text-align: start; color: #0f74a8">
                         <a href='/${url}/detail/${ntList.hyId}?nowPage=${paging.nowPage}&cntPerPage=${paging.cntPerPage}&best=${best}'>
-                              <span style="font-weight: bold; color: #2266EE;">${ntList.hySubject}</span>
+                            <span style="font-weight: bold; color: #2266EE;">${ntList.hySubject}</span>
                         </a>
                         <span>
                         <c:if test="${ntList.rep!=null}">
@@ -92,24 +92,47 @@
             </tbody>
         </table>
     </div>
-    <div style="text-align: center; background-color: white;">
-        <%--        <c:if test="${paging.startPage != 1 }">--%>
-        <a href="/${url}?nowPage=1&cntPerPage=${paging.cntPerPage}&best=${best}">&lt;첫 페이지</a>
-        <%--        </c:if>--%>
-        <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
-            <c:choose>
-                <c:when test="${p == paging.nowPage }">
-                    <b>${p }</b>
-                </c:when>
-                <c:when test="${p != paging.nowPage }">
-                    <a href="/${url}?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
-                </c:when>
-            </c:choose>
-        </c:forEach>
-        <c:if test="${paging.endPage != paging.lastPage}">
-            <a href="/${url}?nowPage=${paging.nowPage+1}&cntPerPage=${paging.cntPerPage}&best=${best}">&gt;다음 페이지</a>
-        </c:if>
-    </div>
+    <c:if test="${searchTarget == null }">
+        <div style="text-align: center; background-color: white;">
+                <%--        <c:if test="${paging.startPage != 1 }">--%>
+            <a href="/${url}?nowPage=1&cntPerPage=${paging.cntPerPage}&best=${best}">&lt;첫 페이지</a>
+                <%--        </c:if>--%>
+            <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+                <c:choose>
+                    <c:when test="${p == paging.nowPage }">
+                        <b>${p }</b>
+                    </c:when>
+                    <c:when test="${p != paging.nowPage }">
+                        <a href="/${url}?nowPage=${p }&cntPerPage=${paging.cntPerPage}&best=${best}">${p }</a>
+                    </c:when>
+                </c:choose>
+            </c:forEach>
+            <c:if test="${paging.endPage != paging.lastPage}">
+                <a href="/${url}?nowPage=${paging.nowPage+1}&cntPerPage=${paging.cntPerPage}&best=${best}">&gt;다음
+                    페이지</a>
+            </c:if>
+        </div>
+    </c:if>
+    <c:if test="${searchTarget != null }">
+        <div style="text-align: center; background-color: white;">
+                <%--        <c:if test="${paging.startPage != 1 }">--%>
+            <a href="/${url}?nowPage=1&cntPerPage=${paging.cntPerPage}&best=${best}&searchTarget=${searchTarget}&searchKeyword=${searchKeyword}">&lt;첫 페이지</a>
+                <%--        </c:if>--%>
+            <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+                <c:choose>
+                    <c:when test="${p == paging.nowPage }">
+                        <b>${p }</b>
+                    </c:when>
+                    <c:when test="${p != paging.nowPage }">
+                        <a href="/${url}?nowPage=${p}&cntPerPage=${paging.cntPerPage}&best=${best}&searchTarget=${searchTarget}&searchKeyword=${searchKeyword}">${p }</a>
+                    </c:when>
+                </c:choose>
+            </c:forEach>
+            <c:if test="${paging.endPage != paging.lastPage}">
+                <a href="/${url}?nowPage=${paging.nowPage+1}&cntPerPage=${paging.cntPerPage}&best=${best}&searchTarget=${searchTarget}&searchKeyword=${searchKeyword}">&gt;다음 페이지</a>
+            </c:if>
+        </div>
+    </c:if>
     <%--    <c:if test="${url!='nt' or (url=='nt'and user.username=='admin')}">--%>
     <%--    </c:if>--%>
     <div style=" height: 50px">
@@ -132,11 +155,12 @@
     <form action="/${url}" method="get" style="padding-bottom: 30px">
         <select name="searchTarget" style="border-color: #ccc #aaa #aaa #ccc; height: 30px">
             <option value="hyAll" selected="selected">제목+내용</option>
-            <option value="hySubject">제목</option>
-            <option value="hyContent">내용</option>
+            <option value="hy_subject">제목</option>
+            <option value="hy_content">내용</option>
         </select>
-        <input type="text" maxlength="40"  style="border-color: #ccc #aaa #aaa #ccc;" name="searchKeyword">
+        <input type="text" maxlength="40" style="border-color: #ccc #aaa #aaa #ccc;" name="searchKeyword">
         <input type="checkbox" name="best" value="1">
+        개념글만
         <span class="button"><input type="submit" value="검색"></span>
     </form>
 </div>

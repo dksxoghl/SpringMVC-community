@@ -21,11 +21,15 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public List<BoardEntity> selectBoardList(PagingVO vo, String url, int best) { //추천수0 or 이상으로 개념글판별
+    public List<BoardEntity> selectBoardList(PagingVO vo, String url, int best,String searchTarget,String searchKeyword) { //추천수0 or 이상으로 개념글판별
         if(best==0){
+            if(searchTarget!=null) return boardDAO.selectSearchList(vo,url,searchTarget,searchKeyword);
             return boardDAO.selectBoardList(vo,url);
+        }else{
+            if(searchTarget!=null) return boardDAO.selectBestSearchList(vo,url,best,searchTarget,searchKeyword);
+            return boardDAO.selectBestBoardList(vo,url,best);
         }
-        return boardDAO.selectBestBoardList(vo,url,best);
+
     }
     @Override
     public List<BoardEntity> selectNoticeList(String url) {
@@ -39,9 +43,15 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public int countBoard(String url,int best) { //게시글,베스트게시글 카운트
-        if(best==0)return boardDAO.countBoard(url);
-        else return boardDAO.countBestBoard(url,best);
+    public int countBoard(String url,int best,String searchTarget,String searchKeyword ) { //게시글,베스트게시글 카운트
+        if(best==0){
+            if(searchTarget!=null) return boardDAO.countSearchBoard(url,searchTarget,searchKeyword);
+            return boardDAO.countBoard(url);
+        }
+        else {
+            if(searchTarget!=null) return boardDAO.countSearchBestBoard(url,best,searchTarget,searchKeyword);
+            return boardDAO.countBestBoard(url,best);
+        }
     }
 
 

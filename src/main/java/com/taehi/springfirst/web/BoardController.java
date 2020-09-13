@@ -23,77 +23,85 @@ public class BoardController {
 
     private BoardService boardService;
 
-//    @Autowired
+    //    @Autowired
 //    public BoardController(BoardService boardService) {
 //        this.boardService = boardService;
 //    }
     @RequestMapping(value = {"/"})
-    public String redirect(){
+    public String redirect() {
         return "redirect:/hy";
     }
 
     @RequestMapping(value = {"/{url}/deleteForm/{seq}"})
-    public String deleteForm(Model model,@PathVariable int seq,@PathVariable String url){
+    public String deleteForm(Model model, @PathVariable int seq, @PathVariable String url) {
         System.out.println("deleteForm");
         List<CategoryVO> categoryList = boardService.selectCategoryList();
-        model.addAttribute("categoryList",categoryList);
+        model.addAttribute("categoryList", categoryList);
         model.addAttribute("seq", seq);
         model.addAttribute(url);
         return "boardDelete";
     }
+
     @RequestMapping(value = {"{url}/delete/{seq}"})
-    public String delete(@PathVariable int seq,@PathVariable String url){
+    public String delete(@PathVariable int seq, @PathVariable String url) {
         System.out.println("delete");
         boardService.deleteBoard(seq);
-        return "redirect:/"+url;
+        return "redirect:/" + url;
     }
+
     @RequestMapping(value = {"/{url}/writeForm"})
 //    ,@RequestParam(value = "seq",required = false) int seq
-    public String writeForm(Model model, @ModelAttribute("boardVO") BoardEntity boardEntity, @PathVariable String url){
-        System.out.println("writeForm"+ boardEntity.getHyCreatedDate() +" "+ boardEntity.getHyId());
+    public String writeForm(Model model, @ModelAttribute("boardVO") BoardEntity boardEntity, @PathVariable String url) {
+        System.out.println("writeForm" + boardEntity.getHyCreatedDate() + " " + boardEntity.getHyId());
         List<CategoryVO> categoryList = boardService.selectCategoryList();
-        model.addAttribute("categoryList",categoryList);
+        model.addAttribute("categoryList", categoryList);
         model.addAttribute("board", boardEntity);
         model.addAttribute(url);
         return "boardWrite";
     }
+
     @RequestMapping(value = {"/{url}/write"})
-    public String write(@ModelAttribute("boardVO") BoardEntity boardEntity, @PathVariable String url){
-        System.out.println("write"+ boardEntity.getHyId()+"gethid "+ boardEntity.getIsAdmin());
-        int seq = boardService.insertBoard(boardEntity, boardEntity.getHyId(),url);
-        return "redirect:/"+url+"/detail/"+seq;         //쓰기 후 바로 디테일페이지 이동
+    public String write(@ModelAttribute("boardVO") BoardEntity boardEntity, @PathVariable String url) {
+        System.out.println("write" + boardEntity.getHyId() + "gethid " + boardEntity.getIsAdmin());
+        int seq = boardService.insertBoard(boardEntity, boardEntity.getHyId(), url);
+        return "redirect:/" + url + "/detail/" + seq;         //쓰기 후 바로 디테일페이지 이동
     }
+
     @RequestMapping(value = {"/{url}/detail/{seq}"})
-    public String boardDetail(Model model,@PathVariable("seq")int seq,  //게시글번호
-                              @RequestParam(value="nowPage", required=false)String nowPage  //페이징
-            , @RequestParam(value="cntPerPage", required=false)String cntPerPage,
-                              @RequestParam(value="best", required=false, defaultValue = "0")String best ,  //추천글만보기 분류
-                              @PathVariable(required = false) String url){
-        System.out.println("hydetail"+seq);
-//        if(best==null||best.equals("")) best="0";
-        model.addAttribute("best",best);
+    public String boardDetail(Model model, @PathVariable("seq") int seq,  //게시글번호
+                              @RequestParam(value = "nowPage", required = false) String nowPage  //페이징
+            , @RequestParam(value = "cntPerPage", required = false) String cntPerPage,
+                              @RequestParam(value = "best", required = false, defaultValue = "0") String best,  //추천글만보기 분류
+                              @RequestParam(required = false) String searchTarget, @RequestParam(required = false) String searchKeyword,
+                              @PathVariable(required = false) String url) {
+        System.out.println("hydetail" + seq);
+        model.addAttribute("best", best);
 
         BoardEntity boardEntity = boardService.selectBoardById(seq);
         model.addAttribute("board", boardEntity);
 
-        PagingVO vo = createPaging(nowPage, cntPerPage,url,Integer.parseInt(best));
+        PagingVO vo = createPaging(nowPage, cntPerPage, url, Integer.parseInt(best),searchTarget,searchKeyword);
         model.addAttribute("paging", vo);
+        model.addAttribute("searchTarget",searchTarget);
+        model.addAttribute("searchKeyword",searchKeyword);
 
-        List<BoardEntity> list = boardService.selectBoardList(vo,url,Integer.parseInt(best));
-        model.addAttribute("list",  changeDate(list));
-        List<BoardEntity> ntList= boardService.selectNoticeList(url);
+        List<BoardEntity> list = boardService.selectBoardList(vo, url, Integer.parseInt(best), searchTarget, searchKeyword);
+        model.addAttribute("list", changeDate(list));
+        List<BoardEntity> ntList = boardService.selectNoticeList(url);
 
-        model.addAttribute("ntList",  changeDate(ntList));
+        model.addAttribute("ntList", changeDate(ntList));
 
         List<CategoryVO> categoryList = boardService.selectCategoryList();
-        model.addAttribute("categoryList",categoryList);
+        model.addAttribute("categoryList", categoryList);
 
-        model.addAttribute("seeingNow",seq); //현재보고있는글표시
-        model.addAttribute("detail","detail"); //글보기페이지 댓글플로팅버튼때문
+        model.addAttribute("seeingNow", seq); //현재보고있는글표시
+        model.addAttribute("detail", "detail"); //글보기페이지 댓글플로팅버튼때문
         return "boardDetail";
     }
-    private PagingVO createPaging(String nowPage, String cntPerPage,String url,int best){     //디테일, 리스트 페이지 공통페이기객체생성기능
-        int total = boardService.countBoard(url,best);
+
+    private PagingVO createPaging(String nowPage, String cntPerPage, String url, int best,
+                                  String searchTarget,String searchKeyword) {     //디테일, 리스트 페이지 공통페이기객체생성기능
+        int total = boardService.countBoard(url, best,searchTarget,searchKeyword);
         if (nowPage == null && cntPerPage == null) {
             nowPage = "1";
             cntPerPage = "20";
@@ -102,15 +110,16 @@ public class BoardController {
         } else if (cntPerPage == null) {
             cntPerPage = "20";
         }
-        return new PagingVO(total,Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+        return new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
     }
-    private List<BoardVO> changeDate(List<BoardEntity> list){
-        Date date=new Date();
+
+    private List<BoardVO> changeDate(List<BoardEntity> list) {
+        Date date = new Date();
         DateFormat sfday = new SimpleDateFormat("YYYY-MM-dd");
         DateFormat sfmin = new SimpleDateFormat("HH:mm");
-        List<BoardVO> boardVOList= list.stream().map(be -> {
-            String hyCreateDate = be.getHyCreatedDate().toString().substring(0, 10).equals(sfday.format(date))?
-                    sfmin.format(be.getHyCreatedDate()) : sfday.format(be.getHyCreatedDate()).substring(5,10);
+        List<BoardVO> boardVOList = list.stream().map(be -> {
+            String hyCreateDate = be.getHyCreatedDate().toString().substring(0, 10).equals(sfday.format(date)) ?
+                    sfmin.format(be.getHyCreatedDate()) : sfday.format(be.getHyCreatedDate()).substring(5, 10);
             return BoardVO.builder()
                     .hyId(be.getHyId()).hyNo(be.getHyNo()).categoryId(be.getCategoryId()).hySubject(be.getHySubject())
                     .hyContent(be.getHyContent()).hyCreatedDate(hyCreateDate).userId(be.getUserId()).hyHit(be.getHyHit())
@@ -119,26 +128,29 @@ public class BoardController {
         }).collect(Collectors.toList());
         return boardVOList;
     }
+
     @RequestMapping(value = {"/{url}"})
-    public String boardList( Model model, @RequestParam(value="nowPage", required=false)String nowPage
-            , @RequestParam(value="cntPerPage", required=false)String cntPerPage,@RequestParam(value="best", required=false, defaultValue = "0")String best ,
-                             @RequestParam(required = false) String searchTarget, @RequestParam(required = false) String searchKeyword,          @PathVariable String url)  {
-//        System.out.println("hy"+vo.getNowPage()+" "+vo.getCntPerPage()+" "+vo.getStartPage());
-        System.out.println(url+"과연"+best+"search"+searchTarget+searchKeyword);
-//        if(url==null) url="hy";
-//        if(best==null||best.equals("")) best="0";
+    public String boardList(Model model, @RequestParam(value = "nowPage", required = false) String nowPage
+            , @RequestParam(value = "cntPerPage", required = false) String cntPerPage,
+                            @RequestParam(value = "best", required = false, defaultValue = "0") String best,
+                            @RequestParam(required = false) String searchTarget,
+                            @RequestParam(required = false) String searchKeyword,
+                            @PathVariable String url) {
+        System.out.println(url + "과연" + best + "search" + searchTarget + searchKeyword);
 
         model.addAttribute(url);
-        model.addAttribute("best",best);
+        model.addAttribute("best", best);
 
-        PagingVO vo= createPaging(nowPage, cntPerPage,url,Integer.parseInt(best));
+        PagingVO vo = createPaging(nowPage, cntPerPage, url, Integer.parseInt(best),searchTarget,searchKeyword);
         model.addAttribute("paging", vo);
+        model.addAttribute("searchTarget",searchTarget);
+        model.addAttribute("searchKeyword",searchKeyword);
 
-        List<BoardEntity> list = boardService.selectBoardList(vo,url,Integer.parseInt(best));
-        model.addAttribute("list",  changeDate(list));
+        List<BoardEntity> list = boardService.selectBoardList(vo, url, Integer.parseInt(best), searchTarget, searchKeyword);
+        model.addAttribute("list", changeDate(list));
 
-        List<BoardEntity> ntList= boardService.selectNoticeList(url);
-        model.addAttribute("ntList",  changeDate(ntList));
+        List<BoardEntity> ntList = boardService.selectNoticeList(url);
+        model.addAttribute("ntList", changeDate(ntList));
         /*List<String> li= list.stream().map(BoardEntity::getHyCreatedDate).map(l-> {
             if (l.toString().substring(0, 10).equals(sfday.format(date))) {
                 return sfmin.format(l);
@@ -159,7 +171,7 @@ public class BoardController {
 ////            return date;
 //        }).collect(Collectors.toList());
         List<CategoryVO> categoryList = boardService.selectCategoryList();
-        model.addAttribute("categoryList",categoryList);
+        model.addAttribute("categoryList", categoryList);
 
         return "index";
     }
