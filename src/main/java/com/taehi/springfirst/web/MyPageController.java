@@ -16,12 +16,12 @@ public class MyPageController {
     private BoardService boardService;
 
     @GetMapping("/{url}/myPage")
-    public String myPage(Model model, @PathVariable String url){
+    public String myPage(Model model, @PathVariable String url) {
         System.out.println("loginForm");
         List<CategoryVO> categoryList = boardService.selectCategoryList();
-        model.addAttribute("categoryList",categoryList);
+        model.addAttribute("categoryList", categoryList);
         model.addAttribute(url);
-        model.addAttribute("deleteNav","deleteNav");  // 헤더 소개없애기위해
+        model.addAttribute("deleteNav", "deleteNav");  // 헤더 소개없애기위해
         return "myPage";
     }
 }

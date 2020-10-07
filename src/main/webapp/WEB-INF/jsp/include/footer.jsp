@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" initial-scale="1">
-<%--    <link rel="stylesheet" href="/resources/css/lib/bootstrap.min.css">--%>
+    <%--    <link rel="stylesheet" href="/resources/css/lib/bootstrap.min.css">--%>
     <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css" type="text/css">
     <title>해연갤</title>
@@ -16,9 +16,9 @@
     </c:if>
     </c:forEach>
 
-     <div style=" margin-left: 20px;">
-          <a href="/hy" style="color: white; font-size: 30px">HYGALL2.COM</a>
-        </div>
+    <div style=" margin-left: 20px;">
+        <a href="/hy" style="color: white; font-size: 30px">HYGALL2.COM</a>
+    </div>
 </div>
 </body>
 </html>

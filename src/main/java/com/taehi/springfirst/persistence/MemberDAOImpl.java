@@ -15,21 +15,22 @@ import java.util.stream.Collectors;
 
 @Repository
 public class MemberDAOImpl extends JdbcDaoSupport implements MemberDAO {
-    final String JOIN_SQL="insert into user_tb(user_id,password,adult,email) values (?,?,?,?)";
-    final String FIND_USER_SQL="select * from user_tb where user_id=?";
+    final String JOIN_SQL = "insert into user_tb(user_id,password,adult,email) values (?,?,?,?)";
+    final String FIND_USER_SQL = "select * from user_tb where user_id=?";
 
-    public MemberDAOImpl(DataSource dataSource){
+    public MemberDAOImpl(DataSource dataSource) {
         setDataSource(dataSource);
     }
+
     @Override
     public int joinUser(MemberVO memberVO) {
-        return getJdbcTemplate().update(JOIN_SQL,memberVO.getUserId(),memberVO.getPassword(),memberVO.isAdult(),memberVO.getEmail());
+        return getJdbcTemplate().update(JOIN_SQL, memberVO.getUserId(), memberVO.getPassword(), memberVO.isAdult(), memberVO.getEmail());
     }
 
     @Override
     public Optional<MemberVO> findByUserId(String userId) {
 //  MemberVO memberVO = ;
-        return Optional.ofNullable(DataAccessUtils.singleResult(getJdbcTemplate().query(FIND_USER_SQL,  BeanPropertyRowMapper.newInstance(MemberVO.class),userId)));
+        return Optional.ofNullable(DataAccessUtils.singleResult(getJdbcTemplate().query(FIND_USER_SQL, BeanPropertyRowMapper.newInstance(MemberVO.class), userId)));
 //        return Optional.ofNullable(getJdbcTemplate().queryForObject(FIND_USER_SQL,  BeanPropertyRowMapper.newInstance(MemberVO.class),userId));
     }
 //    private class A implements RowMapper<Optional<MemberVO>>{

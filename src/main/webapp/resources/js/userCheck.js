@@ -2,15 +2,14 @@ const user = $('#user').val();
 const url = $('#url').val();
 $(document).ready(function () {
     $(document).on('click', '#writeLink', function (e) {
-        console.log(user,'??')
-        let errorMessage="";
+        console.log(user, '??')
+        let errorMessage = "";
         if (!user) {
-            errorMessage='로그인이 필요합니다.';
+            errorMessage = '로그인이 필요합니다.';
+        } else if (url === 'nt' && user !== 'admin') {     //공지게시글일때 admin아니면
+            errorMessage = '권한이 없습니다.';
         }
-        else if(url==='nt' && user!=='admin'){     //공지게시글일때 admin아니면
-            errorMessage='권한이 없습니다.';
-        }
-        if(errorMessage) {
+        if (errorMessage) {
             alert(errorMessage);
             e.preventDefault();
         }
@@ -18,11 +17,11 @@ $(document).ready(function () {
     });
     $('.dropdown').hover(function () {
         $('.dropdown-menu').show();
-    },function () {
+    }, function () {
     });
     $('.dropdown-menu').hover(function () {
         $('.dropdown-menu').show();
-    },function () {
+    }, function () {
         $('.dropdown-menu').hide();
     });
 

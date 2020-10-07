@@ -37,8 +37,9 @@ public class MemberServiceImpl implements MemberService {
 //        MemberVO memberVO = optionalMemberVO.orElseThrow(()->new NoSuchElementException());
         MemberVO memberVO = optionalMemberVO.get();
         List<GrantedAuthority> authorities = new ArrayList<>();
-        if (username.equals("admin")) { authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN")); }
-        else {
+        if (username.equals("admin")) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        } else {
             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
         return new User(memberVO.getUserId(), memberVO.getPassword(), authorities);

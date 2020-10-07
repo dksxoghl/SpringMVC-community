@@ -41,7 +41,7 @@
         <hr/>
         <input type="hidden" id="userId" name="userId" value="${user.username}"/>
         <c:if test="${url!=nt and user.username=='admin'}">
-        <input type="hidden" id="isAdmin" name="isAdmin" value="true"/>
+            <input type="hidden" id="isAdmin" name="isAdmin" value="true"/>
         </c:if>
         <c:if test="${user.username!='admin'}">
             <input type="hidden" id="isAdmin" name="isAdmin" value="false"/>
@@ -52,18 +52,18 @@
         <%--        <input type='hidden' id='seq' name='seq' value='${board.h_id }' />--%>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     </form>
-<%--    <script type="text/javascript">--%>
-<%--        $(document).ready(function () {--%>
-<%--            $(document).on("click", "#check", function (event) {--%>
-<%--                var userId = $("input[name=userId]");--%>
-<%--                console.log(userId.val());--%>
-<%--                if ( userId.val() == null || userId.val()=="") {--%>
-<%--                    alert('id 필수');--%>
-<%--                    event.preventDefault();--%>
-<%--                }--%>
-<%--            });--%>
-<%--        });--%>
-<%--    </script>--%>
+    <%--    <script type="text/javascript">--%>
+    <%--        $(document).ready(function () {--%>
+    <%--            $(document).on("click", "#check", function (event) {--%>
+    <%--                var userId = $("input[name=userId]");--%>
+    <%--                console.log(userId.val());--%>
+    <%--                if ( userId.val() == null || userId.val()=="") {--%>
+    <%--                    alert('id 필수');--%>
+    <%--                    event.preventDefault();--%>
+    <%--                }--%>
+    <%--            });--%>
+    <%--        });--%>
+    <%--    </script>--%>
 </div>
 <script type="text/javascript" src="<c:url value="/js/validation.js"/>"></script>
 <jsp:include page="include/footer.jsp"/>

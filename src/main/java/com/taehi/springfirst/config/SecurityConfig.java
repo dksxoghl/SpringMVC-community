@@ -1,6 +1,7 @@
 package com.taehi.springfirst.config;
 
 //import com.taehi.springfirst.service.MemberService;
+
 import com.taehi.springfirst.service.MemberService;
 import com.taehi.springfirst.service.MemberServiceImpl;
 import lombok.AllArgsConstructor;
@@ -50,24 +51,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 // 페이지 권한 설정
                 .antMatchers("/**/myPage*").hasRole("USER")
-                .antMatchers("/nt/writeForm*","/nt/deleteForm/*","/nt/delete/*").hasRole("ADMIN")
-                .antMatchers("/**/writeForm*","/**/deleteForm/*","/**/delete/*","/reply/*","/reply*").hasAnyRole("USER","ADMIN")
+                .antMatchers("/nt/writeForm*", "/nt/deleteForm/*", "/nt/delete/*").hasRole("ADMIN")
+                .antMatchers("/**/writeForm*", "/**/deleteForm/*", "/**/delete/*", "/reply/*", "/reply*").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/**").permitAll()
                 .and() // 로그인 설정
                 .formLogin()
-                    .loginPage("/loginForm")
+                .loginPage("/loginForm")
 //                    .loginProcessingUrl("/loginForm")
-                    .defaultSuccessUrl("/hy")
-                    .failureUrl("/loginForm?error=true&url=hy")
+                .defaultSuccessUrl("/hy")
+                .failureUrl("/loginForm?error=true&url=hy")
 //                    .failureHandler(failureHandler())
-                    .permitAll()
-                 .and() // 로그아웃 설정
+                .permitAll()
+                .and() // 로그아웃 설정
                 .logout()
 //                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-                 .logoutSuccessUrl("/hy")
-                 .invalidateHttpSession(true)
-                 .deleteCookies("JSESSIONID")
-                 .and()
+                .logoutSuccessUrl("/hy")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .and()
                 .headers()   //보안헤더활성화시 브라우저가 더이상페이지 캐시하지않음.
                 .and()
                 .rememberMe();
@@ -78,8 +79,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                // 403 예외처리 핸들링  커스텀페이지필요
 //                .exceptionHandling().accessDeniedPage("/user/denied");
     }
+
     @Bean
-    public AuthenticationFailureHandler failureHandler(){
+    public AuthenticationFailureHandler failureHandler() {
         return new CustomAuthFailureHandler();
     }
 }

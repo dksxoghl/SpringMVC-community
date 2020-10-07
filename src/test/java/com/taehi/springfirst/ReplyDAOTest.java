@@ -29,21 +29,23 @@ public class ReplyDAOTest {
     private ReplyDAO replyDAO;
 
     @Test
-    public void testList(){
-      replyDAO.list(138,new PagingVO(3,1,7)).stream().forEach(s-> System.out.println(s.getReContent()));
+    public void testList() {
+        replyDAO.list(138, new PagingVO(3, 1, 7)).stream().forEach(s -> System.out.println(s.getReContent()));
     }
+
     @Test
-    public void testInsertReply(){
+    public void testInsertReply() {
         for (int i = 0; i < 3; i++) {
-            ReplyVO replyVO=new ReplyVO();
+            ReplyVO replyVO = new ReplyVO();
             replyVO.setHyId(138);
             replyVO.setUserId("ㅌㅎ");
             replyVO.setReContent("aaa");
             replyDAO.insertReply(replyVO);
         }
     }
+
     @Test
-    public void testDeleteReply(){
+    public void testDeleteReply() {
         replyDAO.deleteReply(1);
     }
 }
