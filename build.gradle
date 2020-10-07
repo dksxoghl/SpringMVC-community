@@ -41,6 +41,6 @@ dependencies {
 
 test {
     useJUnitPlatform()
-    systemProperty 'cucumber.options', '--plugin junit:target/surefire-reports/cucumber-junit.xml'
+    systemProperty 'cucumber.options', '--plugin junit:target/surefire-reports/cucumber-junit.xml'      //maven surefire?
     include '**/*Test.class'
 }
