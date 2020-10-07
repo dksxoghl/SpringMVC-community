@@ -1,0 +1,39 @@
+steps:
+  - name: gradle:5.6.2-jdk8
+    entrypoint: gradle
+    args: ["test"]
+  - name: gradle:5.6.2-jdk8
+    entrypoint: gradle
+    args: ["assemble"]
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["build", "-t", "gcr.io/$PROJECT_ID/community-springboot:v1", "."]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/community-springboot:v1']
+#  - name: 'gcr.io/cloud-builders/kubectl'
+#    args:
+#      - set
+#      - image
+#      - deployment/spring-boot-container
+#      - community-springboot-sha256-1=gcr.io/$PROJECT_ID/community-springboot:v1
+#      - -n
+#      - spring-boot
+#    env:
+#      - 'CLOUDSDK_COMPUTE_ZONE=asia-northeast1-b'
+#      - 'CLOUDSDK_CONTAINER_CLUSTER=test-springboot-cluster'
+    timeout: 500s
+
+#  - name: "gcr.io/cloud-builders/docker"
+#    args: ["push", "gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA"]
+#  - name: "gcr.io/cloud-builders/gcloud"
+#    entrypoint: gcloud
+#    args: [ "run", "deploy", "$REPO_NAME", "--image", "gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA", "--region", "asia-northeast1", "--platform", "managed", "--port", "5000", "--allow-unauthenticated", ]
+
+#steps:
+#  - name: 'gcr.io/cloud-builders/mvn'
+#    args: ['install']
+#  - name: 'gcr.io/cloud-builders/docker'
+#    args: ['build', '-t', 'gcr.io/docker-test/test-springboot', '.']
+#    timeout: 500s
+#options:
+#  machineType: 'N1_HIGHCPU_8' # HIGHCPU로 빌드 스피드 업
+#timeout: 1000s # 빌드 자체에 대한 타임 아웃

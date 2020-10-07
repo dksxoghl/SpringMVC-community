@@ -19,7 +19,7 @@ import java.util.Locale;
 public class Config implements WebMvcConfigurer {
 
     @Bean
-    public MessageSource messageSource(){
+    public MessageSource messageSource() {
         Locale.setDefault(Locale.KOREA); // 위치 한국으로 설정
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setDefaultEncoding("UTF-8"); // 인코딩 설정
@@ -34,6 +34,7 @@ public class Config implements WebMvcConfigurer {
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/css/**")

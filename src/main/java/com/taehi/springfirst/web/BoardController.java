@@ -80,10 +80,10 @@ public class BoardController {
         BoardEntity boardEntity = boardService.selectBoardById(seq);
         model.addAttribute("board", boardEntity);
 
-        PagingVO vo = createPaging(nowPage, cntPerPage, url, Integer.parseInt(best),searchTarget,searchKeyword);
+        PagingVO vo = createPaging(nowPage, cntPerPage, url, Integer.parseInt(best), searchTarget, searchKeyword);
         model.addAttribute("paging", vo);
-        model.addAttribute("searchTarget",searchTarget);
-        model.addAttribute("searchKeyword",searchKeyword);
+        model.addAttribute("searchTarget", searchTarget);
+        model.addAttribute("searchKeyword", searchKeyword);
 
         List<BoardEntity> list = boardService.selectBoardList(vo, url, Integer.parseInt(best), searchTarget, searchKeyword);
         model.addAttribute("list", changeDate(list));
@@ -100,8 +100,8 @@ public class BoardController {
     }
 
     private PagingVO createPaging(String nowPage, String cntPerPage, String url, int best,
-                                  String searchTarget,String searchKeyword) {     //디테일, 리스트 페이지 공통페이기객체생성기능
-        int total = boardService.countBoard(url, best,searchTarget,searchKeyword);
+                                  String searchTarget, String searchKeyword) {     //디테일, 리스트 페이지 공통페이기객체생성기능
+        int total = boardService.countBoard(url, best, searchTarget, searchKeyword);
         if (nowPage == null && cntPerPage == null) {
             nowPage = "1";
             cntPerPage = "20";
@@ -141,10 +141,10 @@ public class BoardController {
         model.addAttribute(url);
         model.addAttribute("best", best);
 
-        PagingVO vo = createPaging(nowPage, cntPerPage, url, Integer.parseInt(best),searchTarget,searchKeyword);
+        PagingVO vo = createPaging(nowPage, cntPerPage, url, Integer.parseInt(best), searchTarget, searchKeyword);
         model.addAttribute("paging", vo);
-        model.addAttribute("searchTarget",searchTarget);
-        model.addAttribute("searchKeyword",searchKeyword);
+        model.addAttribute("searchTarget", searchTarget);
+        model.addAttribute("searchKeyword", searchKeyword);
 
         List<BoardEntity> list = boardService.selectBoardList(vo, url, Integer.parseInt(best), searchTarget, searchKeyword);
         model.addAttribute("list", changeDate(list));

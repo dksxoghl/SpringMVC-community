@@ -15,14 +15,15 @@
 <div class="container" style=" background-color:white;padding-bottom: 50px;padding-top: 20px">
     <div class="card" style="width: 30%; text-align: center;margin:auto;">
         <div class="card-body">
-            <form method="post" action="/loginForm">    
+            <form method="post" action="/loginForm">
                 <div class="form-group">
                     <input type="text" placeholder="아이디" class="form-control" name="username" id="username">
                 </div>
                 <div class="form-group">
-                    <input type="password"  placeholder="비밀번호" class="form-control" id="password" name="password">
+                    <input type="password" placeholder="비밀번호" class="form-control" id="password" name="password">
                 </div>
-                <input type="submit" id="loginButton" class="btn" style="width: 100%; background-color:#537599;color: white" value="로그인" >
+                <input type="submit" id="loginButton" class="btn"
+                       style="width: 100%; background-color:#537599;color: white" value="로그인">
                 <div class="form-group form-check col-6" style="margin-top: 20px">
                     <input type="checkbox" class="form-check-input" id="remem-check"
                            name="remember-me"> <%--RememberMe 파라메터 기본값이 remember-me--%>
@@ -35,11 +36,11 @@
                         alert('${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}');
                     </script>
                 </c:if>
-<%--                <c:if test="${not empty errorMessage}">--%>
-<%--                    <script type="text/javascript">--%>
-<%--                        alert('${errorMessage }');--%>
-<%--                    </script>--%>
-<%--                </c:if>--%>
+                <%--                <c:if test="${not empty errorMessage}">--%>
+                <%--                    <script type="text/javascript">--%>
+                <%--                        alert('${errorMessage }');--%>
+                <%--                    </script>--%>
+                <%--                </c:if>--%>
 
             </form>
         </div>

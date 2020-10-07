@@ -116,7 +116,8 @@
     <c:if test="${searchTarget != null }">
         <div style="text-align: center; background-color: white;">
                 <%--        <c:if test="${paging.startPage != 1 }">--%>
-            <a href="/${url}?nowPage=1&cntPerPage=${paging.cntPerPage}&best=${best}&searchTarget=${searchTarget}&searchKeyword=${searchKeyword}">&lt;첫 페이지</a>
+            <a href="/${url}?nowPage=1&cntPerPage=${paging.cntPerPage}&best=${best}&searchTarget=${searchTarget}&searchKeyword=${searchKeyword}">&lt;첫
+                페이지</a>
                 <%--        </c:if>--%>
             <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
                 <c:choose>
@@ -129,7 +130,8 @@
                 </c:choose>
             </c:forEach>
             <c:if test="${paging.endPage != paging.lastPage}">
-                <a href="/${url}?nowPage=${paging.nowPage+1}&cntPerPage=${paging.cntPerPage}&best=${best}&searchTarget=${searchTarget}&searchKeyword=${searchKeyword}">&gt;다음 페이지</a>
+                <a href="/${url}?nowPage=${paging.nowPage+1}&cntPerPage=${paging.cntPerPage}&best=${best}&searchTarget=${searchTarget}&searchKeyword=${searchKeyword}">&gt;다음
+                    페이지</a>
             </c:if>
         </div>
     </c:if>

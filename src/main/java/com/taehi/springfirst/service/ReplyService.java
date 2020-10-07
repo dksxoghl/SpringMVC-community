@@ -7,7 +7,10 @@ import java.util.List;
 
 public interface ReplyService {
     public List<ReplyVO> list(int hyId, PagingVO vo);
+
     public int insertReply(ReplyVO replyVO);
+
     public void deleteReply(int reId);
+
     public int countReply(int hyId);
 }

@@ -15,21 +15,22 @@ public class LikeController {
     private LikeService likeService;
 
     @GetMapping(value = "/{userId}/{hyId}")
-    public ResponseEntity<Integer> getLike(@PathVariable("hyId")int hyId,@PathVariable("userId")String userId){
+    public ResponseEntity<Integer> getLike(@PathVariable("hyId") int hyId, @PathVariable("userId") String userId) {
         System.out.println("getLike");
-        ResponseEntity<Integer> entity=null;
-        int likeVal= likeService.getLike(hyId,userId);
+        ResponseEntity<Integer> entity = null;
+        int likeVal = likeService.getLike(hyId, userId);
         try {
-            entity= new ResponseEntity<>(likeVal, HttpStatus.OK);
-        }catch (Exception e){
+            entity = new ResponseEntity<>(likeVal, HttpStatus.OK);
+        } catch (Exception e) {
             entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             e.printStackTrace();
         }
         return entity;
     }
+
     @PostMapping
     public ResponseEntity<String> insertLike(@RequestBody LikeVO likeVO) {
-        System.out.println("insertLike"+likeVO.getUserId());
+        System.out.println("insertLike" + likeVO.getUserId());
         ResponseEntity<String> entity = null;
         try {
             likeService.insertLike(likeVO);

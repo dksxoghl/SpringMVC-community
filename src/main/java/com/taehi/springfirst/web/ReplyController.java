@@ -20,38 +20,40 @@ public class ReplyController {
 
     //답글 현재요청페이지로 페이징처리하여 list 리턴
     @GetMapping(value = "/all/{hyId}/{nowPage}")
-    public ResponseEntity<Map<String,Object>> list(@PathVariable("hyId")int hyId,@PathVariable("nowPage")String nowPage){
-        int total= replyService.countReply(hyId);
+    public ResponseEntity<Map<String, Object>> list(@PathVariable("hyId") int hyId, @PathVariable("nowPage") String nowPage) {
+        int total = replyService.countReply(hyId);
 //        if (nowPage == null ) {
 //            nowPage = "1";
 //        }
-        PagingVO vo = new PagingVO(total,Integer.parseInt(nowPage), 10);
-        ResponseEntity<Map<String,Object>> entity=null; //map으로
+        PagingVO vo = new PagingVO(total, Integer.parseInt(nowPage), 10);
+        ResponseEntity<Map<String, Object>> entity = null; //map으로
         try {
-            Map<String,Object> map = new HashMap<>();
-            map.put("replyVO",replyService.list(hyId,vo));
-            map.put("replyPage",vo);
-            entity= new ResponseEntity<>(map, HttpStatus.OK);
-        }catch (Exception e){
+            Map<String, Object> map = new HashMap<>();
+            map.put("replyVO", replyService.list(hyId, vo));
+            map.put("replyPage", vo);
+            entity = new ResponseEntity<>(map, HttpStatus.OK);
+        } catch (Exception e) {
             entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             e.printStackTrace();
         }
         return entity;
     }
+
     //페이지의 제일최신글을 먼저보기위해 마지막페이지 리턴
     @GetMapping(value = "/lastPage/{hyId}")
-    public ResponseEntity<Integer> list(@PathVariable("hyId")int hyId){
-        int total= replyService.countReply(hyId);
-        PagingVO vo = new PagingVO(total,1, 10);
-        ResponseEntity<Integer> entity=null; //map으로
+    public ResponseEntity<Integer> list(@PathVariable("hyId") int hyId) {
+        int total = replyService.countReply(hyId);
+        PagingVO vo = new PagingVO(total, 1, 10);
+        ResponseEntity<Integer> entity = null; //map으로
         try {
-            entity= new ResponseEntity<>(vo.getLastPage(), HttpStatus.OK);
-        }catch (Exception e){
+            entity = new ResponseEntity<>(vo.getLastPage(), HttpStatus.OK);
+        } catch (Exception e) {
             entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             e.printStackTrace();
         }
         return entity;
     }
+
     @PostMapping
     public ResponseEntity<String> insertReply(@RequestBody ReplyVO replyVO) {
         System.out.println("insertReply");
@@ -65,15 +67,16 @@ public class ReplyController {
         }
         return entity;
     }
+
     @DeleteMapping(value = "/{reId}")
-    public ResponseEntity<String> deleteReply(@PathVariable int reId){
-        ResponseEntity<String> entity=null;
-        try{
+    public ResponseEntity<String> deleteReply(@PathVariable int reId) {
+        ResponseEntity<String> entity = null;
+        try {
             replyService.deleteReply(reId);
-            entity= new ResponseEntity<>("delSuccess",HttpStatus.OK);
-        }catch (Exception e){
+            entity = new ResponseEntity<>("delSuccess", HttpStatus.OK);
+        } catch (Exception e) {
             e.printStackTrace();
-            entity= new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+            entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
         return entity;
     }

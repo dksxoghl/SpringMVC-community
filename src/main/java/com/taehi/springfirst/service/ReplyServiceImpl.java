@@ -29,8 +29,8 @@ public class ReplyServiceImpl implements ReplyService {
     @Override
     @Transactional
     public int insertReply(ReplyVO replyVO) {
-        int groupId= replyVO.getReGroup();
-        if (groupId==0) return replyDAO.insertReply(replyVO);   //그냥 댓글인경우
+        int groupId = replyVO.getReGroup();
+        if (groupId == 0) return replyDAO.insertReply(replyVO);   //그냥 댓글인경우
         else {
             int pId = replyVO.getReParent();    //부모글 아이디찾고
             int count = 1;
@@ -64,7 +64,7 @@ public class ReplyServiceImpl implements ReplyService {
     @Override
     public void deleteReply(int reId) {
         Optional<Integer> reNo = replyDAO.idFromParent(reId);
-        if(reNo.isPresent()) {
+        if (reNo.isPresent()) {
             replyDAO.updateDelete(reId);
         } else {
             replyDAO.deleteReply(reId);

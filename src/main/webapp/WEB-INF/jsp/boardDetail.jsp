@@ -18,6 +18,7 @@
     .btn-dark {
         margin: 3px;
     }
+
     .re_b {
         font-size: 5px;
     }
@@ -31,8 +32,8 @@
 <sec:authorize access="isAuthenticated()">
     <sec:authentication property="principal" var="user"/>
 </sec:authorize>
-<input type="hidden"  id="boardHyId"  value='<c:out value="${board.hyId}"/>'> <%--js변수공유--%>
-<input type="hidden"  id="username"  value='<c:out value="${user.username}"/>'>
+<input type="hidden" id="boardHyId" value='<c:out value="${board.hyId}"/>'> <%--js변수공유--%>
+<input type="hidden" id="username" value='<c:out value="${user.username}"/>'>
 <div class="container" style="width:70%">
     <div class="row" style=" border-bottom: 3px inset  #bcbcbc; ">
         <div style="font-size: 1.4em; font-weight: bold; margin-left: 10px">●${board.hySubject }</div>
@@ -41,7 +42,7 @@
         </div>
     </div>
     <div class="row" style="border-bottom: 1px inset  #bcbcbc; ">
-<%--        <div style="margin-left: 10px;color:#777;">${board.hyUrl }</div>--%>
+        <%--        <div style="margin-left: 10px;color:#777;">${board.hyUrl }</div>--%>
         <div style="margin-left: 10px;color:#777;">http://localhost:8080/${url}/detail/${board.hyId}</div>
         <div class="col align-self-end">
             <div style="float: right;">
@@ -60,9 +61,10 @@
         </div>
         <div class="col-md-3 offset-md-2">
             <button type="button" <%--id="like-up"--%> class="btn btn-outline-secondary like-up">
-                <img class="like-img" width='13px' height='13px' src='/resources/img/thumbs-up-regular.svg'>&nbsp추천 <span id="like-count" style="color: orangered">0</span>
+                <img class="like-img" width='13px' height='13px' src='/resources/img/thumbs-up-regular.svg'>&nbsp추천
+                <span id="like-count" style="color: orangered">0</span>
             </button>
-<%--            <button type="button" id="like-already" class="btn btn-outline-secondary" style=" display: none"><img width='13px' height='13px' src='/resources/img/thumbs-up-solid.svg'>&nbsp추천 <span style="color: orangered">1</span></button>--%>
+            <%--            <button type="button" id="like-already" class="btn btn-outline-secondary" style=" display: none"><img width='13px' height='13px' src='/resources/img/thumbs-up-solid.svg'>&nbsp추천 <span style="color: orangered">1</span></button>--%>
         </div>
         <div class="col-md-2 offset-md-2">
             <button type="button" class="btn btn-outline-secondary">신고</button>
@@ -84,13 +86,13 @@
                 <input type='hidden' id='hyContent' name='hyContent' value='${board.hyContent }'/>
                 <input type='hidden' id='hyLike' name='hyLike' value='${board.hyLike }'/>
                 <c:if test="${user.username==board.userId ||user.username=='admin'}">
-                <input class="b_rud btn btn-dark" type="submit" value="글 수정" style="float: right;font-size:6px">
+                    <input class="b_rud btn btn-dark" type="submit" value="글 수정" style="float: right;font-size:6px">
                 </c:if>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             </form>
             <c:if test="${user.username==board.userId ||user.username=='admin'}">
-            <input class="b_rud btn btn-dark" type="button" value="글 삭제" style="float: right;font-size: 6px"
-                   onclick="location.href='/${url}/deleteForm/${board.hyId}'">
+                <input class="b_rud btn btn-dark" type="button" value="글 삭제" style="float: right;font-size: 6px"
+                       onclick="location.href='/${url}/deleteForm/${board.hyId}'">
             </c:if>
         </div>
     </div>
@@ -130,7 +132,7 @@
         <div id="rep_refresh" style="width: 99%;height:38px; border:1px inset #F6F6F6;margin-top: 3px">
             <button style="float: right;" class="btn-dark" id="refresh">댓로고침</button>
         </div>
-        <div id="rep_ban" style= "height:180px;">
+        <div id="rep_ban" style="height:180px;">
             <textarea style="width: 99%; height: 80px" readonly="readonly">로그인이 필요한 서비스입니다.</textarea></div>
         <div id="rep_edit" style=" height:180px">
             <textarea id="re_content" style="width: 99%; height: 80px"></textarea>

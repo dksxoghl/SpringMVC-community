@@ -1,17 +1,19 @@
-.board-list{
-    border-right:hidden;
-    border-left:hidden;
+.board-list {
+    border-right: hidden;
+    border-left: hidden;
     text-align: center;
     height: 34px;
 }
-.board-notice{
-    border-right:hidden;
-    border-left:hidden;
+
+.board-notice {
+    border-right: hidden;
+    border-left: hidden;
     background: #fafafa;
     text-align: center;
     height: 34%;
     width: 34px;
 }
+
 body {
     /*background-color: #eeeeee;*/
     margin: 0;
@@ -25,6 +27,7 @@ body {
     color: white;
     /*width: 100%;*/
 }
+
 .fab {
     position: fixed;
     /*left:1150px;*/
@@ -37,6 +40,7 @@ body {
     height: 100px;
 
 }
+
 /*.fab-btn {*/
 /*    background-color: #537599;*/
 /*    border: white;*/
@@ -46,17 +50,21 @@ body {
 .vsc-initialized {
     background-color: #E1E1E1;
 }
-.container{
+
+.container {
     background-color: white;
     width: 70%;
 }
-a:link  {
+
+a:link {
     text-decoration: none;
     color: #646464;
 }
+
 a:visited {
     color: #770088;
 }
+
 a:hover {
     text-decoration: underline;
 }

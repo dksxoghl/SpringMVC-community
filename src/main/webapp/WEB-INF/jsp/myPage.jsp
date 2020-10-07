@@ -21,8 +21,8 @@
             <button>회원정보</button>
         </div>
     </div>
-<sec:authentication property="principal" var="user" />
-${user.username}
+    <sec:authentication property="principal" var="user"/>
+    ${user.username}
     과연:<sec:authentication property="name"/>
 </div>
 <jsp:include page="include/footer.jsp"/>

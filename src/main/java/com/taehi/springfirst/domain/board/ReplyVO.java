@@ -19,7 +19,8 @@ public class ReplyVO {
     private int reIndent;
     private int reParent;
 
-    public ReplyVO(){}
+    public ReplyVO() {
+    }
 
     public ReplyVO(int reId, int hyId, String userId, Date reRegdate, String reContent, int reGroup, int reOrder, int reIndent, int reParent) {
         this.reId = reId;

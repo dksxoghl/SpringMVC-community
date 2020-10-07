@@ -12,6 +12,7 @@ public class CategoryVO {
     String categoryName;
     String categoryUrl;
     String categoryColor;
-    public CategoryVO(){ //없으면에러
+
+    public CategoryVO() { //없으면에러
     }
 }

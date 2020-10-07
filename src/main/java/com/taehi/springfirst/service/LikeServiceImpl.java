@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class LikeServiceImpl implements LikeService{
+public class LikeServiceImpl implements LikeService {
     private LikeDAO likeDAO;
 
     @Override
@@ -18,6 +18,6 @@ public class LikeServiceImpl implements LikeService{
 
     @Override
     public int getLike(int hyId, String userId) {
-        return likeDAO.getLike(hyId,userId);
+        return likeDAO.getLike(hyId, userId);
     }
 }
