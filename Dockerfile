@@ -1,5 +1,6 @@
 # Start with a base image containing Java runtime
-FROM java:8
+#FROM java:8
+FROM openjdk:8-jre-alpine
 
 # Add Author info
 LABEL maintainer="dksxoghl8@gmail.com"
