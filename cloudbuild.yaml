@@ -14,7 +14,7 @@ steps:
       - set
       - image
       - deployment/spring-boot-container
-      - community-springboot-sha256-1=gcr.io/$PROJECT_ID/community-springboot:v1
+      - community-springboot-sha256-1=gcr.io/$PROJECT_ID/community-springboot:v1-1
       - -n
       - spring-boot
     env:
