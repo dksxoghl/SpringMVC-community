@@ -1,3 +1,12 @@
+FROM openjdk:8-jdk-alpine as builder
+
+COPY gradlew .
+COPY gradle gradle
+COPY build.gradle .
+COPY settings.gradle .
+COPY src src
+RUN chmod +x ./gradlew
+RUN ./gradlew bootjar
 # Start with a base image containing Java runtime
 #FROM java:8
 FROM openjdk:8-jre-alpine
@@ -15,7 +24,7 @@ EXPOSE 8080
 ARG JAR_FILE=build/libs/spring-first-0.0.1-SNAPSHOT.jar
 
 # Add the application's jar to the container
-ADD ${JAR_FILE} community-springboot.jar
+COPY  --from=builder ${JAR_FILE} community-springboot.jar
 # Run the jar file
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/community-springboot.jar"]
 
