@@ -9,18 +9,17 @@ steps:
     args: ["build", "-t", "gcr.io/$PROJECT_ID/community-springboot:v1", "."]
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/community-springboot:v1']
-
-#  - name: 'gcr.io/cloud-builders/kubectl'
-#    args:
-#      - set
-#      - image
-#      - deployment/spring-boot-container
-#      - community-springboot-sha256-1=gcr.io/$PROJECT_ID/community-springboot:v1
-#      - -n
-#      - spring-boot
-#    env:
-#      - 'CLOUDSDK_COMPUTE_ZONE=asia-northeast1-b'
-#      - 'CLOUDSDK_CONTAINER_CLUSTER=test-springboot-cluster'
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args:
+      - set
+      - image
+      - deployment/spring-boot-container
+      - community-springboot-sha256-1=gcr.io/$PROJECT_ID/community-springboot:v1
+      - -n
+      - spring-boot
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=asia-northeast1-b'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=test-springboot-cluster'
     timeout: 500s
 
 #  - name: "gcr.io/cloud-builders/docker"
