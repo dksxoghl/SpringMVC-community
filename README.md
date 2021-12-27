@@ -1,7 +1,7 @@
 "# SpringMVC-community"<br/> 
 "https://hygall.com/" 클론코딩
 
-개발 및 배포 진행중
+개발 및 배포
 <img width="551" alt="github-cloudbuild" src="https://user-images.githubusercontent.com/45805470/95305501-05908600-08c1-11eb-81ff-f2b8b102c4d4.png">
 
 
